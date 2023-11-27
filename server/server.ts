@@ -17,6 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
+app.get('/', (req: Request, res: Response): Response => {
+  return res.status(200).json('test');
+});
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {
