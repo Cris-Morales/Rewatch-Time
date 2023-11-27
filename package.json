@@ -10,7 +10,7 @@
     "start": "node dist/server.js",
     "server": "concurrently \"npx tsc -w\" \"nodemon dist/server.js\"",
     "frontend": "vite --port 3466",
-    "dev": "concurrently \"npx nodemon ./server/server.ts\" \"vite --port 3466"
+    "dev": "concurrently \"npm run frontend\" \"npm run server\""
   },
   "repository": {
     "type": "git",
