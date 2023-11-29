@@ -11,22 +11,30 @@ const data = JSON.parse(fs.readFileSync('./server/db/episodes.json'));
 const series = ['main', 'stakes', 'islands'];
 const seasons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const arcs = [
-  'Finn', // Finn's growth, backstory, destiny and relationships
-  'Jake', // Jake's backstory, destiny, personality, and relationships
-  'Marceline', // Marcy's backstory, relationships, and personality
-  'Princess Bubblegum', // PB's backstory, relationships, character growth, and relationships.
-  'The Ice King', // all ice king and simon episodes, just to see him be crazy and tragic
-  'Simon', // Simon focused episodes, not the same as ice king. at least how i first thought of it. Might extend this arc to Betty, though she might have one of her own.
-  'Simon and Marcy', // Focus on Marcy's relationship with Simon, or hints at it (holly jolly secrets)
-  'Lemongrab', //Pretty much every episode with lemongrab
-  'BMO', // Pretty much every episode with BMO as a major role.
-  'Fionna and Cake', // Every fionna and cake focused episode
-  "Finn's Relationships", // every episode that shows, or hints at finn's relationships.
-  'Guest Animator', // every guest animatory episode
-  'Bubbline', // every episode with or exploring marceline and pb's relationship
-  'Magic Man', // every episode with magic man playing an important role.
-]; // i think simon and ice king is kind of redundant, but this is for experienced watchers. idk we'll see, i think ill leave it for now
-// for all, minor appearances are scrapped from arcs, unless there's something weird that happens.
+  "finn's relationships", // every episode that shows, or hints at finn's relationships.
+  "finn's destiny", // arm, shoko, the comet, past lives, adult life, afterlife
+  "finn's origin", // where are the humans, how finn got found,
+  "finn's swords", // self explainatory
+  "jake's origin", // jake the starchild, and allusions to where his power comes from
+  "jake's past", // funny allusions to his past as a thief, card wars, and the implication that he's jt dogzone, things with his dog family that didnt include finn
+  "jake's destiny", // mostly alluding to jake reaching the 50th dead world, him dying, his reencarnation and him being zen
+  "jake's relationship", // mostly with lady rainacorn
+  'jake the dad', // all his kin episodes
+  "jake's power", // episodes focused on his power, jake the brick, the limit, jake suit, knife storm. etc. my excuse for random jake focused episodes.
+  'marceline', // Marcy's backstory, relationships, and personality
+  'princess bubblegum', // PB's backstory (mother gum, bonnie and netty, gumbald, shoko), and character growth (monarch, science empress, mellowed out, gumbald)
+  'the ice king', // all ice king and simon episodes, just to see him be crazy and tragic
+  'simon', // Simon focused episodes, not the same as ice king. at least how i first thought of it. Might extend this arc to Betty, though she might have one of her own.
+  'simon and marcy', // Focus on Marcy's relationship with Simon, or hints at it (holly jolly secrets)
+  'lemongrab', //Pretty much every episode with lemongrab, and/or the lemonhope saga
+  'bmo', // Pretty much every episode with BMO as a major role.
+  'fionna and cake', // Every fionna and cake focused episode
+  'the lich', // every episode with the lich
+  'joshua, margeret and jermaine', // joshua, margeret, and jermaine
+  'guest animator', // every guest animatory episode
+  'bubbline', // every episode with or exploring marceline and pb's relationship
+  'magic man', // every episode with magic man playing an important role.
+];
 
 /**
  * @InsertionScripts
@@ -107,11 +115,6 @@ const episodeData = async () => {
   }
 };
 
-// arcData();
-// seriesData();
-// seasonData();
-// episodeData();
-
 /**
  * @Phase2
  * Episode_Series Join Table
@@ -152,7 +155,7 @@ const esData3 = async () => {
     for (const episode of data.slice(244, 252)) {
       const esQuery = {
         text: 'INSERT INTO episode_series(series_id, episode_id) VALUES ($1, $2)',
-        values: [2, episode.id],
+        values: [3, episode.id],
       };
       const result = await query(esQuery.text, esQuery.values);
       console.log('Data inserted:', result.rows);
@@ -162,19 +165,11 @@ const esData3 = async () => {
   }
 };
 
-// esData(); // Main Series in many to many relationship
-// esData2(); // Stakes mini-series
-// esData3(); //islands miniseries
+// await arcData();
+// await seriesData();
+// await seasonData();
+// await episodeData();
 
-/**
- * @Phase3
- * episode_arcs Join Table
- */
-
-// This is a tough one where I'm going to have to do some research on the arcs I have
-// I'll start by looking at the wiki for obvious ones like magic man, bubbline, and guest animators
-// but finn, jake, and pb are a different story
-// do I include episodes where the character arc takes center stage? or do I do every episode that they appear in?
-// one takes more work than the other, i think the intention is that these are character arcs or significant episodes for the lore.
-// if that's the case, than this is more work
-// tool tips over the arcs will clarify this to the user. See comments
+// await esData(); // Main Series in many to many relationship
+// await esData2(); // Stakes mini-series
+// await esData3(); //islands miniseries
