@@ -31,8 +31,8 @@ CREATE TABLE "episodes_arcs" (
   "arc_id" integer NOT NULL REFERENCES arcs(arc_id)
 );
 
-CREATE TABLE "season_series" (
-  "seasons_series_id" SERIAL PRIMARY KEY NOT NULL,
+CREATE TABLE "episode_series" (
+  "episode_series_id" SERIAL PRIMARY KEY NOT NULL,
   "series_id" integer NOT NULL REFERENCES series(series_id),
-  "season_id" integer NOT NULL REFERENCES seasons(season_id)
+  "episode_id" integer NOT NULL REFERENCES episodes(episode_id)
 );
