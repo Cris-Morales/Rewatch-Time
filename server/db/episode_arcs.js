@@ -6,20 +6,7 @@ import fs from 'fs';
  * @Phase3
  * episode_arcs Join Table
  */
-const leftOverArcs = [
-  "jake's relationship", // 8 mostly with lady rainacorn, maybe finn and jake centric episodes, but the later would be a lot
-  'jake the dad', // 9 all his kin episodes
-  "jake's power", // 10 - a lot of episodes focus on his power, but this could encompass his origin as well, which i might do to save time.
-  'princess bubblegum', // 12 PB's backstory (mother gum, bonnie and netty, gumbald, shoko), and character growth (monarch, science empress, mellowed out, gumbald)
-  'simon', // 14 A lot of these extend to Simon and Marcy until the Fionna and Cake series. Leave it for now
-  'joshua, margeret and jermaine', // 20 joshua, margeret, and jermaine
-];
-// add betty, remove jake past and origin.
-// I might axe the destiny stuff. I'll parse it to finn's arm, shoko, and the comet.
-// remove jashua margeret and jermain and just have 2 seperate categories???
-// might edit it to joshua and margeret and then just add jermaine.
 
-// ice king: 13
 const iceKing = [
   'Prisoners of Love',
   'Ricardio the Heart Guy',
@@ -74,7 +61,6 @@ const iceKing = [
   'Blenanas',
   'Come Along With Me',
 ];
-// 21
 const guestAnimator = [
   'James Baxter the Horse',
   'A Glitch is a Glitch',
@@ -86,42 +72,12 @@ const guestAnimator = [
   'Ketchup',
   'Diamonds and Lemons',
 ];
-// 24
 const nonCanon = [
   'Diamonds and Lemons',
   'A Glitch is a Glitch',
   'Food Chain',
   'Bad Jubies',
 ];
-// 2
-const finnDestiny = [
-  'King Worm',
-  'Puhoy',
-  'Mortal Folly',
-  'Dungeon Train',
-  'Breezy',
-  'Escape from the Citadel',
-  'The Comet',
-  'Crossover',
-  'Reboot',
-  'The Mountain',
-  'The Lich',
-  'Jake the Dog',
-  'Blade of Grass',
-  'Wake Up',
-  'Three Buckets',
-  'Finn the Human',
-  'Still',
-  'Evergreen',
-  'Astral Plane',
-  'The Tower',
-  'The Creeps',
-  'The Vault',
-  'The Visitor',
-  'Orgalorg',
-  'Hot Diggity Doom',
-];
-// 3
 const finnOrigin = [
   'Min and Marty',
   'Memories of Boom Boom Mountain',
@@ -148,7 +104,6 @@ const finnOrigin = [
   'The Light Cloud',
   'Come Along With Me',
 ];
-// 4
 const finnSwords = [
   'The Real You',
   'Mystery Train',
@@ -167,7 +122,6 @@ const finnSwords = [
   'Seventeen',
   'Come Along With Me',
 ];
-// 18
 const fionnaCake = [
   'Fionna and Cake',
   'Bad Little Boy',
@@ -175,7 +129,6 @@ const fionnaCake = [
   'Five Short Tables',
   'Fionna and Cake and Fionna',
 ];
-// 17
 const bmo = [
   'Guardians of Sunshine',
   'Video Makers',
@@ -216,7 +169,6 @@ const bmo = [
   'Seventeen',
   'Come Along With Me',
 ];
-// 16
 const lemongrab = [
   'Too Young',
   'You Made Me',
@@ -231,7 +183,6 @@ const lemongrab = [
   'Normal Man',
   'Come Along With Me',
 ];
-// 22
 const pbMarcy = [
   'Go With Me',
   'What Was Missing',
@@ -261,7 +212,6 @@ const pbMarcy = [
   'Seventeen',
   'Come Along With Me',
 ];
-// 15
 const simonMarcy = [
   'Holly Jolly Secrets Part I',
   'Holly Jolly Secrets Part II',
@@ -280,7 +230,6 @@ const simonMarcy = [
   'Broke His Crown',
   'Come Along With Me',
 ];
-// 11
 const marcy = [
   'Evicted!',
   'Henchman',
@@ -320,28 +269,26 @@ const marcy = [
   'Marcy & Hunson',
   'Come Along With Me',
 ];
-const arcsTitles = {
-  13: iceKing,
-  21: guestAnimator,
-  24: nonCanon,
-  2: finnDestiny,
-  3: finnOrigin,
-  4: finnSwords,
-  18: fionnaCake,
-  17: bmo,
-  16: lemongrab,
-  22: pbMarcy,
-  15: simonMarcy,
-  11: marcy,
-};
+// const arcsTitles = {
+//   13: iceKing,
+//   21: guestAnimator,
+//   24: nonCanon,
+//   3: finnOrigin,
+//   4: finnSwords,
+//   18: fionnaCake,
+//   17: bmo,
+//   16: lemongrab,
+//   22: pbMarcy,
+//   15: simonMarcy,
+//   11: marcy,
+// };
 const finnRel = [
   1, 5, 7, 19, 36, 41, 46, 51, 52, 57, 60, 62, 78, 85, 94, 96, 100, 109, 116,
   125, 131, 134, 135, 136, 139, 140, 151, 160, 162, 178, 179, 181, 184, 198,
   199, 223, 224, 231, 260, 267, 271, 280,
-]; // 1
+];
 const lich = [51, 52, 104, 105, 106, 157, 158, 182, 195, 199, 234, 265]; // the lich
 const mm = [20, 93, 109, 137, 174, 194, 226, 232, 255, 261, 277, 280]; // magic man
-
 const finnRelArc = async () => {
   try {
     for (const ep of finnRel) {
@@ -388,9 +335,229 @@ const mmArc = async () => {
   }
 };
 
-// await finnRelArc();
-// await lichArc();
-// await mmArc();
+const leftOverArcs = [
+  "jake's relationship", // 8 mostly with lady rainacorn, maybe finn and jake centric episodes, but the later would be a lot
+  'jake the dad', // 9 all his kin episodes
+  "jake's power", // 10 - a lot of episodes focus on his power, but this could encompass his origin as well, which i might do to save time.
+  'princess bubblegum', // 12 PB's backstory (mother gum, bonnie and netty, gumbald, shoko), and character growth (monarch, science empress, mellowed out, gumbald)
+  'simon', // 14 A lot of these extend to Simon and Marcy until the Fionna and Cake series. Leave it for now
+  'joshua and margaret ', // 20 joshua, margeret, and jermaine
+  'jermaine',
+];
+
+const jakeRel = [
+  'My Two Favorite People',
+  'From Bad to Worse',
+  'Lady & Peebles',
+  'Jake the Dad',
+  'The Pit',
+  'Burning Low',
+  'The Diary',
+  'Lady Rainicorn of the Crystal Dimension',
+  'The Music Hole',
+  'Slumber Party Panic',
+  'The Enchiridion!',
+  'Her Parents',
+  'Go With Me',
+  'Video Makers',
+  'The Creeps',
+  'All the Little People',
+  'Jake Suit',
+];
+const jakeDad = [
+  'Lady & Peebles',
+  'Jake the Dad',
+  'Daddy-Daughter Card Wars',
+  'One Last Job',
+  'Another Five More Short Graybles',
+  'Ocarina',
+  'Wheels',
+  'The Diary',
+  'Lady Rainicorn of the Crystal Dimension',
+  'Summer Showers',
+];
+const jakePower = [
+  "The Witch's Garden",
+  'Rainy Day Daydream',
+  'The Limit',
+  'Jake the Dad',
+  'Jake the Brick',
+  'Joshua and Margaret Investigations',
+  'The First Investigation',
+  'Jake the Starchild',
+  'Abstract',
+  'Beautopia',
+  'Loyalty to the King',
+  'The Silent King',
+  'Jake Suit',
+];
+const pb = [
+  'Simon & Marcy',
+  'Slumber Party Panic',
+  'The Enchiridion!',
+  'Ricardio the Heart Guy',
+  'The Duke',
+  'What Have You Done?',
+  'The Other Tarts',
+  'The Real You',
+  'Go With Me',
+  'Mortal Folly',
+  'Mortal Recoil',
+  'Too Young',
+  'Wizard Battle',
+  'What Was Missing',
+  'The Creeps',
+  'From Bad to Worse',
+  'Five Short Graybles',
+  "To Cut a Woman's Hair",
+  'Goliad',
+  'Princess Cookie',
+  'Burning Low',
+  'Lady & Peebles',
+  'You Made Me',
+  'Reign of Gunters',
+  'The Lich',
+  'All Your Fault',
+  'A Glitch is a Glitch',
+  'Princess Potluck',
+  'The Suitor',
+  "The Party's Over, Isla de Señorita",
+  'Wizards Only, Fools',
+  'Sky Witch',
+  'Too Old',
+  'Earth & Water',
+  'The Vault',
+  'James',
+  'Root Beer Guy',
+  'Apple Wedding',
+  'Rattleballs',
+  'Bad Timing',
+  'Lemonhope Part 1',
+  'Lemonhope Part 2',
+  'James II',
+  'The Tower',
+  'Something Big',
+  'Nemesis',
+  'The Cooler',
+  'The Pajama War',
+  'Graybles 1000+',
+  'Hot Diggity Doom',
+  'Have You Seen the Muffin Mess',
+  'Bonnie and Neddy',
+  'Varmints',
+  'Marceline The Vampire Queen',
+  'Vamps About',
+  'May I Come In?',
+  'Take Her Back',
+  'Checkmate',
+  'The Dark Cloud',
+  'The Thin Yellow Line',
+  'Broke His Crown',
+  'Elemental',
+  'The Music Hole',
+  'Reboot',
+  'High Strangeness',
+  'Jelly Beans Have Power',
+  'The Invitation',
+  'Skyhooks',
+  'Hero Heart',
+  'Bonnibel Bubblegum',
+  'Seventeen',
+  'Gumbaldia',
+  'Come Along With Me',
+];
+const sim = [
+  'When Wedding Bells Thaw',
+  'Holly Jolly Secrets Part I',
+  'Holly Jolly Secrets Part II',
+  'I Remember You',
+  'Simon & Marcy',
+  'Betty',
+  'Evergreen',
+  'You Forgot Your Floaties',
+  'Everything Stays',
+  'The Dark Cloud',
+  "King's Ransom",
+  'Broke His Crown',
+  'Bespoke For',
+  'Skyhooks II',
+  'Temple of Mars',
+  'Come Along With Me',
+];
+const jm = [
+  'Crystals Have Power',
+  "Dad's Dungeon",
+  'Jake the Dog',
+  "Billy's Bucket List",
+  'The Pit',
+  'Joshua and Margaret Investigations',
+  'Memories of Boom Boom Mountain',
+  'Jake the Dad',
+  'Whipple The Happy Dragon',
+  'Orb',
+  'The First Investigation',
+];
+const jerm = [
+  'Jake the Starchild',
+  'Jermaine',
+  'Memory of a Memory',
+  'Orb',
+  'Abstract',
+  'Temple of Mars',
+  'Crystals Have Power',
+  'Jake the Dad',
+  'Joshua and Margaret Investigations',
+  'The First Investigation',
+  'Come Along With Me',
+];
+
+const finnArm = [
+  'Mortal Folly',
+  'Puhoy',
+  'Finn the Human',
+  'Jake the Dog',
+  'The Vault',
+  'Escape from the Citadel',
+  'Breezy',
+  'Preboot',
+  'Reboot',
+  'King Worm',
+  'The Comet',
+  'Crossover',
+  'Dungeon Train',
+  'Three Buckets',
+  'The Tower',
+];
+const ghostLady = [
+  'The Vault',
+  'The Creeps',
+  'King Worm',
+  'Come Along With Me',
+];
+const comet = [
+  'Everygreen',
+  'The Vault',
+  'Astral Plane',
+  'Orgalorg',
+  'Hot Diggity Doom',
+  'Be Sweet',
+  'The Comet',
+  'On the Lam',
+  'Hoots',
+];
+
+const arcsTitles = {
+  8: jakeRel,
+  9: jakeDad,
+  10: jakePower,
+  12: pb,
+  14: sim,
+  20: jm,
+  25: jerm,
+  26: finnArm,
+  27: ghostLady,
+  28: comet,
+};
 
 const episodeArcs = async () => {
   for (const arc in arcsTitles) {
