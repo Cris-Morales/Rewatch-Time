@@ -334,17 +334,6 @@ const mmArc = async () => {
     console.error('Error inserting data:', error);
   }
 };
-
-const leftOverArcs = [
-  "jake's relationship", // 8 mostly with lady rainacorn, maybe finn and jake centric episodes, but the later would be a lot
-  'jake the dad', // 9 all his kin episodes
-  "jake's power", // 10 - a lot of episodes focus on his power, but this could encompass his origin as well, which i might do to save time.
-  'princess bubblegum', // 12 PB's backstory (mother gum, bonnie and netty, gumbald, shoko), and character growth (monarch, science empress, mellowed out, gumbald)
-  'simon', // 14 A lot of these extend to Simon and Marcy until the Fionna and Cake series. Leave it for now
-  'joshua and margaret ', // 20 joshua, margeret, and jermaine
-  'jermaine',
-];
-
 const jakeRel = [
   'My Two Favorite People',
   'From Bad to Worse',
@@ -510,7 +499,6 @@ const jerm = [
   'The First Investigation',
   'Come Along With Me',
 ];
-
 const finnArm = [
   'Mortal Folly',
   'Puhoy',
@@ -545,7 +533,6 @@ const comet = [
   'On the Lam',
   'Hoots',
 ];
-
 const arcsTitles = {
   8: jakeRel,
   9: jakeDad,
@@ -558,7 +545,6 @@ const arcsTitles = {
   27: ghostLady,
   28: comet,
 };
-
 const episodeArcs = async () => {
   for (const arc in arcsTitles) {
     try {
