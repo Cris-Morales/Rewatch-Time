@@ -36,3 +36,7 @@ CREATE TABLE "episode_series" (
   "series_id" integer NOT NULL REFERENCES series(series_id),
   "episode_id" integer NOT NULL REFERENCES episodes(episode_id)
 );
+
+CREATE TABLE "users" ("id" SERIAL PRIMARY KEY NOT NULL, "username" VARCHAR(255) NOT NULL, "password" VARCHAR(255) NOT NULL);
+
+CREATE TABLE "users_episodes_watched" ("id" SERIAL PRIMARY KEY NOT NULL, "user_id" integer NOT NULL REFERENCES "users"("id"), "episode_id" integer NOT NULL REFERENCES "episodes"("episode_id"));

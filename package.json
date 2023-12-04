@@ -7,8 +7,8 @@
     "test": "test",
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
-    "start": "node dist/server.js",
-    "server": "concurrently \"npx tsc -w\" \"nodemon dist/server.js\"",
+    "start": "node dist/server/server.js",
+    "server": "concurrently \"npm run prestart\" \"nodemon dist/server.js\"",
     "frontend": "vite --port 3466",
     "dev": "concurrently \"npm run frontend\" \"npm run server\""
   },

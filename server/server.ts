@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.get('/', (req: Request, res: Response): Response => {
+  console.log('fetch successful1');
+
   return res.status(200).json('test');
 });
 
@@ -47,5 +49,5 @@ app.use(
 );
 
 app.listen(44000, (): void => {
-  console.log(`Listening on port: 44000`);
+  console.log(`Listening on port: 44000 another`);
 });
