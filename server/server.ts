@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import process from 'process';
+import episodeController from './controllers/episodeController.js';
 
 interface ServerError {
   log: string;
@@ -18,11 +19,15 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.resolve(__dirname, '../client')));
 
 // routes
-app.get('/', (req: Request, res: Response): Response => {
-  console.log('fetch successful1');
+app.get(
+  '/card',
+  episodeController.getEpisode,
+  (req: Request, res: Response): Response => {
+    console.log('fetch successful1');
 
-  return res.status(200).json('test');
-});
+    return res.status(200).send(res.locals.cardData);
+  },
+);
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {

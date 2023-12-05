@@ -9,10 +9,12 @@ const EpisodeCard = (): JSX.Element => {
   // from the form
 
   // const results = useQuery({ queryFn: () => fetchEpisodeCards, queryKey: [1] });
+  const [cardPath, setCardPath] = useState<string>('');
 
-  const handleClick = async (): void => {
-    const results = await fetch('/api/');
+  const handleClick = async (): Promise<void> => {
+    const results = await fetch('/api/card/');
     const data = await results.json();
+    setCardPath(data.episode_card_path);
     console.log(data);
   };
 
@@ -25,10 +27,11 @@ const EpisodeCard = (): JSX.Element => {
           <button>Skipped</button>
         </div>
         <div>
-          {/* card data */}
+          {/* card data
+           */}
           <img
             className='episodeCardImg'
-            src='/episodeCards/1 - 4tQWQF3 - S01E01 - Slumber Party Panic.jpg'
+            src={cardPath}
             alt='Slumber Party Panic'
           />
         </div>

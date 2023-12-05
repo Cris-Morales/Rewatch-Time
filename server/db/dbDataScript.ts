@@ -8,8 +8,8 @@ import fs from 'fs';
  */
 
 const data = JSON.parse(fs.readFileSync('./server/db/episodes.json'));
-const series = ['main', 'stakes', 'islands'];
-const seasons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const series: string[] = ['main', 'stakes', 'islands'];
+const seasons: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const arcs = [
   "finn's relationships", // every episode that shows, or hints at finn's relationships.
   "finn's destiny", // arm, shoko, the comet, past lives, adult life, afterlife
@@ -40,7 +40,7 @@ const arcs = [
  * @InsertionScripts
  */
 
-const arcData = async () => {
+const arcData = async (): Promise<void> => {
   try {
     for (const arc of arcs) {
       const arcQuery = {
@@ -55,7 +55,7 @@ const arcData = async () => {
   }
 };
 
-const seriesData = async () => {
+const seriesData = async (): Promise<void> => {
   try {
     for (const name of series) {
       const seriesQuery = {
@@ -70,7 +70,7 @@ const seriesData = async () => {
   }
 };
 
-const seasonData = async () => {
+const seasonData = async (): Promise<void> => {
   try {
     for (const season of seasons) {
       const seasonQuery = {
@@ -85,7 +85,7 @@ const seasonData = async () => {
   }
 };
 
-const episodeData = async () => {
+const episodeData = async (): Promise<void> => {
   try {
     let currSeason = -Infinity;
     let seasonEpisode = 1;
@@ -120,7 +120,7 @@ const episodeData = async () => {
  * Episode_Series Join Table
  */
 
-const esData = async () => {
+const esData = async (): Promise<void> => {
   try {
     for (const episode of data) {
       const esQuery = {
@@ -135,7 +135,7 @@ const esData = async () => {
   }
 };
 
-const esData2 = async () => {
+const esData2 = async (): Promise<void> => {
   try {
     for (const episode of data.slice(204, 212)) {
       const esQuery = {
@@ -150,7 +150,7 @@ const esData2 = async () => {
   }
 };
 
-const esData3 = async () => {
+const esData3 = async (): Promise<void> => {
   try {
     for (const episode of data.slice(244, 252)) {
       const esQuery = {
