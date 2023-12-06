@@ -298,7 +298,7 @@ const insertCardPaths = async () => {
       };
       const result = await query(cardQuery.text, cardQuery.values);
     }
-    console('Data Inserted: ', cardName); // I know that data is inserted if I see this log, so I'd rather see what data is inserted
+    // console('Data Inserted: ', cardName); // I know that data is inserted if I see this log, so I'd rather see what data is inserted
   } catch (error) {
     console.error('Error inserting data', error);
   }

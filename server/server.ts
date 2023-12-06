@@ -29,6 +29,18 @@ app.get(
   },
 );
 
+app.get(
+  '/playlist',
+  episodeController.getPlaylist,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
+  (req: Request, res: Response): Response => {
+    console.log('fetch successful1');
+
+    return res.status(200).send(res.locals.playlistData);
+  },
+);
+
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {
   return res.status(404).json({ error: 'Endpoint does no exist...' });
@@ -54,5 +66,5 @@ app.use(
 );
 
 app.listen(44000, (): void => {
-  console.log(`Listening on port: 44000 another`);
+  console.log(`Listening on port: 44000`);
 });
