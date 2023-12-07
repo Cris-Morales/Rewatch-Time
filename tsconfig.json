@@ -16,5 +16,11 @@
     "noImplicitAny": false,
     "strictNullChecks": false
   },
-  "include": ["src/**/*.ts", "server/**/*.ts", "global.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "server/**/*.ts",
+    "global.d.ts",
+    "dbInit/episode_arcs.ts",
+    "dbInit/episodeCard.ts"
+  ]
 }

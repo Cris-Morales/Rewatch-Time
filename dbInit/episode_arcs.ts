@@ -1,5 +1,5 @@
 // import model from './model';
-import { pool, query } from './model.js';
+import { pool, query } from '../server/db/model.js';
 import fs from 'fs';
 
 /**

@@ -11,7 +11,7 @@ export const pool = new Pool({
   connectionString: PG_URI,
 });
 
-export const query = (text: string, params?: any, callback?: void) => {
+export const query = (text: string, params?: any, callback?: any) => {
   console.log('executed query', text);
   return pool.query(text, params, callback);
 };
