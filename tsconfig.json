@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
     "target": "ES6",
     "sourceMap": true,
     "jsx": "react",
@@ -13,14 +12,8 @@
     "removeComments": true,
     "noEmit": false,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": false
   },
-  "include": [
-    "src/**/*.ts",
-    "server/**/*.ts",
-    "global.d.ts",
-    "dbInit/episode_arcs.ts",
-    "dbInit/episodeCard.ts"
-  ]
+  "include": ["src/**/*.ts", "server/**/*.ts", "global.d.ts"]
 }

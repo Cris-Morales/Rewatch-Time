@@ -1,0 +1,5 @@
+{
+  "watch": "./server",
+  "ext": ".ts,.js",
+  "exec": "npm run build && node"
+}

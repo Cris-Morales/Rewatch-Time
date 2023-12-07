@@ -2,12 +2,10 @@
   "name": "adventuretime",
   "version": "1.0.0",
   "description": "Generate a watchlist session, and track your rewatch of Adventure Time. This is a practice of making a crud app so you will be able to have CRUD functionality with the database. This will include the creation of an Adventure Time Episode API using a SQL database.",
-  "type": "module",
   "scripts": {
     "test": "test",
-    "build": "rimraf dist && npx tsc",
-    "prestart": "npm run build",
-    "start": "concurrently \"npm run prestart\" \"nodemon dist/server.js\"",
+    "build": "npx tsc",
+    "start": "nodemon ./dist/server/server.js",
     "frontend": "vite --port 3466",
     "dev": "concurrently \"npm run frontend\" \"npm run server\""
   },

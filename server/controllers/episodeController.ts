@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-
 import { query } from '../db/model.js';
 
 interface EpisodeController {
@@ -18,7 +17,7 @@ const episodeController: EpisodeController = {
   getEpisode: async (req, res, next) => {
     try {
       const episodeQuery = 'SELECT * FROM episodes where episode_id = 1';
-      const result = await query(episodeQuery);
+      const result: any = await query(episodeQuery);
       res.locals.cardData = result.rows[0];
       return next();
     } catch (error) {
@@ -40,7 +39,7 @@ const episodeController: EpisodeController = {
         values: [playlistLength],
       };
 
-      const result = await query(playlistQuery.text, playlistQuery.values);
+      const result: any = await query(playlistQuery.text, playlistQuery.values);
       res.locals.playlistData = result.rows;
       return next();
     } catch (error) {
@@ -60,7 +59,7 @@ const episodeController: EpisodeController = {
           WHERE episode_id = $1`,
           values: [episode.episode_id],
         };
-        const result = await query(arcQuery.text, arcQuery.values);
+        const result: any = await query(arcQuery.text, arcQuery.values);
 
         episode.arcs = result.rows; // array of {"arc": arc_string}
       }
@@ -83,7 +82,7 @@ const episodeController: EpisodeController = {
           WHERE episode_id = $1`,
           values: [episode.episode_id],
         };
-        const result = await query(seriesQuery.text, seriesQuery.values);
+        const result: any = await query(seriesQuery.text, seriesQuery.values);
 
         episode.series = result.rows; // array of {"series_name": series_string}
       }
