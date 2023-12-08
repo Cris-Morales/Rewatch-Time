@@ -6,8 +6,8 @@
     "test": "test",
     "build": "npx tsc",
     "server": "nodemon ./dist/server/server.js",
-    "frontend": "vite --port 3466",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "client": "vite --port 3466",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

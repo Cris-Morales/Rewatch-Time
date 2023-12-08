@@ -3,13 +3,13 @@ import { episodeCard } from './APIResponseTypes.js';
 
 const fetchPlaylist: QueryFunction<
   episodeCard,
-  ['genPlaylist', number]
+  ['genPlaylist', number, boolean]
 > = async ({ queryKey }) => {
   const playlistLength: number = queryKey[1];
-  const finale: boolean = true;
+  const finale: boolean = queryKey[2];
 
   const res = await fetch(
-    `/api/genPlaylist?playlistLength=${playlistLength}&?finale=true`,
+    `/api/genPlaylist?playlistLength=${playlistLength}&finale=${finale}`,
   );
 
   if (!res.ok) {

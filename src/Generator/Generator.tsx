@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Carousel from '../Carousel/Carousel';
 import query, { useQuery, useQueryClient } from '@tanstack/react-query';
-import e from 'express';
 import fetchPlaylist from '../fetchPlaylist';
 
 // need playlist interface
@@ -9,16 +8,20 @@ import fetchPlaylist from '../fetchPlaylist';
 const Generator = (): JSX.Element => {
   const [playlistLength, setPlaylistLength] = useState<number>(0);
   const [playlist, setPlaylist] = useState<any>([]);
+  const [finale, setFinale] = useState<boolean>(false);
+  const [playlistTime, setPlaylistTime] = useState<number>(0);
+  const [showPlaylist, setShowPlatlist] = useState<boolean>(false);
 
   const playlistQuery = useQuery({
-    queryKey: ['genPlaylist', playlistLength],
+    queryKey: ['genPlaylist', playlistLength, finale],
     queryFn: fetchPlaylist,
     enabled: false,
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('pl length: ', playlistLength);
+
+    setShowPlatlist(true);
     const result = await playlistQuery.refetch();
     console.log(result?.data);
   };
@@ -38,17 +41,31 @@ const Generator = (): JSX.Element => {
           onChange={e => {
             let newLength: number = e.target.valueAsNumber;
             setPlaylistLength(newLength);
+            setPlaylistTime(newLength * 11 + (finale ? 44 : 0));
+          }}></input>
+        <label>Include Finale</label>
+        <input
+          type='checkbox'
+          id='finale'
+          onChange={e => {
+            setFinale(e.target.checked);
+            if (e.target.checked) {
+              setPlaylistTime(playlistTime + 44);
+            } else {
+              setPlaylistTime(playlistTime - 44);
+            }
           }}></input>
         <button
           type='submit'
           form='generator'
           value='Submit'
           onClick={handleSubmit}>
-          Submit
+          Generate Playlist
         </button>
+        Watchtime: {playlistTime} Minutes
       </form>
       {/* check state, show if true */}
-      <Carousel playlistLength={playlistLength} />
+      {showPlaylist ? <Carousel playlistLength={playlistLength} /> : null}
     </div>
   );
 };
