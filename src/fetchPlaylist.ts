@@ -6,17 +6,17 @@ const fetchPlaylist: QueryFunction<
   ['genPlaylist', number]
 > = async ({ queryKey }) => {
   const playlistLength: number = queryKey[1];
-  const finale: boolean = false;
+  const finale: boolean = true;
 
-  const res = await fetch(`/api/genPlaylist`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
+  const res = await fetch(
+    `/api/genPlaylist?playlistLength=${playlistLength}&finale=${finale}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-    body: JSON.stringify({
-      playlistLength,
-    }),
-  });
+  );
 
   if (!res.ok) {
     throw new Error(`Aw buns, cards fetch not ok`);

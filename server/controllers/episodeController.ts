@@ -63,7 +63,7 @@ const episodeController: EpisodeController = {
         };
         const result: any = await query(arcQuery.text, arcQuery.values);
 
-        episode.arcs = result.rows; // array of {"arc": arc_string}
+        episode.arcs = result.rows.map((row: any) => row.arc); // array of {"arc": arc_string}
       }
 
       return next();
@@ -86,7 +86,7 @@ const episodeController: EpisodeController = {
         };
         const result: any = await query(seriesQuery.text, seriesQuery.values);
 
-        episode.series = result.rows; // array of {"series_name": series_string}
+        episode.series = result.rows.map((row: any) => row.series_name); // array of {"series_name": series_string}
       }
 
       return next();

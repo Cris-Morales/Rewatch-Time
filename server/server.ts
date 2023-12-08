@@ -32,8 +32,8 @@ app.get(
 app.get(
   '/genPlaylist',
   episodeController.getPlaylist,
-  // episodeController.getPlaylistArcs,
-  // episodeController.getPlaylistSeries,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('fetch successful1');
 
