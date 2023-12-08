@@ -1,7 +1,11 @@
 import React from 'react';
 import EpisodeCard from '../EpisodeCards/EpisodeCards';
 
-const Carousel = (): JSX.Element => {
+interface carouselProps {
+  playlistLength: number;
+}
+
+const Carousel = ({ playlistLength }): JSX.Element => {
   return (
     // props
     <div className='carousel'>

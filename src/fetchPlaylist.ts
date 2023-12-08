@@ -9,13 +9,7 @@ const fetchPlaylist: QueryFunction<
   const finale: boolean = true;
 
   const res = await fetch(
-    `/api/genPlaylist?playlistLength=${playlistLength}&finale=${finale}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
+    `/api/genPlaylist?playlistLength=${playlistLength}&?finale=true`,
   );
 
   if (!res.ok) {

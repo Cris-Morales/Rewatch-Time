@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Carousel from '../Carousel/Carousel';
-import query, { useQuery } from '@tanstack/react-query';
+import query, { useQuery, useQueryClient } from '@tanstack/react-query';
 import e from 'express';
 import fetchPlaylist from '../fetchPlaylist';
 
@@ -10,18 +10,17 @@ const Generator = (): JSX.Element => {
   const [playlistLength, setPlaylistLength] = useState<number>(0);
   const [playlist, setPlaylist] = useState<any>([]);
 
+  const playlistQuery = useQuery({
+    queryKey: ['genPlaylist', playlistLength],
+    queryFn: fetchPlaylist,
+    enabled: false,
+  });
+
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch(
-      `/api/genPlaylist?playlistLength=${playlistLength}&?finale=true`,
-    );
-
-    if (!res.ok) {
-      throw new Error(`Aw buns, cards fetch not ok`);
-    }
-
-    const data = await res.json();
-    console.log(data);
+    console.log('pl length: ', playlistLength);
+    const result = await playlistQuery.refetch();
+    console.log(result?.data);
   };
 
   return (
@@ -49,7 +48,7 @@ const Generator = (): JSX.Element => {
         </button>
       </form>
       {/* check state, show if true */}
-      <Carousel />
+      <Carousel playlistLength={playlistLength} />
     </div>
   );
 };
