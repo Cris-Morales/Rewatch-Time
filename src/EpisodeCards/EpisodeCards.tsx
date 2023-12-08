@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import fetchEpisodeCards from '../fetchEpisodeCards.ts';
+import fetchEpisodeCards from '../fetchPlaylist.ts';
 import { episodeCard } from '../APIResponseTypes.ts';
 
 const EpisodeCard = (): JSX.Element => {

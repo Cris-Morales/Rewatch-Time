@@ -27,17 +27,19 @@ const episodeController: EpisodeController = {
   },
   getPlaylist: async (req, res, next) => {
     try {
-      const { finale, playlistLength } = req.body;
+      const { finale, playlistLength } = req.query;
       // const { excludedEpisodes } = res.locals;
       const excludedEpisodes: number[] = [0];
       finale ? null : excludedEpisodes.push(280); // will be concatenated to exclusion list if finale boolean is false (not included)
 
+      console.log('before query');
       const playlistQuery = {
         text: `SELECT * FROM episodes JOIN seasons ON episodes.season_id = seasons.season_id WHERE episode_id NOT IN (${excludedEpisodes.join(
           ',',
         )}) ORDER BY RANDOM() LIMIT $1`,
         values: [playlistLength],
       };
+      console.log('after query');
 
       const result: any = await query(playlistQuery.text, playlistQuery.values);
       res.locals.playlistData = result.rows;

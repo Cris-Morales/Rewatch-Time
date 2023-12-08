@@ -5,9 +5,9 @@
   "scripts": {
     "test": "test",
     "build": "npx tsc",
-    "start": "nodemon ./dist/server/server.js",
+    "server": "nodemon ./dist/server/server.js",
     "frontend": "vite --port 3466",
-    "dev": "concurrently \"npm run frontend\" \"npm run server\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",

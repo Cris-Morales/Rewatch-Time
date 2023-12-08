@@ -30,10 +30,10 @@ app.get(
 );
 
 app.get(
-  '/playlist',
+  '/genPlaylist',
   episodeController.getPlaylist,
-  episodeController.getPlaylistArcs,
-  episodeController.getPlaylistSeries,
+  // episodeController.getPlaylistArcs,
+  // episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('fetch successful1');
 
@@ -66,5 +66,5 @@ app.use(
 );
 
 app.listen(44000, (): void => {
-  console.log(`Listening on port: http://localhost:44000 change`);
+  console.log(`Listening on port: http://localhost:44000`);
 });
