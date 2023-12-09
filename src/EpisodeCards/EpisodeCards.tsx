@@ -4,20 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import fetchEpisodeCards from '../fetchPlaylist.ts';
 import { episodeCard } from '../APIResponseTypes.ts';
 
-interface episodeCardProps {
-  episode_id: number;
-  airdate: string;
-  arcs: string[];
-  episode_card_path: string;
-  episode_number: number;
-  season_number: number;
-  season_id: number;
-  season_episode: number;
-  series: string[];
-  synopsis: string;
-  title: string;
-}
-
 const EpisodeCard = ({ episode }): JSX.Element => {
   console.log('EPISODE HERE', Object.keys(episode));
   const {
@@ -56,7 +42,7 @@ const EpisodeCard = ({ episode }): JSX.Element => {
           </p>
           <p>
             <h4>Synopsis</h4>
-            {episode.synopsis}
+            {synopsis}
             <br />
             <h4>Arcs</h4>
             {arcs.length ? arcs.join(', ') : 'None'}

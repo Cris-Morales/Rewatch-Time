@@ -18,13 +18,23 @@ const episodeController: EpisodeController = {
     try {
       const { finale, playlistLength } = req.query;
       const excludedEpisodes: number[] = [0];
-      finale ? null : excludedEpisodes.push(280); // will be concatenated to exclusion list if finale boolean is false (not included)
+      finale === 'true' ? null : excludedEpisodes.push(280); // query params in a get are strings
 
-      console.log('before query: ', playlistLength, finale);
+      console.log(
+        'getPlaylist queried, playlistLength: ',
+        playlistLength,
+        'finale: ',
+        finale,
+      );
       const playlistQuery = {
-        text: `SELECT * FROM episodes JOIN seasons ON episodes.season_id = seasons.season_id WHERE episode_id NOT IN (${excludedEpisodes.join(
-          ',',
-        )}) ORDER BY RANDOM() LIMIT $1`,
+        text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis 
+        FROM episodes 
+        JOIN seasons 
+        ON episodes.season_id = seasons.season_id 
+        WHERE episode_id 
+        NOT IN (${excludedEpisodes.join(',')}) 
+        ORDER BY RANDOM() 
+        LIMIT $1`,
         values: [playlistLength],
       };
 
@@ -82,7 +92,6 @@ const episodeController: EpisodeController = {
               );
             },
           );
-          console.log(series);
           return series;
         }); // array of {"series_name": series_string}
       }

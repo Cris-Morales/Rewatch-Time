@@ -16,7 +16,7 @@ const port = 44000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(path.resolve(__dirname, '../client')));
+// app.use(express.static(path.resolve(__dirname, '../client'))); // unsure if I can do this with vite
 
 // routes
 app.get(
@@ -35,11 +35,12 @@ app.get(
   episodeController.getPlaylistArcs,
   episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
-    console.log('fetch successful1');
-
+    console.log('Success');
     return res.status(200).send(res.locals.playlistData);
   },
 );
+
+// app.get('/allEpisodes', episodeController.getAllEpisodes);
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {
