@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { FC } from 'react';
 import EpisodeCard from '../EpisodeCards/EpisodeCards';
 
 interface carouselProps {
-  playlistLength: number;
+  playlist: episodeCardProps[];
+}
+interface episodeCardProps {
+  episode_id: number;
+  airdate: string;
+  arcs: string[];
+  episode_card_path: string;
+  episode_number: number;
+  season_number: number;
+  season_id: number;
+  season_episode: number;
+  series: string[];
+  synopsis: string;
+  title: string;
 }
 
-const Carousel = ({ playlistLength }): JSX.Element => {
+const Carousel = ({ playlist }) => {
+  console.log(playlist);
   return (
     // props
     <div className='carousel'>
-      carousel
-      {/* an array of cards*/}
-      <EpisodeCard />
+      {playlist.map(epiCard => {
+        return (
+          <div key={epiCard.episode_id + epiCard.title}>
+            <EpisodeCard episode={epiCard} />
+          </div>
+        );
+      })}
     </div>
   );
 };

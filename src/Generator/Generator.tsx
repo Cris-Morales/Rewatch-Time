@@ -21,16 +21,14 @@ const Generator = (): JSX.Element => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    setShowPlatlist(true);
     const result = await playlistQuery.refetch();
-    console.log(result?.data);
+    setPlaylist(result?.data);
+    setShowPlatlist(true);
   };
 
   return (
     <div className='genForm'>
-      form
       <form id='generator'>
-        {/* Form */}
         <label>Playlist Length</label>
         <input
           id='playlistLength'
@@ -65,7 +63,7 @@ const Generator = (): JSX.Element => {
         Watchtime: {playlistTime} Minutes
       </form>
       {/* check state, show if true */}
-      {showPlaylist ? <Carousel playlistLength={playlistLength} /> : null}
+      {showPlaylist ? <Carousel playlist={playlist} /> : null}
     </div>
   );
 };

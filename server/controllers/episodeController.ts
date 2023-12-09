@@ -73,7 +73,18 @@ const episodeController: EpisodeController = {
         };
         const result: any = await query(seriesQuery.text, seriesQuery.values);
 
-        episode.series = result.rows.map((row: any) => row.series_name); // array of {"series_name": series_string}
+        episode.series = result.rows.map((row: any) => {
+          const series = row.series_name.replace(
+            /\w\S*/g,
+            function (txt: string) {
+              return (
+                txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
+              );
+            },
+          );
+          console.log(series);
+          return series;
+        }); // array of {"series_name": series_string}
       }
 
       return next();

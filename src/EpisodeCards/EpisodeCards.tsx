@@ -1,39 +1,66 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import fetchEpisodeCards from '../fetchPlaylist.ts';
 import { episodeCard } from '../APIResponseTypes.ts';
 
-const EpisodeCard = (): JSX.Element => {
-  // passed in props from the container, from the carousel
-  // from the form
+interface episodeCardProps {
+  episode_id: number;
+  airdate: string;
+  arcs: string[];
+  episode_card_path: string;
+  episode_number: number;
+  season_number: number;
+  season_id: number;
+  season_episode: number;
+  series: string[];
+  synopsis: string;
+  title: string;
+}
 
-  // const results = useQuery({ queryFn: () => fetchEpisodeCards, queryKey: [1] });
-  const [cardPath, setCardPath] = useState<string>('');
-
-  const handleClick = async (): Promise<void> => {
-    const results = await fetch('/api/card/');
-    const data = await results.json();
-    setCardPath(data.episode_card_path);
-    console.log(data);
-  };
+const EpisodeCard = ({ episode }): JSX.Element => {
+  console.log('EPISODE HERE', Object.keys(episode));
+  const {
+    title,
+    season_number,
+    season_episode,
+    episode_number,
+    episode_card_path,
+    arcs,
+    series,
+    airdate,
+    synopsis,
+  } = episode;
 
   return (
     <div className='epiCard'>
-      Episode Card
       <div>
-        <div className='episodeButts'>
-          <button onClick={handleClick}>Fetch</button>
-          <button>Skipped</button>
-        </div>
+        <h3>{title}</h3>
         <div>
-          {/* card data
-           */}
-          <img
-            className='episodeCardImg'
-            src={cardPath}
-            alt='Slumber Party Panic'
-          />
+          <p>
+            Series: {series.join(', ')}
+            <br />
+            Season {season_number}, Episode {season_episode}
+            <br />
+            Overall Episode {episode_number}
+            <br />
+            <div className='episodeButts'>
+              <button>Watched</button>
+              <button>Skipped</button>
+            </div>
+            <img
+              className='episodeCardImg'
+              alt={title}
+              src={episode_card_path}
+            />
+          </p>
+          <p>
+            <h4>Synopsis</h4>
+            {episode.synopsis}
+            <br />
+            <h4>Arcs</h4>
+            {arcs.length ? arcs.join(', ') : 'None'}
+          </p>
         </div>
       </div>
       <div className='orderButts'>

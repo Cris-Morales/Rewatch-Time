@@ -18,7 +18,7 @@
 .home {
   border: solid black;
   display: flex;
-  width: 750px;
+  width: 1500px;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -26,10 +26,17 @@
 
 .carousel {
   border: solid black;
+  display: flex;
+  width: 1400px;
+  /* justify-content: center; */
+  overflow-x: auto;
 }
 
 .genForm {
   border: solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .epiCard {
@@ -38,6 +45,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  height: 100%;
 }
 
 .orderButts {
