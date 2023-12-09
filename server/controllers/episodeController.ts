@@ -60,7 +60,14 @@ const episodeController: EpisodeController = {
         };
         const result: any = await query(arcQuery.text, arcQuery.values);
 
-        episode.arcs = result.rows.map((row: any) => row.arc); // array of {"arc": arc_string}
+        // episode.arcs = result.rows.map((row: any) => row.arc);
+
+        episode.arcs = result.rows.map((row: any) => {
+          const arc = row.arc.replace(/\w\S*/g, function (txt: string) {
+            return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
+          });
+          return arc;
+        });
       }
 
       return next();
