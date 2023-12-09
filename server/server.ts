@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import process from 'process';
 import episodeController from './controllers/episodeController.js';
+import userRouter from './routers/userRouter.js';
 
 interface ServerError {
   log: string;
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.resolve(__dirname, '../client'))); // unsure if I can do this with vite
 
 // routes
+app.use('/user', userRouter);
+
 app.get(
   '/card',
   episodeController.getEpisode,
