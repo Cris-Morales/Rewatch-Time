@@ -6,6 +6,7 @@ interface EpisodeController {
   getPlaylistArcs: (req: Request, res: Response, next: NextFunction) => void;
   getPlaylistSeries: (req: Request, res: Response, next: NextFunction) => void;
   getEpisode: (req: Request, res: Response, next: NextFunction) => void;
+  getAllEpisodes: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 interface dbQuery {
@@ -14,6 +15,14 @@ interface dbQuery {
 }
 
 const episodeController: EpisodeController = {
+  getAllEpisodes: async (req, res, next) => {
+    try {
+      console.log('in');
+    } catch (error) {
+      console.error('Error in getAllEpisodes: ', error);
+      return next(error);
+    }
+  },
   getPlaylist: async (req, res, next) => {
     try {
       const { finale, playlistLength } = req.query;
@@ -42,7 +51,7 @@ const episodeController: EpisodeController = {
       res.locals.playlistData = result.rows;
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getPlaylist: ', error);
       return next(error);
     }
   },
@@ -59,8 +68,6 @@ const episodeController: EpisodeController = {
           values: [episode.episode_id],
         };
         const result: any = await query(arcQuery.text, arcQuery.values);
-
-        // episode.arcs = result.rows.map((row: any) => row.arc);
 
         episode.arcs = result.rows.map((row: any) => {
           const arc = row.arc.replace(/\w\S*/g, function (txt: string) {

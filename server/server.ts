@@ -40,7 +40,14 @@ app.get(
   },
 );
 
-// app.get('/allEpisodes', episodeController.getAllEpisodes);
+app.get(
+  '/allEpisodes',
+  episodeController.getAllEpisodes,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).send(res.locals.episodeList);
+  },
+);
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {
