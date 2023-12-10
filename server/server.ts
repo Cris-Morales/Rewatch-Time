@@ -3,6 +3,7 @@ import fs from 'fs';
 import process from 'process';
 import episodeController from './controllers/episodeController.js';
 import userRouter from './routers/userRouter.js';
+import episodesRouter from './routers/episodesRouter.js';
 
 interface ServerError {
   log: string;
@@ -21,36 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use('/user', userRouter);
-
-app.get(
-  '/card',
-  episodeController.getEpisode,
-  (req: Request, res: Response): Response => {
-    console.log('fetch successful1');
-
-    return res.status(200).send(res.locals.cardData);
-  },
-);
-
-app.get(
-  '/genPlaylist',
-  episodeController.getPlaylist,
-  episodeController.getPlaylistArcs,
-  episodeController.getPlaylistSeries,
-  (req: Request, res: Response): Response => {
-    console.log('Success');
-    return res.status(200).send(res.locals.playlistData);
-  },
-);
-
-app.get(
-  '/allEpisodes',
-  episodeController.getAllEpisodes,
-  (req: Request, res: Response): Response => {
-    console.log('Success');
-    return res.status(200).send(res.locals.episodeList);
-  },
-);
+app.use('/episodes', episodesRouter);
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {

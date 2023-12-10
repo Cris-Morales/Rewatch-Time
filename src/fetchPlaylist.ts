@@ -9,7 +9,7 @@ const fetchPlaylist: QueryFunction<
   const finale: boolean = queryKey[2];
 
   const res = await fetch(
-    `/api/genPlaylist?playlistLength=${playlistLength}&finale=${finale}`,
+    `/api/episodes/genPlaylist?playlistLength=${playlistLength}&finale=${finale}`,
   );
 
   if (!res.ok) {

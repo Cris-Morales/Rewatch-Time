@@ -107,7 +107,7 @@ const episodeController: EpisodeController = {
             },
           );
           return series;
-        }); // array of {"series_name": series_string}
+        });
       }
 
       return next();
