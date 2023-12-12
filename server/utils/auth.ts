@@ -27,27 +27,21 @@ export const protect = (
 
   console.log('authorizing');
   if (!bearer) {
-    res.status(401);
-    res.json({ message: 'not authorized' });
-    return;
+    return res.status(401).json({ message: 'not authorized' });
   }
 
   const [, token] = bearer.split(' ');
 
   if (!token) {
-    res.status(401);
-    res.json({ message: 'not authorized' });
-    return;
+    return res.status(401).json({ message: 'not authorized' });
   }
 
   try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    // req.user = user;
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    res.locals.user = payload;
     next();
   } catch (error) {
     console.error('error in authorization: ', error);
-    res.status(401);
-    res.json({ message: 'not valid token' });
-    return;
+    return res.status(401).json({ message: 'not valid token' });
   }
 };

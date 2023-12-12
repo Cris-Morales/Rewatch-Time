@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import fs from 'fs';
 import process from 'process';
-import episodeController from './controllers/episodeController.js';
 import userRouter from './routers/userRouter.js';
 import episodesRouter from './routers/episodesRouter.js';
 import { protect } from './utils/auth.js';
