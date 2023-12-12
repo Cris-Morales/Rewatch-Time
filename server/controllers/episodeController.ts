@@ -9,11 +9,6 @@ interface EpisodeController {
   getAllEpisodes: (req: Request, res: Response, next: NextFunction) => void;
 }
 
-interface dbQuery {
-  text: string;
-  values: any[];
-}
-
 const episodeController: EpisodeController = {
   getAllEpisodes: async (req, res, next) => {
     try {

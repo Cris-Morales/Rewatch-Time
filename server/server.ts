@@ -1,9 +1,12 @@
 import express, { NextFunction, Request, Response } from 'express';
+import * as dotenv from 'dotenv';
+dotenv.config();
 import fs from 'fs';
 import process from 'process';
 import episodeController from './controllers/episodeController.js';
 import userRouter from './routers/userRouter.js';
 import episodesRouter from './routers/episodesRouter.js';
+import { protect } from './utils/auth.js';
 
 interface ServerError {
   log: string;
@@ -18,11 +21,15 @@ const port = 44000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(path.resolve(__dirname, '../client'))); // unsure if I can do this with vite
+// unsure if I can do this with vite, just reroute them to the vite server?
+// app.use(express.static(path.resolve(__dirname, '../client')));
 
 // routes
 app.use('/user', userRouter);
 app.use('/episodes', episodesRouter);
+app.use('/protected', protect, (req: Request, res: Response): Response => {
+  return res.status(200).json('woop woop');
+});
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {

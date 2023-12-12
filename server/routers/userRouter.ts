@@ -4,12 +4,10 @@ import express, {
   NextFunction,
   RequestHandler,
 } from 'express';
+import userController from '../controllers/userController.js';
 
 const userRouter = express.Router();
-// import userController from '../controllers/userController.js'
 
-userRouter.post('/signup', (req, res) => {
-  res.status(200).json(res.locals.userData);
-});
+userRouter.post('/signup', userController.createNewUser);
 
 export default userRouter;

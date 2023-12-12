@@ -1,9 +1,9 @@
 import pg from 'pg';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 const { Pool } = pg;
 import process from 'process';
 
-dotenv.config();
+// dotenv.config();
 
 const PG_URI: string = process.env.DATABASE_URI;
 

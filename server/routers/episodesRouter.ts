@@ -8,6 +8,11 @@ import episodeController from '../controllers/episodeController';
 
 const episodesRouter = express.Router();
 
+/**
+ * @abstract If the user wants to replace a card in the playlist
+ * Is there a way i can just grab the previous list and randomly
+ * pull a card from there instead?
+ */
 episodesRouter.get(
   '/card',
   episodeController.getEpisode,
@@ -17,6 +22,9 @@ episodesRouter.get(
   },
 );
 
+/**
+ * @abstract main playlist generator
+ */
 episodesRouter.get(
   '/genPlaylist',
   episodeController.getPlaylist,
@@ -28,6 +36,11 @@ episodesRouter.get(
   },
 );
 
+/**
+ * @abstract Get all episodes
+ * would be great to be able to add episodes from here to the
+ * playlist
+ */
 episodesRouter.get(
   '/allEpisodes',
   episodeController.getAllEpisodes,
