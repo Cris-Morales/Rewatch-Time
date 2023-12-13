@@ -5,7 +5,6 @@ import fetchEpisodeCards from '../fetchPlaylist.ts';
 import { episodeCard } from '../APIResponseTypes.ts';
 
 const EpisodeCard = ({ episode }): JSX.Element => {
-  console.log('EPISODE HERE', Object.keys(episode));
   const {
     title,
     season_number,
@@ -30,23 +29,19 @@ const EpisodeCard = ({ episode }): JSX.Element => {
             <br />
             Overall Episode {episode_number}
             <br />
-            <div className='episodeButts'>
-              <button>Watched</button>
-              <button>Skipped</button>
-            </div>
-            <img
-              className='episodeCardImg'
-              alt={title}
-              src={episode_card_path}
-            />
           </p>
+          <div className='episodeButts'>
+            <button>Watched</button>
+            <button>Skipped</button>
+          </div>
+          <img className='episodeCardImg' alt={title} src={episode_card_path} />
+          <h4>Synopsis</h4>
           <p>
-            <h4>Synopsis</h4>
             {synopsis}
             <br />
-            <h4>Arcs</h4>
-            {arcs.length ? arcs.join(', ') : 'None'}
           </p>
+          <h4>Arcs</h4>
+          <p>{arcs.length ? arcs.join(', ') : 'None'}</p>
         </div>
       </div>
       <div className='orderButts'>

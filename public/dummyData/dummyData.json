@@ -1,0 +1,62 @@
+[
+  {
+    "episode_id": 240,
+    "title": "Do No Harm",
+    "season_number": 8,
+    "season_episode": 15,
+    "episode_number": 240,
+    "episode_card_path": "/episodeCards/239 - eA3wmYr - S08E15 - Do No Harm.jpg",
+    "airdate": "2017-01-23T06:00:00.000Z",
+    "synopsis": "Finn makes amends at the Candy Hospital while Jake tries to connect with their unexpected houseguest.",
+    "arcs": ["Finn's Swords"],
+    "series": ["Main"]
+  },
+  {
+    "episode_id": 255,
+    "title": "Bespoken For",
+    "season_number": 9,
+    "season_episode": 3,
+    "episode_number": 255,
+    "episode_card_path": "/episodeCards/254 - rKx7nVX - S09E03 - Bespoken For (Elements - Part 02).jpg",
+    "airdate": "2017-04-24T05:00:00.000Z",
+    "synopsis": "Ice King weaves a tale filled with drama, romance and men's fashion.",
+    "arcs": ["The Ice King", "Bubbline", "Magic Man"],
+    "series": ["Main"]
+  },
+  {
+    "episode_id": 66,
+    "title": "Beautopia",
+    "season_number": 3,
+    "season_episode": 14,
+    "episode_number": 66,
+    "episode_card_path": "/episodeCards/66 - ow8aiem - S03E14 - Beautopia.jpg",
+    "airdate": "2011-11-07T06:00:00.000Z",
+    "synopsis": "Susan Strong asks Finn and Jake to help fight off the Lub Glubs and regain her people's home in Beautopia.",
+    "arcs": ["Finn's Origin", "Jake's Power"],
+    "series": ["Main"]
+  },
+  {
+    "episode_id": 116,
+    "title": "Vault of Bones",
+    "season_number": 5,
+    "season_episode": 12,
+    "episode_number": 116,
+    "episode_card_path": "/episodeCards/116 - P0iBDJj - S05E12 - Vault Of Bones.jpg",
+    "airdate": "2013-02-25T06:00:00.000Z",
+    "synopsis": "Finn's worried that Flame Princess still has evil tendencies in her and wants to shift her alignment to good.",
+    "arcs": ["Finn's Relationships"],
+    "series": ["Main"]
+  },
+  {
+    "episode_id": 42,
+    "title": "Guardians of Sunshine",
+    "season_number": 2,
+    "season_episode": 16,
+    "episode_number": 42,
+    "episode_card_path": "/episodeCards/42 - GYiqyk9 - S02E16 - Guardians Of Sunshine.jpg",
+    "airdate": "2011-02-21T06:00:00.000Z",
+    "synopsis": "Finn and Jake become trapped inside one of BMO's video game creations.",
+    "arcs": ["Bmo"],
+    "series": ["Main"]
+  }
+]

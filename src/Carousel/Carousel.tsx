@@ -19,7 +19,6 @@ interface episodeCardProps {
 }
 
 const Carousel = ({ playlist }) => {
-  console.log(playlist);
   return (
     // props
     <div className='carousel'>
