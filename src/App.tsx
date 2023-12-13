@@ -5,6 +5,7 @@ import Home from './Home/Home';
 import Navbar from './Navbar/Navbar';
 import Generator from './Generator/Generator';
 import EpisodeList from './EpisodeList/EpisodeList';
+import Footer from './Footer/Footer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ const App = (): JSX.Element => {
           <EpisodeList />
         </QueryClientProvider>
       </div>
+      <Footer />
     </div>
   );
 };
