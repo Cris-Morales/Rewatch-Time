@@ -21,7 +21,7 @@ interface episodeCardProps {
 const Carousel = ({ playlist }) => {
   return (
     // props
-    <div className='carousel'>
+    <div className='flex w-screen overflow-auto'>
       {playlist.map(epiCard => {
         return (
           <div key={epiCard.episode_id + epiCard.title}>

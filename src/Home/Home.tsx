@@ -11,9 +11,9 @@ const Home = (): JSX.Element => {
         backgroundImage: `url(${banner})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        backgroundPosition: '25% 75%',
+        backgroundPosition: '25% 85%',
       }}>
-      <div className='flex justify-center items-center bg-gray-300 bg-opacity-95 w-3/5'>
+      <div className='flex justify-center items-center bg-gray-200 bg-opacity-95 w-3/5'>
         <div className='flex justify-center items-center mt-20'>
           <img
             className='mt-10 mb-10 mx-auto'
