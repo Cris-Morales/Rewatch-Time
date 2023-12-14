@@ -6,7 +6,7 @@ const banner: string = '../../assets/homeBackground.jpg';
 const Home = (): JSX.Element => {
   return (
     <div
-      className='flex justify-center h-screen'
+      className='flex justify-center h-section'
       style={{
         backgroundImage: `url(${banner})`,
         backgroundRepeat: 'no-repeat',

@@ -7,7 +7,7 @@ const banner2: string = '../../assets/trainTracksBackground.jpg';
 const EpisodeList = (): JSX.Element => {
   return (
     <div
-      className='flex justify-center h-96'
+      className='flex justify-center h-section'
       style={{
         backgroundImage: `url(${banner1}), url(${banner2})`,
         backgroundRepeat: 'no-repeat, no-repeat',

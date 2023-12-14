@@ -17,12 +17,13 @@ const Navbar = (): JSX.Element => {
           <label className='text-center'>Login/Signup</label>
           <div className='flex justify-between mb-1'>
             <label className='mr-5'>Username</label>
-            <input typeof='text' id='username' className=' bg-gray-500'></input>
+            <input type='text' id='username' className=' bg-gray-500'></input>
           </div>
           <div className='flex justify-between'>
             <label>Password</label>
             <input
-              typeof='password'
+              name='password'
+              type='password'
               id='password'
               className='bg-gray-500'></input>
           </div>

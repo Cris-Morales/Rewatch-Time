@@ -29,8 +29,8 @@ const Generator = (): JSX.Element => {
   };
 
   return (
-    <div className='bottom-0 left-0 w-screen  bg-blue-950 text-white flex flex-col justify-center items-center h-screen'>
-      <div className='flex justify-center items-center'>
+    <div className='bottom-0 left-0 w-screen  bg-blue-950 text-white flex flex-col justify-evenly items-center h-section'>
+      <div className='flex justify-center items-center h-fit'>
         <img src={marceline} width='600px' className='mr-10' />
         <div>
           <form id='generator' className='h-96 w-96 bg-gray-500'>
@@ -72,7 +72,11 @@ const Generator = (): JSX.Element => {
         </div>
         <img src={FinnJakeRelax} width='600px' className='ml-10' />
       </div>
-      {showPlaylist ? <Carousel playlist={playlist} /> : null}
+      {showPlaylist ? (
+        <Carousel playlist={playlist} />
+      ) : (
+        <div className='h-card w-screen'></div>
+      )}
     </div>
   );
 };
