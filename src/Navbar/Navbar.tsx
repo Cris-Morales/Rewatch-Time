@@ -4,7 +4,7 @@ const title: string = '../../assets/Adventure_Time_logo.png';
 
 const Navbar = (): JSX.Element => {
   return (
-    <div className='fixed top-0 left-0 w-screen h-20 m-0 flex justify-between bg-blue-950 text-white shadow-md'>
+    <div className='fixed top-0 left-0 w-screen h-20 m-0 flex justify-between bg-blue-950 text-white shadow-md z-10'>
       <img src={title} />
 
       <div className='flex'>
