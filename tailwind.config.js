@@ -12,6 +12,9 @@ module.exports = {
       fontFamily: {
         thunderman: ['Thunderman', 'san-serif'],
       },
+      rounded: {
+        home: 'border-radius: 9000px',
+      },
     },
   },
   plugins: [],
