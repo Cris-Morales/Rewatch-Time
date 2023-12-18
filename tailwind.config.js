@@ -5,9 +5,9 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        section: '90vh',
+        section: '95vh',
         card: '45vh',
-        subsection: '85vh',
+        subsection: '90vh',
       },
       fontFamily: {
         thunderman: ['Thunderman', 'san-serif'],
