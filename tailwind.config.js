@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       height: {
         section: '95vh',
-        card: '45vh',
+        card: '18rem',
         subsection: '90vh',
       },
       fontFamily: {
@@ -14,6 +14,9 @@ module.exports = {
       },
       rounded: {
         home: 'border-radius: 9000px',
+      },
+      width: {
+        card: '32rem',
       },
     },
   },
