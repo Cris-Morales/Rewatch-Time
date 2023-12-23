@@ -34,7 +34,7 @@ const CardArcIconsList = ({ arcsList }): JSX.Element => {
       {arcsList.map(arc => {
         return (
           <div id='arcIcon' className='h-16 w-16 m-1 tooltip' data-tip={arc}>
-            <div className='h-16 w-16 rounded-full object-fill flex justify-center itmes-center overflow-hidden bg-white'>
+            <div className='h-16 w-16 rounded-full object-fill flex justify-center items-center overflow-hidden'>
               <img src={arcIcons[arc]} alt={arc} className='w-auto h-full' />
             </div>
           </div>
