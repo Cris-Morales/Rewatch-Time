@@ -21,24 +21,29 @@ requests or offer suggested features.<br />
 
 ## Progress
 
-### Phase 1
+### Phase 1: MVP
 
 | Goals                                                   | Status      |
 | ------------------------------------------------------- | ----------- |
 | Add styling using tailwind, and daisyUI                 | In Progress |
-| Component Animations - Button Scrolling                 |             |
-| Component Animations - Element Scroll Transitions       |             |
-| Component Animations - Carousel Scrolling               |             |
-| Component Animations - Page Loading                     |             |
-| Error Boundaries and Handling                           |             |
-| User Playlist Card Arrangement                          |             |
-| JWT Authorization Components                            |             |
-| Auth Routes in Depth                                    |             |
-| Full Episode List Components                            |             |
-| Component Optimization - Lazy Loading Animations        |             |
-| Component Optimiztation - Query Caching Configurations  |             |
-| 404 Component Page                                      |             |
-| Component Animations - Card Arrangement, Auth Component |             |
+| Component Animations - Button Scrolling                 | -           |
+| Component Animations - Element Scroll Transitions       | -           |
+| Component Animations - Carousel Scrolling               | -           |
+| Component Animations - Page Loading                     | -           |
+| Error Boundaries and Handling                           | -           |
+| User Playlist Card Arrangement                          | -           |
+| JWT Authorization Components                            | -           |
+| Auth Routes in Depth                                    | -           |
+| Full Episode List Components                            | -           |
+| Component Optimization - Lazy Loading Animations        | -           |
+| Component Optimiztation - Query Caching Configurations  | -           |
+| 404 Component Page                                      | -           |
+| Component Animations - Card Arrangement, Auth Component | -           |
+| Refactor Database Migration Scripts                     | -           |
+
+### Phase 2: Testing, Extended Features, More Documentation
+
+### Phase 3: NextJS, React Native, Launch
 
 ---
 
