@@ -18,7 +18,10 @@ module.exports = {
       width: {
         card: '32rem',
       },
+      minWidth: {
+        card: '50%',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 };

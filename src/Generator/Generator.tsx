@@ -4,6 +4,7 @@ import query, { useQuery, useQueryClient } from '@tanstack/react-query';
 import fetchPlaylist from '../fetchPlaylist';
 const marceline: string = 'assets/Marceline.png';
 const FinnJakeRelax: string = 'assets/FinnJakeRelax.png';
+const bmo: string = 'arcs/BMO.webp';
 
 // need playlist interface
 
@@ -75,7 +76,7 @@ const Generator = (): JSX.Element => {
       {showPlaylist ? (
         <Carousel playlist={playlist} />
       ) : (
-        <div className='h-card w-screen'></div>
+        <div className='flex h-card w-screen justify-center items-center z-10'></div>
       )}
     </div>
   );
