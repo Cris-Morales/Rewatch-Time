@@ -21,10 +21,10 @@ requests or offer suggested features.<br />
 
 ## Progress
 
-| Phase 1                                                |             |
-| ------------------------------------------------------ | ----------- |
+### Phase 1
+
 | Goals                                                  | Status      |
-| ---------------------------------------                | ----------- |
+| ------------------------------------------------------ | ----------- |
 | Add styling using tailwind, and daisyUI                | In Progress |
 | Component Animations - Button Scrolling                |             |
 | Component Animations - Element Scroll Transitions      |             |
