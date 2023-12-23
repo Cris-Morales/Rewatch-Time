@@ -39,7 +39,7 @@ requests or offer suggested features.<br />
 | Component Optimiztation - Query Caching Configurations  | -           |
 | 404 Component Page                                      | -           |
 | Component Animations - Card Arrangement, Auth Component | -           |
-| Refactor Database Migration Scripts                     | -           |
+| Refactor Database Initialization Scripts                | -           |
 
 ### Phase 2: Testing, Extended Features, More Documentation
 
@@ -48,6 +48,8 @@ requests or offer suggested features.<br />
 ---
 
 ## Getting Started
+
+Details on Project Setup, and Database Initialization.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
