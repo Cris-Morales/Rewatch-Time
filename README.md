@@ -23,20 +23,22 @@ requests or offer suggested features.<br />
 
 ### Phase 1
 
-| Goals                                                  | Status      |
-| ------------------------------------------------------ | ----------- |
-| Add styling using tailwind, and daisyUI                | In Progress |
-| Component Animations - Button Scrolling                |             |
-| Component Animations - Element Scroll Transitions      |             |
-| Component Animations - Carousel Scrolling              |             |
-| Error Boundaries and Handling                          |             |
-| Playlist Card Arrangement                              |             |
-| JWT Authorization Components                           |             |
-| Auth Routes in Depth                                   |             |
-| Full Episode List Components                           |             |
-| Component Optimization - Lazy Loading Animations       |             |
-| Component Optimiztation - Query Caching Configurations |             |
-| 404 Component Page                                     |             |
+| Goals                                                   | Status      |
+| ------------------------------------------------------- | ----------- |
+| Add styling using tailwind, and daisyUI                 | In Progress |
+| Component Animations - Button Scrolling                 |             |
+| Component Animations - Element Scroll Transitions       |             |
+| Component Animations - Carousel Scrolling               |             |
+| Component Animations - Page Loading                     |             |
+| Error Boundaries and Handling                           |             |
+| User Playlist Card Arrangement                          |             |
+| JWT Authorization Components                            |             |
+| Auth Routes in Depth                                    |             |
+| Full Episode List Components                            |             |
+| Component Optimization - Lazy Loading Animations        |             |
+| Component Optimiztation - Query Caching Configurations  |             |
+| 404 Component Page                                      |             |
+| Component Animations - Card Arrangement, Auth Component |             |
 
 ---
 
