@@ -10,6 +10,10 @@ export interface episodeCard {
   // watched: boolean; only added when I implement users
 }
 
+export interface arcs {
+  arc: string;
+}
+
 export interface playlistAPIResponse {
   playlist: episodeCard[];
 }

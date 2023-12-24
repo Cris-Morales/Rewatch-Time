@@ -7,6 +7,11 @@ interface EpisodeController {
   getPlaylistSeries: (req: Request, res: Response, next: NextFunction) => void;
   getEpisode: (req: Request, res: Response, next: NextFunction) => void;
   getAllEpisodes: (req: Request, res: Response, next: NextFunction) => void;
+  getAllArcs: (req: Request, res: Response, next: NextFunction) => void;
+}
+
+interface arcRow {
+  arc: string;
 }
 
 const episodeController: EpisodeController = {
@@ -64,7 +69,7 @@ const episodeController: EpisodeController = {
         };
         const result: any = await query(arcQuery.text, arcQuery.values);
 
-        episode.arcs = result.rows.map((row: any) => {
+        episode.arcs = result.rows.map((row: arcRow) => {
           const arc = row.arc.replace(/\w\S*/g, function (txt: string) {
             return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
           });
@@ -119,6 +124,23 @@ const episodeController: EpisodeController = {
       return next();
     } catch (error) {
       console.log('something went wrong: ', error);
+      return next(error);
+    }
+  },
+  getAllArcs: async (req, res, next) => {
+    try {
+      const arcQuery = 'SELECT arc FROM arcs';
+      const result: any = await query(arcQuery);
+      const arcsArray: string[] = result.rows.map((row: arcRow) => {
+        const arc = row.arc.replace(/\w\S*/g, function (txt: string) {
+          return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
+        });
+        return arc;
+      });
+      res.locals.currentArcList = arcsArray;
+      return next();
+    } catch (error) {
+      console.log('Error in getAllArcs: ', error);
       return next(error);
     }
   },
