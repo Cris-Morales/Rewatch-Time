@@ -30,7 +30,7 @@ const arcIcons: any = {
 
 const ArcsForm = ({ arcs }) => {
   return (
-    <div className='dropdown dropdown-right'>
+    <div className='dropdown dropdown-right mx-2'>
       <div tabIndex={0} className='btn'>
         Specify Arcs
       </div>

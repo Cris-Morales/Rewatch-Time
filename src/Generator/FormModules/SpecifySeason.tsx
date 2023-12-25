@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 const SpecifySeason = ({ seasonSeries }) => {
   return (
-    <div className='dropdown dropdown-right'>
+    <div className='dropdown dropdown-right mx-2 rounded-box'>
       <div tabIndex={0} className='btn'>
         Specify Season
       </div>

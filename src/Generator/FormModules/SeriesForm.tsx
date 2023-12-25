@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import SpecifySeries from './SpecifySeries';
 import SpecifySeason from './SpecifySeason';
+import ArcsForm from './ArcsForm';
 
-const SeriesForm = ({ seriesList, seasonSeries, setFinale }) => {
+const SeriesForm = ({ seriesList, seasonSeries, setFinale, arcs }) => {
   return (
     <div className='flex my-2 items-center'>
       <SpecifySeries seriesList={seriesList} />
-      <div id='specify series' className='m-2 flex'>
+      <div id='specify series' className='mx-2 flex'>
         <div className='dropdown dropdown-left'></div>
-        <label className='btn rounded-box label mx-2 flex items-center justify-center cursor-pointer'>
-          <span className='mr-2'>Include Finale</span>
+        <label className='btn rounded-box label flex items-center justify-center cursor-pointer'>
+          <span className=''>Include Finale</span>
           <input
             type='checkbox'
             className='checkbox border-1 border-black'
@@ -20,6 +21,7 @@ const SeriesForm = ({ seriesList, seasonSeries, setFinale }) => {
         </label>
       </div>
       <SpecifySeason seasonSeries={seasonSeries} />
+      <ArcsForm arcs={arcs} />
     </div>
   );
 };

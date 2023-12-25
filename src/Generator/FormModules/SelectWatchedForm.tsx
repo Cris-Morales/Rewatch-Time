@@ -4,7 +4,7 @@ const SelectWatchedForm = ({}) => {
   return (
     <div className='m-2 dropdown dropdown-right text-white'>
       <div tabIndex={0} className='btn'>
-        Select Watched Episode to Start From
+        Select Episode to Start From
       </div>
     </div>
   );

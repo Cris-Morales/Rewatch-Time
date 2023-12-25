@@ -35,7 +35,7 @@ const FormContainer = ({
           />
           <span
             className={`text-center ml-2 ${loggedIn ? null : 'text-gray-500'}`}>
-            Chronologically from Watched Episode
+            Chronologically Playlist
           </span>
         </label>
       </div>
@@ -63,8 +63,8 @@ const FormContainer = ({
         seriesList={seriesList}
         seasonSeries={seasonSeries}
         setFinale={setFinale}
+        arcs={arcs}
       />
-      <ArcsForm arcs={arcs} />
       <SelectWatchedForm />
     </div>
   );
