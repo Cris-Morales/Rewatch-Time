@@ -11,6 +11,7 @@ const FormContainer = ({
   loggedIn,
   queryType,
   setPlaylistLength,
+  setFinale,
 }) => {
   // if not logged in, the form is disabled, but you can remove the disabled form with inspect
   // behind the scenes, if not loged in, we can't let the user make this query.
@@ -32,7 +33,8 @@ const FormContainer = ({
             className='toggle'
             disabled={!loggedIn}
           />
-          <span className='text-center ml-2'>
+          <span
+            className={`text-center ml-2 ${loggedIn ? null : 'text-gray-500'}`}>
             Chronologically from Watched Episode
           </span>
         </label>
@@ -55,9 +57,13 @@ const FormContainer = ({
           />
           <p className=''>episodes</p>
         </div>
-        <SpecifyEpisodes />
+        <SpecifyEpisodes loggedIn={loggedIn} />
       </div>
-      <SeriesForm seriesList={seriesList} seasonSeries={seasonSeries} />
+      <SeriesForm
+        seriesList={seriesList}
+        seasonSeries={seasonSeries}
+        setFinale={setFinale}
+      />
       <ArcsForm arcs={arcs} />
       <SelectWatchedForm />
     </div>

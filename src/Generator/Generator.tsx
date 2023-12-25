@@ -58,9 +58,9 @@ const Generator = (): JSX.Element => {
   const [finale, setFinale] = useState<boolean>(false);
   const [showPlaylist, setShowPlatlist] = useState<boolean>(false);
   const [excludedArcs, setExcludedArcs] = useState<string[]>([]);
-  const loggedIn: boolean = false;
   const [queryType, setQueryType] = useState<boolean>(false); // False is randomly generated, true is chronological
   const [playlistLength, setPlaylistLength] = useState<number>(1);
+  const loggedIn: boolean = false;
 
   const playlistQuery = useQuery({
     queryKey: ['genPlaylist', playlistLength, finale, excludedArcs],
@@ -82,10 +82,6 @@ const Generator = (): JSX.Element => {
   //   queryFn: fetchArcList,
   // });
 
-  // onChange={e => {
-  //   setFinale(e.target.checked);
-  // }}
-
   return (
     <div className=' bottom-0 left-0 w-screen  bg-blue-950 text-black flex flex-col justify-evenly items-center h-subsection border-2 border-solid border-red-600 font-thunderman'>
       <div className='flex justify-center items-center h-fit'>
@@ -98,6 +94,7 @@ const Generator = (): JSX.Element => {
             loggedIn={loggedIn}
             queryType={queryType}
             setPlaylistLength={setPlaylistLength}
+            setFinale={setFinale}
           />
           <button
             className='navbar-button self-center text-white text-lg'
@@ -111,11 +108,11 @@ const Generator = (): JSX.Element => {
         </div>
         <img src={FinnJakeRelax} width='600px' className='ml-10' />
       </div>
-      {
-        showPlaylist ? <Carousel playlist={playlist} /> : null
-
-        // <div className='flex h-card w-screen justify-center items-center z-10'></div>
-      }
+      {showPlaylist ? (
+        <Carousel playlist={playlist} />
+      ) : (
+        <div className='flex h-card w-screen justify-center items-center z-10'></div>
+      )}
     </div>
   );
 };
