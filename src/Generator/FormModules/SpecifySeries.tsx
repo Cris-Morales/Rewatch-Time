@@ -1,10 +1,28 @@
 import React, { FC } from 'react';
 
-const SpecifySeries = ({}) => {
+const SpecifySeries = ({ seriesList }) => {
   return (
-    // props
-    <div className='flex w-screen overflow-auto h-card'>
-      <div>test</div>
+    <div className='dropdown dropdown-right'>
+      <div tabIndex={0} className='btn'>
+        Specify Series
+      </div>
+      <ul
+        tabIndex={0}
+        className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
+        {seriesList.map(series => {
+          return (
+            <li>
+              <label className='label curser-pointer'>
+                <span>{series}</span>
+                <input
+                  type='checkbox'
+                  className='checkbox'
+                  defaultChecked></input>
+              </label>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

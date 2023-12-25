@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 
 const SelectWatchedForm = ({}) => {
   return (
-    // props
-    <div className='flex w-screen overflow-auto h-card'>
-      <div>test</div>
+    <div className='m-2 dropdown dropdown-right text-white'>
+      <div tabIndex={0} className='btn'>
+        Select Watched Episode to Start From
+      </div>
     </div>
   );
 };
