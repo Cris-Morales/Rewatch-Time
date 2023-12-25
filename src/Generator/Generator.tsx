@@ -13,7 +13,7 @@ const seriesList: string[] = [
   'Mini-Series: Stakes',
   'Mini-Series: Elemental',
   'Mini-Series: Islands',
-  'Mini-Series: Distant Lands',
+  'Distant Lands',
   'Fionna and Cake',
 ];
 
@@ -177,10 +177,10 @@ const Generator = (): JSX.Element => {
               </div>
             </div>
             <div id='specify series' className='m-2 flex'>
-              <details className='dropdown dropdown-right text-white'>
-                <summary tabIndex={0} className='btn'>
+              <div className='dropdown dropdown-right text-white'>
+                <div tabIndex={0} className='btn'>
                   Specify Series
-                </summary>
+                </div>
                 <ul
                   tabIndex={0}
                   className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
@@ -198,7 +198,7 @@ const Generator = (): JSX.Element => {
                     );
                   })}
                 </ul>
-              </details>
+              </div>
               <label className='border-2 border-black rounded-box label mx-2 flex items-center justify-center cursor-pointer'>
                 <span className='mr-2'>Include Finale</span>
                 <input
@@ -206,10 +206,10 @@ const Generator = (): JSX.Element => {
                   className='checkbox border-1 border-black'
                 />
               </label>
-              <details className='dropdown dropdown-right text-white'>
-                <summary tabIndex={0} className='btn'>
+              <div className='dropdown dropdown-right text-white'>
+                <div tabIndex={0} className='btn'>
                   Specify Season
-                </summary>
+                </div>
                 <ul
                   tabIndex={0}
                   className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
@@ -227,7 +227,7 @@ const Generator = (): JSX.Element => {
                     );
                   })}
                 </ul>
-              </details>
+              </div>
             </div>
             <div className='m-2'>
               <div className='dropdown dropdown-right text-white'>
@@ -236,11 +236,42 @@ const Generator = (): JSX.Element => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className='overflow-y-scroll h-96 w-96 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
+                  className='block overflow-y-scroll h-96 w-auto p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
                   {arcs.map(arc => {
                     return (
                       <li className='h-40 w-32'>
-                        <label className='label curser-pointer flex flex-col items-center'>
+                        <label className='label curser-pointer flex flex-col items-center justify center text-center'>
+                          <span className='flex flex-col items-center'>
+                            {arc}
+                            <img
+                              src={arcIcons[arc]}
+                              alt={arc}
+                              className='h-16 w-auto'
+                            />
+                          </span>
+                          <input
+                            type='checkbox'
+                            className='checkbox'
+                            defaultChecked></input>
+                        </label>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            <div className='m-2'>
+              <div className='dropdown dropdown-right text-white'>
+                <div tabIndex={0} className='btn'>
+                  Select Watched Episode to Start From
+                </div>
+                <ul
+                  tabIndex={0}
+                  className='block overflow-y-scroll h-96 w-auto p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
+                  {arcs.map(arc => {
+                    return (
+                      <li className='h-40 w-32'>
+                        <label className='label curser-pointer flex flex-col items-center justify-center text-center'>
                           <span>
                             {arc}
                             <img
