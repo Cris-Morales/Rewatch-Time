@@ -11,7 +11,7 @@ export interface episodeCard {
 }
 
 export interface arcs {
-  arc: string;
+  arc: string[];
 }
 
 export interface playlistAPIResponse {

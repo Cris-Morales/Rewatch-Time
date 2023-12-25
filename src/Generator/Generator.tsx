@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Carousel from '../Carousel/Carousel';
 import query, { useQuery, useQueryClient } from '@tanstack/react-query';
 import fetchPlaylist from '../fetchPlaylist';
+import fetchArcList from '../fetchArcList';
 const marceline: string = 'assets/Marceline.png';
 const FinnJakeRelax: string = 'assets/FinnJakeRelax.png';
 const bmo: string = 'arcs/BMO.webp';
@@ -14,9 +15,10 @@ const Generator = (): JSX.Element => {
   const [finale, setFinale] = useState<boolean>(false);
   const [playlistTime, setPlaylistTime] = useState<number>(0);
   const [showPlaylist, setShowPlatlist] = useState<boolean>(false);
+  const [excludedArcs, setExcludedArcs] = useState<string[]>([]);
 
   const playlistQuery = useQuery({
-    queryKey: ['genPlaylist', playlistLength, finale],
+    queryKey: ['genPlaylist', playlistLength, finale, excludedArcs],
     queryFn: fetchPlaylist,
     enabled: false,
   });
@@ -29,20 +31,11 @@ const Generator = (): JSX.Element => {
     setShowPlatlist(true);
   };
 
-  // onChange={e => {
-  //   setFinale(e.target.checked);
-  //   if (e.target.checked) {
-  //     setPlaylistTime(playlistTime + 44);
-  //   } else {
-  //     setPlaylistTime(playlistTime - 44);
-  //   }
-  // }}
-  // onChange={e => {
-  //   let newLength: number = e.target.valueAsNumber;
-  //   setPlaylistLength(newLength);
-  //   setPlaylistTime(newLength * 11 + (finale ? 44 : 0));
-  // }}
-  // Watchtime: {playlistTime} Minutes
+  // when dev if activated. uncomment this
+  // const arcsQuery = useQuery({
+  //   queryKey: ['arcs'],
+  //   queryFn: fetchArcList,
+  // });
 
   return (
     <div className=' bottom-0 left-0 w-screen  bg-blue-950 text-black flex flex-col justify-evenly items-center h-section border-2 border-solid border-red-600 font-thunderman'>
@@ -52,6 +45,9 @@ const Generator = (): JSX.Element => {
           <form
             id='generator'
             className='h-96 w-96 bg-white p-5 flex flex-col rounded-3xl'>
+            <div>
+              <label>Random or Chronologically - Slider</label>
+            </div>
             <div className='flex justify-between items-center'>
               <label>Max Playlist Length</label>
               <input
@@ -64,7 +60,7 @@ const Generator = (): JSX.Element => {
               />
               <p>episodes</p>
             </div>
-            <div className='flex items-center '>
+            {/* <div className='flex items-center '>
               <label>Include Finale</label>
               <input
                 type='checkbox'
@@ -73,18 +69,32 @@ const Generator = (): JSX.Element => {
                 onChange={e => {
                   setFinale(e.target.checked);
                 }}></input>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <label>Include/Exclude Arcs</label>
+              <details className='dropdown'>
+                <summary className='m-1 btn'>Include/Exclude Arcs</summary>
+                <ul></ul>
+              </details>
+            </div> */}
+            <div className='m-2'>
+              <label>Watched, Unwatched, All - Radio, Active if LoggedIn</label>
             </div>
-            <div>
-              <label>Include Watched Episodes</label>
+            <div className='m-2'>
+              <label>Specify Series - Check Boxes</label>
             </div>
-            <div>
-              <label>Random or from watched episode</label>
+            <div className='m-2'>
+              <label>If Main - Include Finale? Check Box </label>
             </div>
-            <div>
-              <label>Include/Exclude Seasons</label>
+            <div className='m-2'>
+              <label>
+                Specify Seasons - Check Boxes Fetched from SeriesSeasons
+              </label>
+            </div>
+            <div className='m-2'>
+              <label>
+                Specify Arcs - Check Boxes Fetched from Series/Season/Episodes
+              </label>
             </div>
           </form>
           <button
