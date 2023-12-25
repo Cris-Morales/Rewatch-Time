@@ -14,7 +14,7 @@ const seriesList: string[] = [
   'Mini-Series: Elemental',
   'Mini-Series: Islands',
   'Distant Lands',
-  'Fionna and Cake',
+  'Fionna And Cake',
 ];
 
 const seasonSeries: any = {
@@ -123,7 +123,7 @@ const Generator = (): JSX.Element => {
         <div className='flex flex-col items-center'>
           <form
             id='generator'
-            className='h-fit w-generatorForm bg-white p-5 flex flex-col rounded-3xl items-center'>
+            className='text-black h-fit w-generatorForm bg-white p-5 flex flex-col rounded-3xl items-center'>
             <div className='my-1 mx- w-full flex items-center justify-between'>
               <h3 className=' text-2xl'>Playlist Generator</h3>
               <p>Is Logged In: false</p>
