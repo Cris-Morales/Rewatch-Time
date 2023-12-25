@@ -124,9 +124,10 @@ const Generator = (): JSX.Element => {
           <form
             id='generator'
             className='h-fit w-generatorForm bg-white p-5 flex flex-col rounded-3xl items-center'>
-            <h1 className='my-1 mx-2 text-2xl self-start'>
-              Playlist Generator
-            </h1>
+            <div className='my-1 mx- w-full flex items-center justify-between'>
+              <h3 className=' text-2xl'>Playlist Generator</h3>
+              <p>Is Logged In: false</p>
+            </div>
             <div className='form-control'>
               <label className='label cursor-pointer flex justify-center'>
                 <span className='mr-2 text-center'>Randomized Playlist</span>
@@ -161,6 +162,7 @@ const Generator = (): JSX.Element => {
                   type='radio'
                   name='radio-1'
                   className='radio border-1 border-black'
+                  defaultChecked
                 />
                 <label className='mx-2'>Watched</label>
                 <input
@@ -177,7 +179,7 @@ const Generator = (): JSX.Element => {
               </div>
             </div>
             <div id='specify series' className='m-2 flex'>
-              <div className='dropdown dropdown-right text-white'>
+              <div className='dropdown dropdown-left text-white'>
                 <div tabIndex={0} className='btn'>
                   Specify Series
                 </div>
@@ -293,7 +295,7 @@ const Generator = (): JSX.Element => {
             </div>
           </form>
           <button
-            className='navbar-button self-center text-white'
+            className='navbar-button self-center text-white text-lg'
             type='submit'
             form='generator'
             value='Submit'

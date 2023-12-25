@@ -13,7 +13,7 @@ const Navbar = (): JSX.Element => {
           Home <img src={home} className='h-16' />
         </button>
         <button className='navbar-button'>Generate Playlist</button>
-        <button className='navbar-button'>Additional Features</button>
+        <button className='navbar-button'>User Features</button>
         <button className='navbar-button'>About This Project</button>
         <div className='auth-selector'>
           <button className='auth-event-login'>Login</button>
