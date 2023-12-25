@@ -8,6 +8,7 @@ module.exports = {
         section: '95vh',
         card: '18rem',
         subsection: '90vh',
+        form: '55vh',
       },
       fontFamily: {
         thunderman: ['Thunderman', 'san-serif'],

@@ -25,6 +25,7 @@ const arcIcons: any = {
   "Finn's Arm": './arcs/finnsArm.png',
   'The Ghost Lady': './arcs/ghostLady.webp',
   'The Catalyst Comet': './arcs/theComet.png',
+  Uncategorized: './arcs/dumbRock.webp',
 };
 
 const ArcsForm = ({ arcs }) => {
@@ -42,7 +43,11 @@ const ArcsForm = ({ arcs }) => {
               <label className='label curser-pointer flex flex-col items-center justify center text-center'>
                 <span className='flex flex-col items-center'>
                   {arc}
-                  <img src={arcIcons[arc]} alt={arc} className='h-16 w-auto' />
+                  <img
+                    src={arcIcons[arc]}
+                    alt={arc}
+                    className='h-16 w-auto rounded-box'
+                  />
                 </span>
                 <input
                   type='checkbox'
