@@ -66,10 +66,14 @@ episodesRouter.get(
  * @abstract Get all series
  * used for a drop down menu that specifies series to exclude from the playlist
  */
-episodesRouter.get('/series', (req: Request, res: Response): Response => {
-  console.log('Success');
-  return res.status(200).send(res.locals.currentSeriesList);
-});
+episodesRouter.get(
+  '/series',
+  episodeController.getAllSeries,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).send(res.locals.dbSeriesList);
+  },
+);
 
 /**
  * @abstract Get all arcs

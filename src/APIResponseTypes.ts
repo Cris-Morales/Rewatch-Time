@@ -17,3 +17,7 @@ export interface arcs {
 export interface playlistAPIResponse {
   playlist: episodeCard[];
 }
+
+export interface seriesList {
+  series: string[];
+}

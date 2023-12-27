@@ -8,10 +8,14 @@ interface EpisodeController {
   getEpisode: (req: Request, res: Response, next: NextFunction) => void;
   getAllEpisodes: (req: Request, res: Response, next: NextFunction) => void;
   getAllArcs: (req: Request, res: Response, next: NextFunction) => void;
+  getAllSeries: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 interface arcRow {
   arc: string;
+}
+interface seriesRow {
+  series_name: string;
 }
 
 const episodeController: EpisodeController = {
@@ -141,6 +145,26 @@ const episodeController: EpisodeController = {
       return next();
     } catch (error) {
       console.log('Error in getAllArcs: ', error);
+      return next(error);
+    }
+  },
+  getAllSeries: async (req, res, next) => {
+    try {
+      const seriesQuery = 'SELECT series_name FROM series';
+      const result: any = await query(seriesQuery);
+      const seriesArray: string[] = result.rows.map((row: seriesRow) => {
+        const series_name = row.series_name.replace(
+          /\w\S*/g,
+          function (txt: string) {
+            return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
+          },
+        );
+        return series_name;
+      });
+      res.locals.dbSeriesList = seriesArray;
+      return next();
+    } catch (error) {
+      console.log('Error in getAllSeries: ', error);
       return next(error);
     }
   },
