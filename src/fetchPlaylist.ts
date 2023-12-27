@@ -3,14 +3,14 @@ import { episodeCard } from './APIResponseTypes.js';
 
 const fetchPlaylist: QueryFunction<
   episodeCard,
-  ['genPlaylist', number, boolean, string[]]
+  ['genPlaylist', number, string[], string[]]
 > = async ({ queryKey }) => {
   const playlistLength: number = queryKey[1];
-  const finale: boolean = queryKey[2];
-  const excludedArcs: string = queryKey[3].join(',');
+  const excludedArcs: string = queryKey[2].join(',');
+  const excludedSeries: string = queryKey[3].join(',');
 
   const res = await fetch(
-    `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&finale=${finale}&excludeArcs=${excludedArcs}`,
+    `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}`,
   );
 
   if (!res.ok) {

@@ -1,34 +1,46 @@
 import React, { FC } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { fetchSeriesList } from '../../fetchFormLists';
 
-const SpecifySeries = ({ seriesList }) => {
-  const seriesListResults = useQuery({
-    queryKey: ['series'],
-    queryFn: fetchSeriesList,
-  });
+//backup list, get an error if the any type is not used.
 
-  const dbSeriesList = seriesListResults?.data ?? [];
-
-  console.log(dbSeriesList);
+const SpecifySeries = ({
+  setExcludedseries,
+  excludedSeries,
+  setIncludedSeriesList,
+  includedSeriesList,
+  dbSeriesList,
+}) => {
+  const handleChecked = (checked: boolean, series: string) => {
+    if (!checked) {
+      setExcludedseries([...excludedSeries, series]);
+      setIncludedSeriesList(includedSeriesList.filter(s => s != series));
+    } else {
+      setExcludedseries(excludedSeries.filter(s => s != series));
+      setIncludedSeriesList([...includedSeriesList, series]);
+    }
+  };
 
   return (
-    <div className='dropdown dropdown-right'>
+    <div className='dropdown dropdown-bottom'>
       <div tabIndex={0} className='btn'>
-        Specify Series
+        Series
       </div>
       <ul
         tabIndex={0}
         className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
-        {dbSeriesList.map(series => {
+        {dbSeriesList.map((series: string, index: number) => {
           return (
-            <li key={`series`}>
+            <li key={`${index}+${series}`}>
               <label className='label curser-pointer'>
-                <span>{series}</span>
+                <span id={`${series}`}>{series}</span>
                 <input
                   type='checkbox'
                   className='checkbox'
-                  defaultChecked></input>
+                  value={series}
+                  defaultChecked
+                  onChange={e => {
+                    handleChecked(e.target.checked, e.target.value);
+                  }}
+                />
               </label>
             </li>
           );

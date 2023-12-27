@@ -21,3 +21,7 @@ export interface playlistAPIResponse {
 export interface seriesList {
   series: string[];
 }
+
+export interface seasonSeriesList {
+  seasons: number[];
+}

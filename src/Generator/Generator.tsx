@@ -2,27 +2,12 @@ import React, { useState } from 'react';
 import Carousel from '../Carousel/Carousel';
 import query, { useQuery, useQueryClient } from '@tanstack/react-query';
 import fetchPlaylist from '../fetchPlaylist';
-import fetchArcList from '../fetchArcList';
 import FormContainer from './FormContainer';
 const marceline: string = 'assets/Marceline.png';
 const FinnJakeRelax: string = 'assets/FinnJakeRelax.png';
 const bmo: string = 'arcs/BMO.webp';
 
 // need playlist interface
-const seriesList: string[] = [
-  'Main',
-  'Mini-Series: Stakes',
-  'Mini-Series: Elemental',
-  'Mini-Series: Islands',
-  'Distant Lands',
-  'Fionna And Cake',
-];
-
-const seasonSeries: any = {
-  Main: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  'Distant Lands': [1],
-  'Fionna and Cake': [1, 2],
-};
 
 const arcs: string[] = [
   "Finn's Relationships",
@@ -60,10 +45,11 @@ const Generator = (): JSX.Element => {
   const [excludedArcs, setExcludedArcs] = useState<string[]>([]);
   const [queryType, setQueryType] = useState<boolean>(false); // False is randomly generated, true is chronological
   const [playlistLength, setPlaylistLength] = useState<number>(1);
+  const [excludedSeries, setExcludedseries] = useState<string[]>([]);
   const loggedIn: boolean = false;
 
   const playlistQuery = useQuery({
-    queryKey: ['genPlaylist', playlistLength, finale, excludedArcs],
+    queryKey: ['genPlaylist', playlistLength, excludedArcs, excludedSeries],
     queryFn: fetchPlaylist,
     enabled: false,
   });
@@ -88,13 +74,12 @@ const Generator = (): JSX.Element => {
         <img src={marceline} width='600px' className='mr-10' />
         <div className='flex flex-col items-center'>
           <FormContainer
-            seriesList={seriesList}
             arcs={arcs}
-            seasonSeries={seasonSeries}
             loggedIn={loggedIn}
             queryType={queryType}
             setPlaylistLength={setPlaylistLength}
-            setFinale={setFinale}
+            setExcludedseries={setExcludedseries}
+            excludedSeries={excludedSeries}
           />
           <button
             className='navbar-button self-center text-white text-lg'

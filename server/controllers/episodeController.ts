@@ -29,16 +29,21 @@ const episodeController: EpisodeController = {
   },
   getPlaylist: async (req, res, next) => {
     try {
-      const { finale, playlistLength } = req.query;
+      const { playlistLength, excludedArcs, excludedSeries } = req.query;
       const excludedEpisodes: number[] = [0];
-      finale === 'true' ? null : excludedEpisodes.push(280); // query params in a get are strings
+      // i don't think I need this anymore
+      // finale === 'true' ? null : excludedEpisodes.push(280); // query params in a get are strings
 
       console.log(
         'getPlaylist queried, playlistLength: ',
         playlistLength,
-        'finale: ',
-        finale,
+        'excludedArcs: ',
+        excludedArcs,
+        'excludedSeries: ',
+        excludedSeries,
       );
+
+      // modify query to exlude arcs, series, and seasons.
       const playlistQuery = {
         text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis 
         FROM episodes 
