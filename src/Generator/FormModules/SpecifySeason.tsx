@@ -99,42 +99,55 @@ const SpecifySeason = ({
       </div>
       <ul
         tabIndex={0}
-        className='block overflow-y-scroll p-2 shadow dropdown-content z-[1] bg-base-100 rounded-box h-72 w-52'>
-        {includedSeriesList.map(series => {
-          return (
-            <div key={`${series}`} className='collapse'>
-              <input type='radio' name={`${series}`} checked />
-              <div className='collapse-title shadow'>{series}</div>
-              <div className='collapse-content'>
-                <ul className='rounded-box'>
-                  {dbSeasonsList.map((season, index) => {
-                    if (season.series_name === series) {
-                      return (
-                        <li
-                          key={`${series} + ${season} + ${index}`}
-                          className='w-full btn'>
-                          <label className='label curser-pointer'>
-                            <span className=''>
-                              Season {season.season_number}
-                            </span>
-                            <input
-                              type='checkbox'
-                              className='ml-2 checkbox'
-                              value={season.season_id}
-                              defaultChecked
-                              onChange={e => {
-                                handleChecked(e.target.checked, e.target.value);
-                              }}></input>
-                          </label>
-                        </li>
-                      );
-                    }
-                  })}
-                </ul>
+        className={`block overflow-y-scroll p-2 shadow dropdown-content z-[1] bg-base-100 rounded-box ${
+          includedSeriesList.length ? 'h-72' : 'h-36'
+        } w-52`}>
+        {includedSeriesList.length ? (
+          includedSeriesList.map(series => {
+            return (
+              <div key={`${series}`} className='collapse'>
+                <input type='radio' name={`${series}`} checked />
+                <div className='collapse-title shadow'>{series}</div>
+                <div className='collapse-content'>
+                  <ul className='rounded-box'>
+                    {dbSeasonsList.map((season, index) => {
+                      if (season.series_name === series) {
+                        return (
+                          <li
+                            key={`${series} + ${season} + ${index}`}
+                            className='w-full btn'>
+                            <label className='label curser-pointer'>
+                              <span className=''>
+                                Season {season.season_number}
+                              </span>
+                              <input
+                                type='checkbox'
+                                className='ml-2 checkbox'
+                                value={season.season_id}
+                                defaultChecked
+                                onChange={e => {
+                                  handleChecked(
+                                    e.target.checked,
+                                    e.target.value,
+                                  );
+                                }}></input>
+                            </label>
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <img
+            src='assets/Jake404.png'
+            alt='No Seasons Selected'
+            className='self-center justify-center'
+          />
+        )}
       </ul>
     </div>
   );
