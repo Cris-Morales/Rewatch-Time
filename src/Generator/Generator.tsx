@@ -45,11 +45,18 @@ const Generator = (): JSX.Element => {
   const [excludedArcs, setExcludedArcs] = useState<string[]>([]);
   const [queryType, setQueryType] = useState<boolean>(false); // False is randomly generated, true is chronological
   const [playlistLength, setPlaylistLength] = useState<number>(1);
-  const [excludedSeries, setExcludedseries] = useState<string[]>([]);
+  const [excludedSeries, setExcludedSeries] = useState<string[]>([]);
+  const [excludedSeasons, setExcludedSeasons] = useState<string[]>([]);
   const loggedIn: boolean = false;
 
   const playlistQuery = useQuery({
-    queryKey: ['genPlaylist', playlistLength, excludedArcs, excludedSeries],
+    queryKey: [
+      'genPlaylist',
+      playlistLength,
+      excludedArcs,
+      excludedSeries,
+      excludedSeasons,
+    ],
     queryFn: fetchPlaylist,
     enabled: false,
   });
@@ -78,8 +85,10 @@ const Generator = (): JSX.Element => {
             loggedIn={loggedIn}
             queryType={queryType}
             setPlaylistLength={setPlaylistLength}
-            setExcludedseries={setExcludedseries}
+            setExcludedSeries={setExcludedSeries}
             excludedSeries={excludedSeries}
+            excludedSeasons={excludedSeasons}
+            setExcludedSeasons={setExcludedSeasons}
           />
           <button
             className='navbar-button self-center text-white text-lg'

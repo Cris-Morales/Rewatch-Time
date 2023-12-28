@@ -37,9 +37,9 @@ const ArcsForm = ({ arcs }) => {
       <ul
         tabIndex={0}
         className='block overflow-y-scroll h-96 w-auto p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
-        {arcs.map(arc => {
+        {arcs.map((arc, index) => {
           return (
-            <li className='h-40 w-32'>
+            <li key={`${arc} + ${index}`} className='h-40 w-32'>
               <label className='label curser-pointer flex flex-col items-center justify center text-center'>
                 <span className='flex flex-col items-center'>
                   {arc}

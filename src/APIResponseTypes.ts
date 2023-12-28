@@ -25,3 +25,9 @@ export interface seriesList {
 export interface seasonSeriesList {
   seasons: number[];
 }
+
+export interface seasonsRow {
+  series_name: string;
+  season_number: number;
+  season_id: number;
+}

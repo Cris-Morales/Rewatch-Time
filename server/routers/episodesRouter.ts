@@ -79,10 +79,14 @@ episodesRouter.get(
  * @abstract Get all arcs
  * used for a drop down menu that specifies seasons in the series chosen to exclude
  */
-episodesRouter.get('/seasons', (req: Request, res: Response): Response => {
-  console.log('Success');
-  return res.status(200).send(res.locals.seriesSeasonList);
-});
+episodesRouter.get(
+  '/seasons',
+  episodeController.getAllSeasons,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).send(res.locals.dbSeasonsList);
+  },
+);
 
 // those last 2 routes are a little experimental. I want to play with how the user can
 // add some specifics to their playlist. Sometimes I just want to watch jake episodes

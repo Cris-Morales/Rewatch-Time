@@ -27,7 +27,7 @@ export const fetchSeasonList: QueryFunction<
   seasonSeriesList,
   ['seasons']
 > = async () => {
-  const res = await fetch(`/adventuretime/episodes/seasonseries`);
+  const res = await fetch(`/adventuretime/episodes/seasons`);
 
   if (!res.ok) {
     throw new Error(`Aw buns, arcs fetch not ok.`);

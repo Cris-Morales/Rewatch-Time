@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 //backup list, get an error if the any type is not used.
 
 const SpecifySeries = ({
-  setExcludedseries,
+  setExcludedSeries,
   excludedSeries,
   setIncludedSeriesList,
   includedSeriesList,
@@ -11,10 +11,10 @@ const SpecifySeries = ({
 }) => {
   const handleChecked = (checked: boolean, series: string) => {
     if (!checked) {
-      setExcludedseries([...excludedSeries, series]);
+      setExcludedSeries([...excludedSeries, series]);
       setIncludedSeriesList(includedSeriesList.filter(s => s != series));
     } else {
-      setExcludedseries(excludedSeries.filter(s => s != series));
+      setExcludedSeries(excludedSeries.filter(s => s != series));
       setIncludedSeriesList([...includedSeriesList, series]);
     }
   };
