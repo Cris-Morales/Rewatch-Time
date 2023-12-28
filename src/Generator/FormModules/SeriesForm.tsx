@@ -9,11 +9,12 @@ import { fetchSeriesList } from '../../fetchFormLists';
 const backupSeriesList: any = ['Main', 'Distant Lands', 'Fionna And Cake'];
 
 const SeriesForm = ({
-  arcs,
   setExcludedSeries,
   excludedSeries,
   excludedSeasons,
   setExcludedSeasons,
+  excludedArcs,
+  setExcludedArcs,
 }) => {
   const seriesListResults = useQuery({
     queryKey: ['series'],
@@ -41,7 +42,7 @@ const SeriesForm = ({
         excludedSeasons={excludedSeasons}
         setExcludedSeasons={setExcludedSeasons}
       />
-      <ArcsForm arcs={arcs} />
+      <ArcsForm excludedArcs={excludedArcs} setExcludedArcs={setExcludedArcs} />
     </div>
   );
 };

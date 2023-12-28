@@ -44,7 +44,7 @@ episodesRouter.get(
   '/allEpisodes',
   episodeController.getAllEpisodes,
   (req: Request, res: Response): Response => {
-    console.log('Success');
+    console.log('Get All Episodes Success');
     return res.status(200).send(res.locals.episodeList);
   },
 );
@@ -57,7 +57,7 @@ episodesRouter.get(
   '/arcs',
   episodeController.getAllArcs,
   (req: Request, res: Response): Response => {
-    console.log('Success');
+    // console.log('Get All Arcs Success');
     return res.status(200).send(res.locals.currentArcList);
   },
 );
@@ -70,7 +70,7 @@ episodesRouter.get(
   '/series',
   episodeController.getAllSeries,
   (req: Request, res: Response): Response => {
-    console.log('Success');
+    // console.log('Get All Series Success');
     return res.status(200).send(res.locals.dbSeriesList);
   },
 );
@@ -83,7 +83,7 @@ episodesRouter.get(
   '/seasons',
   episodeController.getAllSeasons,
   (req: Request, res: Response): Response => {
-    console.log('Success');
+    // console.log('Get All Seasons Success');
     return res.status(200).send(res.locals.dbSeasonsList);
   },
 );

@@ -63,17 +63,14 @@ const Generator = (): JSX.Element => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    console.log('before query');
 
     const result = await playlistQuery.refetch();
+
+    console.log(result?.data);
     setPlaylist(result?.data);
     setShowPlatlist(true);
   };
-
-  // when dev if activated. uncomment this
-  // const arcsQuery = useQuery({
-  //   queryKey: ['arcs'],
-  //   queryFn: fetchArcList,
-  // });
 
   return (
     <div className=' bottom-0 left-0 w-screen  bg-blue-950 text-black flex flex-col justify-evenly items-center h-subsection border-2 border-solid border-red-600 font-thunderman'>
@@ -81,7 +78,6 @@ const Generator = (): JSX.Element => {
         <img src={marceline} width='600px' className='mr-10' />
         <div className='flex flex-col items-center'>
           <FormContainer
-            arcs={arcs}
             loggedIn={loggedIn}
             queryType={queryType}
             setPlaylistLength={setPlaylistLength}
@@ -89,6 +85,8 @@ const Generator = (): JSX.Element => {
             excludedSeries={excludedSeries}
             excludedSeasons={excludedSeasons}
             setExcludedSeasons={setExcludedSeasons}
+            excludedArcs={excludedArcs}
+            setExcludedArcs={setExcludedArcs}
           />
           <button
             className='navbar-button self-center text-white text-lg'
@@ -97,7 +95,6 @@ const Generator = (): JSX.Element => {
             value='Submit'
             onClick={handleSubmit}>
             Generate Playlist
-            {/* change to get new playlist after the initial playlist is gotten */}
           </button>
         </div>
         <img src={FinnJakeRelax} width='600px' className='ml-10' />

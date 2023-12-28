@@ -5,7 +5,6 @@ import SelectWatchedForm from './FormModules/SelectWatchedForm.tsx';
 import SpecifyEpisodes from './FormModules/SpecifyEpisodes.tsx';
 
 const FormContainer = ({
-  arcs,
   loggedIn,
   queryType,
   setPlaylistLength,
@@ -13,6 +12,8 @@ const FormContainer = ({
   excludedSeries,
   excludedSeasons,
   setExcludedSeasons,
+  excludedArcs,
+  setExcludedArcs,
 }) => {
   // if not logged in, the form is disabled, but you can remove the disabled form with inspect
   // behind the scenes, if not loged in, we can't let the user make this query.
@@ -61,11 +62,12 @@ const FormContainer = ({
         <SpecifyEpisodes loggedIn={loggedIn} />
       </div>
       <SeriesForm
-        arcs={arcs}
         setExcludedSeries={setExcludedSeries}
         excludedSeries={excludedSeries}
         excludedSeasons={excludedSeasons}
         setExcludedSeasons={setExcludedSeasons}
+        excludedArcs={excludedArcs}
+        setExcludedArcs={setExcludedArcs}
       />
       <SelectWatchedForm />
     </div>

@@ -105,39 +105,33 @@ const SpecifySeason = ({
         {includedSeriesList.length ? (
           includedSeriesList.map(series => {
             return (
-              <div key={`${series}`} className='collapse'>
-                <input type='radio' name={`${series}`} checked />
+              <div key={`${series}`}>
                 <div className='collapse-title shadow'>{series}</div>
-                <div className='collapse-content'>
-                  <ul className='rounded-box'>
-                    {dbSeasonsList.map((season, index) => {
-                      if (season.series_name === series) {
-                        return (
-                          <li
-                            key={`${series} + ${season} + ${index}`}
-                            className='w-full btn'>
-                            <label className='label curser-pointer'>
-                              <span className=''>
-                                Season {season.season_number}
-                              </span>
-                              <input
-                                type='checkbox'
-                                className='ml-2 checkbox'
-                                value={season.season_id}
-                                defaultChecked
-                                onChange={e => {
-                                  handleChecked(
-                                    e.target.checked,
-                                    e.target.value,
-                                  );
-                                }}></input>
-                            </label>
-                          </li>
-                        );
-                      }
-                    })}
-                  </ul>
-                </div>
+                <ul className='rounded-box'>
+                  {dbSeasonsList.map((season, index) => {
+                    if (season.series_name === series) {
+                      return (
+                        <li
+                          key={`${series} + ${season} + ${index}`}
+                          className='w-full btn'>
+                          <label className='label curser-pointer'>
+                            <span className=''>
+                              Season {season.season_number}
+                            </span>
+                            <input
+                              type='checkbox'
+                              className='ml-2 checkbox'
+                              value={season.season_id}
+                              defaultChecked
+                              onChange={e => {
+                                handleChecked(e.target.checked, e.target.value);
+                              }}></input>
+                          </label>
+                        </li>
+                      );
+                    }
+                  })}
+                </ul>
               </div>
             );
           })

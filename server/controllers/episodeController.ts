@@ -25,17 +25,10 @@ interface seasonsRow {
 }
 
 const episodeController: EpisodeController = {
-  getAllEpisodes: async (req, res, next) => {
-    try {
-      console.log('in');
-    } catch (error) {
-      console.error('Error in getAllEpisodes: ', error);
-      return next(error);
-    }
-  },
   getPlaylist: async (req, res, next) => {
     try {
-      const { playlistLength, excludedArcs, excludedSeries } = req.query;
+      const { playlistLength, excludedArcs, excludedSeries, excludedSeasons } =
+        req.query;
       const excludedEpisodes: number[] = [0];
       // i don't think I need this anymore
       // finale === 'true' ? null : excludedEpisodes.push(280); // query params in a get are strings
@@ -47,6 +40,8 @@ const episodeController: EpisodeController = {
         excludedArcs,
         'excludedSeries: ',
         excludedSeries,
+        'excludedSeasons: ',
+        excludedSeasons,
       );
 
       // modify query to exlude arcs, series, and seasons.
@@ -197,6 +192,14 @@ const episodeController: EpisodeController = {
       return next();
     } catch (error) {
       console.log('Error in getAllSeries: ', error);
+      return next(error);
+    }
+  },
+  getAllEpisodes: async (req, res, next) => {
+    try {
+      console.log('in');
+    } catch (error) {
+      console.error('Error in getAllEpisodes: ', error);
       return next(error);
     }
   },

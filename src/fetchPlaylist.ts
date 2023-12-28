@@ -6,12 +6,12 @@ const fetchPlaylist: QueryFunction<
   ['genPlaylist', number, string[], string[], string[]]
 > = async ({ queryKey }) => {
   const playlistLength: number = queryKey[1];
-  const excludedArcs: string = queryKey[2].join(',');
-  const excludedSeries: string = queryKey[3].join(',');
-  const excludedSeasons: string = queryKey[4].join(',');
+  const excludedArcs: string = queryKey[2].join(', ').toLocaleLowerCase();
+  const excludedSeries: string = queryKey[3].join(', ').toLocaleLowerCase();
+  const excludedSeasons: string = queryKey[4].join(', ');
 
   const res = await fetch(
-    `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}`,
+    `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}&excludedSeasons=${excludedSeasons}`,
   );
 
   if (!res.ok) {

@@ -1,4 +1,7 @@
 import React, { FC } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchArcList } from '../../fetchFormLists';
+import { arcs } from '../../APIResponseTypes';
 
 const arcIcons: any = {
   "Finn's Relationships": './arcs/FinnRelationships.webp',
@@ -26,9 +29,26 @@ const arcIcons: any = {
   'The Ghost Lady': './arcs/ghostLady.webp',
   'The Catalyst Comet': './arcs/theComet.png',
   Uncategorized: './arcs/dumbRock.webp',
+  'Stakes Mini-series': './arcs/Stakes_Promo_Art.webp',
+  'Islands Mini-series': './arcs/Islands_Cover_Art.webp',
 };
 
-const ArcsForm = ({ arcs }) => {
+const ArcsForm = ({ excludedArcs, setExcludedArcs }) => {
+  const arcsQueryResults = useQuery({
+    queryKey: ['arcs'],
+    queryFn: fetchArcList,
+  });
+
+  const arcList: any = arcsQueryResults?.data ?? Object.keys(arcIcons);
+
+  const handleChecked = (checked: boolean, series: string) => {
+    if (!checked) {
+      setExcludedArcs([...excludedArcs, series]);
+    } else {
+      setExcludedArcs(excludedArcs.filter(s => s != series));
+    }
+  };
+
   return (
     <div className='dropdown dropdown-bottom mx-2'>
       <div tabIndex={0} className='btn'>
@@ -37,7 +57,7 @@ const ArcsForm = ({ arcs }) => {
       <ul
         tabIndex={0}
         className='block overflow-y-scroll h-96 w-auto p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
-        {arcs.map((arc, index) => {
+        {arcList.map((arc, index) => {
           return (
             <li key={`${arc} + ${index}`} className='h-40 w-32'>
               <label className='label curser-pointer flex flex-col items-center justify center text-center'>
@@ -52,7 +72,11 @@ const ArcsForm = ({ arcs }) => {
                 <input
                   type='checkbox'
                   className='checkbox'
-                  defaultChecked></input>
+                  defaultChecked
+                  value={arc}
+                  onChange={e => {
+                    handleChecked(e.target.checked, e.target.value);
+                  }}></input>
               </label>
             </li>
           );
