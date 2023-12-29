@@ -14,6 +14,7 @@ interface EpisodeController {
 
 interface arcRow {
   arc: string;
+  arc_id: number;
 }
 interface seriesRow {
   series_name: string;
@@ -49,13 +50,21 @@ const episodeController: EpisodeController = {
         text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis 
         FROM episodes 
         JOIN seasons 
-        ON episodes.season_id = seasons.season_id 
-        WHERE episode_id 
-        NOT IN (${excludedEpisodes.join(',')}) 
+        ON episodes.season_id = seasons.season_id  
         ORDER BY RANDOM() 
         LIMIT $1`,
         values: [playlistLength],
       };
+
+      // text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
+      // FROM episodes
+      // JOIN seasons
+      // ON episodes.season_id = seasons.season_id
+      // WHERE episode_id
+      // NOT IN (${excludedEpisodes.join(',')})
+      // ORDER BY RANDOM()
+      // LIMIT $1`,
+      // values: [playlistLength],
 
       const result: any = await query(playlistQuery.text, playlistQuery.values);
       res.locals.playlistData = result.rows;
@@ -139,10 +148,11 @@ const episodeController: EpisodeController = {
   },
   getAllArcs: async (req, res, next) => {
     try {
-      const arcQuery = 'SELECT arc FROM arcs';
+      const arcQuery = 'SELECT arc, arc_id, icon_path FROM arcs';
       const result: any = await query(arcQuery);
       const arcsArray: string[] = result.rows.map((row: arcRow) => {
-        const arc = row.arc.replace(/\w\S*/g, function (txt: string) {
+        const arc = row;
+        row.arc = row.arc.replace(/\w\S*/g, function (txt: string) {
           return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
         });
         return arc;

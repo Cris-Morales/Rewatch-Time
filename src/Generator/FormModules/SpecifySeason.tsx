@@ -137,7 +137,7 @@ const SpecifySeason = ({
           })
         ) : (
           <img
-            src='assets/Jake404.png'
+            src='assets/jake404.png'
             alt='No Seasons Selected'
             className='self-center justify-center'
           />

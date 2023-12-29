@@ -1,5 +1,4 @@
-// import model from './model';
-import { pool, query } from '../server/db/model.js';
+import { query } from '../server/db/model.ts';
 import fs from 'fs';
 
 /**
@@ -7,9 +6,64 @@ import fs from 'fs';
  * Singular Tables.
  */
 
+const arcIcons = {
+  "Finn's Relationships": './arcs/FinnRelationships.webp',
+  "Finn's Origin": './arcs/FinnOrigin.png',
+  "Finn's Swords": './arcs/FinnSwords.webp',
+  "Jake's Relationship": './arcs/jakeAndLady.png',
+  "Jake's Power": './arcs/jakePower.png',
+  'Jake The Dad': './arcs/jakeDad.png',
+  Marceline: './arcs/Marceline.webp',
+  'Princess Bubblegum': './arcs/princessBubblegum.jpg',12
+  'The Ice King': './arcs/IceKing.webp',13
+  Simon: './arcs/Simon.webp',14
+  'Simon And Marcy': './arcs/simonAndMarcy.webp',15
+  Lemongrab: './arcs/Earl.webp',16
+  Bmo: './arcs/BMO.webp',17
+  'Fionna And Cake': './arcs/fionnaAndCake.jpg',18
+  'The Lich': './arcs/Lich.webp',19
+  'Guest Animator': './arcs/guestAnimator.png',21
+  Bubbline: './arcs/bubbline.png',22
+  'Magic Man': './arcs/Magic_man.webp',23
+  'Non-canon': './arcs/nonCanon.png',24
+  'Joshua And Margaret': './arcs/joshuaAndMargaret.png',20
+  Jermaine: './arcs/jermaine.png',25
+  "Finn's Arm": './arcs/finnsArm.png',26
+  'The Ghost Lady': './arcs/ghostLady.webp',27
+  'The Catalyst Comet': './arcs/theComet.png',28
+  // Uncategorized: './arcs/dumbRock.webp',
+  'Stakes Mini-series': './arcs/Stakes_Promo_Art.webp',29
+  'Islands Mini-series': './arcs/Islands_Cover_Art.webp',30
+};
+
+/**
+9	jake the dad	
+10	jake's power	
+11	marceline	
+12	princess bubblegum	
+13	the ice king	
+14	simon	
+15	simon and marcy	
+16	lemongrab	
+17	bmo	
+18	fionna and cake	
+19	the lich	
+20	joshua and margaret	
+21	guest animator	
+22	bubbline	
+23	magic man	
+24	non-canon	
+25	jermaine	
+26	finn's arm	
+27	the ghost lady	
+28	the catalyst comet	
+29	Stakes Mini-Series	
+30	Islands Mini-Series	
+ */
+
 const data = JSON.parse(fs.readFileSync('./server/db/episodes.json'));
-const series: string[] = ['main', 'stakes', 'islands'];
-const seasons: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const series = ['main', 'stakes', 'islands'];
+const seasons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const arcs = [
   "finn's relationships", // every episode that shows, or hints at finn's relationships.
   "finn's destiny", // arm, shoko, the comet, past lives, adult life, afterlife
@@ -40,7 +94,7 @@ const arcs = [
  * @InsertionScripts
  */
 
-const arcData = async (): Promise<void> => {
+const arcData = async () => {
   try {
     for (const arc of arcs) {
       const arcQuery = {
@@ -55,7 +109,7 @@ const arcData = async (): Promise<void> => {
   }
 };
 
-const seriesData = async (): Promise<void> => {
+const seriesData = async () => {
   try {
     for (const name of series) {
       const seriesQuery = {
@@ -70,7 +124,7 @@ const seriesData = async (): Promise<void> => {
   }
 };
 
-const seasonData = async (): Promise<void> => {
+const seasonData = async () => {
   try {
     for (const season of seasons) {
       const seasonQuery = {
@@ -85,7 +139,7 @@ const seasonData = async (): Promise<void> => {
   }
 };
 
-const episodeData = async (): Promise<void> => {
+const episodeData = async () => {
   try {
     let currSeason = -Infinity;
     let seasonEpisode = 1;
@@ -120,7 +174,7 @@ const episodeData = async (): Promise<void> => {
  * Episode_Series Join Table
  */
 
-const esData = async (): Promise<void> => {
+const esData = async () => {
   try {
     for (const episode of data) {
       const esQuery = {
@@ -135,7 +189,7 @@ const esData = async (): Promise<void> => {
   }
 };
 
-const esData2 = async (): Promise<void> => {
+const esData2 = async () => {
   try {
     for (const episode of data.slice(204, 212)) {
       const esQuery = {
@@ -150,12 +204,28 @@ const esData2 = async (): Promise<void> => {
   }
 };
 
-const esData3 = async (): Promise<void> => {
+const esData3 = async () => {
   try {
     for (const episode of data.slice(244, 252)) {
       const esQuery = {
         text: 'INSERT INTO episode_series(series_id, episode_id) VALUES ($1, $2)',
         values: [3, episode.id],
+      };
+      const result = await query(esQuery.text, esQuery.values);
+      console.log('Data inserted:', result.rows);
+    }
+  } catch (error) {
+    console.error('Error inserting data:', error);
+  }
+};
+
+const arcIconData = async () => {
+  try {
+    for (const [arc, path] of Object.entries(arcIcons)) {
+      const lcArc = arc.toLowerCase;
+      const esQuery = {
+        text: 'INSERT INTO arcs(icon_path) VALUES ($1) WHERE arc = $2',
+        values: [path, arc],
       };
       const result = await query(esQuery.text, esQuery.values);
       console.log('Data inserted:', result.rows);
@@ -173,3 +243,7 @@ const esData3 = async (): Promise<void> => {
 // await esData(); // Main Series in many to many relationship
 // await esData2(); // Stakes mini-series
 // await esData3(); //islands miniseries
+
+await arcIconData();
+
+export default arcIcons;
