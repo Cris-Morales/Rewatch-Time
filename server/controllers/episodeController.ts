@@ -29,45 +29,53 @@ const episodeController: EpisodeController = {
   getPlaylist: async (req, res, next) => {
     try {
       const { playlistLength, excludedArcs, excludedSeries, excludedSeasons } =
-        req.query;
-      const excludedEpisodes: number[] = [0];
+        req.body;
+      // const excludedEpisodes: number[] = [0];
       // i don't think I need this anymore
       // finale === 'true' ? null : excludedEpisodes.push(280); // query params in a get are strings
 
-      console.log(
-        'getPlaylist queried, playlistLength: ',
-        playlistLength,
-        'excludedArcs: ',
-        excludedArcs,
-        'excludedSeries: ',
-        excludedSeries,
-        'excludedSeasons: ',
-        excludedSeasons,
+      const excludedSeasonsNum: any[] = excludedSeasons.map((season: string) =>
+        parseInt(season),
       );
+
+      // console.log(
+      //   'getPlaylist queried, playlistLength: ',
+      //   playlistLength,
+      //   'excludedArcs: ', // arc_id
+      //   excludedArcs,
+      //   'excludedSeries: ', // series_name
+      //   excludedSeries,
+      //   'excludedSeasons: ', // seasonId
+      //   excludedSeasonsNum,
+      // );
+
+      const bodyArray: any = [excludedSeasonsNum, [playlistLength]];
+      let paramsNumber = 1;
+      console.log('bodyArray: ', bodyArray);
+
+      const paramsArray: any = bodyArray.map((bodyProperty: any[]) => {
+        return bodyProperty.map(() => {
+          const paramIndex = '$' + `${paramsNumber}`;
+          paramsNumber++;
+          return paramIndex;
+        });
+      });
 
       // modify query to exlude arcs, series, and seasons.
       const playlistQuery = {
-        text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis 
-        FROM episodes 
-        JOIN seasons 
-        ON episodes.season_id = seasons.season_id  
-        ORDER BY RANDOM() 
-        LIMIT $1`,
-        values: [playlistLength],
+        text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
+        FROM episodes
+        JOIN seasons
+        ON episodes.season_id = seasons.season_id
+        WHERE seasons.season_id NOT IN (${paramsArray[0].join(',')})
+        ORDER BY RANDOM()
+        LIMIT ${paramsArray[1][0]}`,
+        values: [...excludedSeasonsNum, playlistLength],
       };
-
-      // text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
-      // FROM episodes
-      // JOIN seasons
-      // ON episodes.season_id = seasons.season_id
-      // WHERE episode_id
-      // NOT IN (${excludedEpisodes.join(',')})
-      // ORDER BY RANDOM()
-      // LIMIT $1`,
-      // values: [playlistLength],
 
       const result: any = await query(playlistQuery.text, playlistQuery.values);
       res.locals.playlistData = result.rows;
+
       return next();
     } catch (error) {
       console.log('Error in getPlaylist: ', error);

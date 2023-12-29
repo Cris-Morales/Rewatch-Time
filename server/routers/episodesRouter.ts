@@ -24,7 +24,7 @@ episodesRouter.get(
 /**
  * @abstract main playlist generator
  */
-episodesRouter.get(
+episodesRouter.post(
   '/genPlaylist',
   episodeController.getPlaylist,
   episodeController.getPlaylistArcs,
