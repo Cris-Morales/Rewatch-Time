@@ -23,7 +23,7 @@ const App = (): JSX.Element => {
           <Navbar />
           <Home />
           <Generator />
-          {/* <EpisodeList /> */}
+          <EpisodeList />
         </QueryClientProvider>
       </div>
       <Footer />

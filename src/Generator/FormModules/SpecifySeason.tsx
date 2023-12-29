@@ -81,8 +81,9 @@ const SpecifySeason = ({
     queryFn: fetchSeasonList,
   });
 
-  const dbSeasonsList: seasonsRow[] =
-    seasonListResults?.data ?? backupSeasonList;
+  // const dbSeasonsList: seasonsRow[] =
+  //   seasonListResults?.data ?? backupSeasonList;
+  const dbSeasonsList: any = seasonListResults?.data ?? [];
 
   const handleChecked = (checked: boolean, season_id: string) => {
     if (!checked) {

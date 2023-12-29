@@ -27,11 +27,11 @@ const SpecifySeries = ({
       <ul
         tabIndex={0}
         className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
-        {dbSeriesList.map((series: string, index: number) => {
+        {dbSeriesList.map((series, index: number) => {
           return (
             <li key={`${index}+${series}`}>
               <label className='label curser-pointer'>
-                <span id={`${series}`}>{series}</span>
+                <span>{series}</span>
                 <input
                   type='checkbox'
                   className='checkbox'

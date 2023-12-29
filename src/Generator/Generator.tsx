@@ -63,11 +63,9 @@ const Generator = (): JSX.Element => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('before query');
 
     const result = await playlistQuery.refetch();
 
-    console.log(result?.data);
     setPlaylist(result?.data);
     setShowPlatlist(true);
   };
@@ -102,7 +100,7 @@ const Generator = (): JSX.Element => {
       {showPlaylist ? (
         <Carousel playlist={playlist} />
       ) : (
-        <div className='flex h-card w-screen justify-center items-center z-10'></div>
+        <div className='flex h-card w-screen justify-center items-center'></div>
       )}
     </div>
   );

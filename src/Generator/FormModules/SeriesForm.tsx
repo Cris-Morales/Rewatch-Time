@@ -22,6 +22,7 @@ const SeriesForm = ({
   });
 
   const dbSeriesList: string[] = seriesListResults?.data ?? backupSeriesList;
+
   const [includedSeriesList, setIncludedSeriesList] =
     useState<string[]>(dbSeriesList);
 
