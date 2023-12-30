@@ -25,9 +25,11 @@ requests or offer suggested features.<br />
 
 | Goals                                                   | Status      |
 | ------------------------------------------------------- | ----------- |
-| Non-user specific, randomized generator MVP: Client     | Complete    |
 | Add styling using tailwind, and daisyUI                 | In Progress |
+| Non-user specific, randomized generator MVP: Client     | Complete    |
 | Non-user specific, randomized generator MVP: Server     | In Progress |
+| User specific, generator MVP: Client                    | On Deck     |
+| User specific, generator MVP: Server                    | On Deck     |
 | Component Animations - Button Scrolling                 | -           |
 | Component Animations - Element Scroll Transitions       | -           |
 | Component Animations - Carousel Scrolling               | -           |
