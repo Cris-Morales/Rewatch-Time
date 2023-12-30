@@ -51,7 +51,8 @@ const ArcsForm = ({ excludedArcs, setExcludedArcs }) => {
             </li>
           );
         })}
-        <li key='uncategorized' className='h-40 w-32'>
+        {/* Extended Feature: Excludes Uncategorized Episodes, meaning the episodes must exist in the episodes_arcs table. */}
+        {/* <li key='uncategorized' className='h-40 w-32'>
           <label className='label curser-pointer flex flex-col items-center justify center text-center'>
             <span className='flex flex-col items-center'>
               Uncategorized
@@ -70,7 +71,7 @@ const ArcsForm = ({ excludedArcs, setExcludedArcs }) => {
                 handleChecked(e.target.checked, e.target.value);
               }}></input>
           </label>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

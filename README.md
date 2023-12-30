@@ -25,7 +25,9 @@ requests or offer suggested features.<br />
 
 | Goals                                                   | Status      |
 | ------------------------------------------------------- | ----------- |
+| Non-user specific, randomized generator MVP: Client     | Complete    |
 | Add styling using tailwind, and daisyUI                 | In Progress |
+| Non-user specific, randomized generator MVP: Server     | In Progress |
 | Component Animations - Button Scrolling                 | -           |
 | Component Animations - Element Scroll Transitions       | -           |
 | Component Animations - Carousel Scrolling               | -           |
@@ -40,6 +42,7 @@ requests or offer suggested features.<br />
 | 404 Component Page                                      | -           |
 | Component Animations - Card Arrangement, Auth Component | -           |
 | Refactor Database Initialization Scripts                | -           |
+|                                                         |             |
 
 ### Phase 2: Testing, Extended Features, More Documentation
 
