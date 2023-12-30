@@ -2,6 +2,11 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { query } from '../db/model.js';
 
 interface EpisodeController {
+  getExcludedArcEpisodes: (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => void;
   getPlaylist: (req: Request, res: Response, next: NextFunction) => void;
   getPlaylistArcs: (req: Request, res: Response, next: NextFunction) => void;
   getPlaylistSeries: (req: Request, res: Response, next: NextFunction) => void;
@@ -26,32 +31,45 @@ interface seasonsRow {
 }
 
 const episodeController: EpisodeController = {
+  getExcludedArcEpisodes: async (req, res, next) => {
+    try {
+      const episodeQuery =
+        'SELECT DISTINCT episodes_arcs.episode_id FROM episodes_arcs JOIN episodes ON episodes.episode_id = episodes_arcs.episode_id JOIN seasons ON episodes.season_id = seasons.season_id WHERE seasons.season_id NOT IN (10,9,8,7,6,5,4) AND episodes_arcs.arc_id IN (1,8) ORDER BY episode_id DESC';
+      return next();
+    } catch (error) {
+      console.log('something went wrong: ', error);
+      return next(error);
+    }
+  },
   getPlaylist: async (req, res, next) => {
     try {
       const { playlistLength, excludedArcs, excludedSeries, excludedSeasons } =
         req.body;
-      // const excludedEpisodes: number[] = [0];
-      // i don't think I need this anymore
-      // finale === 'true' ? null : excludedEpisodes.push(280); // query params in a get are strings
 
       const excludedSeasonsNum: any[] = excludedSeasons.map((season: string) =>
         parseInt(season),
       );
+      const excludedArcsNum: any[] = excludedArcs.map((arc: string) =>
+        parseInt(arc),
+      );
 
-      // console.log(
-      //   'getPlaylist queried, playlistLength: ',
-      //   playlistLength,
-      //   'excludedArcs: ', // arc_id
-      //   excludedArcs,
-      //   'excludedSeries: ', // series_name
-      //   excludedSeries,
-      //   'excludedSeasons: ', // seasonId
-      //   excludedSeasonsNum,
-      // );
+      console.log(
+        'getPlaylist queried, playlistLength: ',
+        playlistLength,
+        'excludedArcs: ', // arc_id
+        excludedArcsNum,
+        'excludedSeries: ', // series_name
+        excludedSeries,
+        'excludedSeasons: ', // seasonId
+        excludedSeasonsNum,
+      );
 
-      const bodyArray: any = [excludedSeasonsNum, [playlistLength]];
+      const bodyArray: any = [
+        excludedSeasonsNum,
+        excludedArcsNum,
+        [playlistLength],
+      ];
       let paramsNumber = 1;
-      console.log('bodyArray: ', bodyArray);
 
       const paramsArray: any = bodyArray.map((bodyProperty: any[]) => {
         return bodyProperty.map(() => {
@@ -63,14 +81,18 @@ const episodeController: EpisodeController = {
 
       // modify query to exlude arcs, series, and seasons.
       const playlistQuery = {
-        text: `SELECT episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
+        text: `SELECT episodes.episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
         FROM episodes
         JOIN seasons
         ON episodes.season_id = seasons.season_id
+        JOIN episodes_arcs
+        ON episodes.episode_id = episodes_arcs.episode_id
         WHERE seasons.season_id NOT IN (${paramsArray[0].join(',')})
+        AND
+        episodes_arcs.arc_id NOT IN (${paramsArray[1].join(',')})
         ORDER BY RANDOM()
-        LIMIT ${paramsArray[1][0]}`,
-        values: [...excludedSeasonsNum, playlistLength],
+        LIMIT ${paramsArray[2][0]}`,
+        values: [...excludedSeasonsNum, ...excludedArcsNum, playlistLength],
       };
 
       const result: any = await query(playlistQuery.text, playlistQuery.values);
