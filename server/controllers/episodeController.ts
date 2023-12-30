@@ -2,6 +2,8 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { query } from '../db/model.js';
 
 interface EpisodeController {
+  preGenPlaylist: (req: Request, res: Response, next: NextFunction) => void;
+
   getExcludedArcEpisodes: (
     req: Request,
     res: Response,
@@ -29,18 +31,97 @@ interface seasonsRow {
   season_number: number;
   season_id: number;
 }
+interface seriesIdRow {
+  series_id: number;
+}
 
 const episodeController: EpisodeController = {
-  getExcludedArcEpisodes: async (req, res, next) => {
+  preGenPlaylist: async (req, res, next) => {
     try {
-      const episodeQuery =
-        'SELECT DISTINCT episodes_arcs.episode_id FROM episodes_arcs JOIN episodes ON episodes.episode_id = episodes_arcs.episode_id JOIN seasons ON episodes.season_id = seasons.season_id WHERE seasons.season_id NOT IN (10,9,8,7,6,5,4) AND episodes_arcs.arc_id IN (1,8) ORDER BY episode_id DESC';
+      const { excludedArcs, excludedSeries, excludedSeasons } = req.body;
+
+      const paramsArray: any = excludedSeries.map(
+        (series: string, index: number) => {
+          const paramIndex = '$' + `${index + 1}`;
+          return paramIndex;
+        },
+      );
+      const esLowerCase = excludedSeries.map((series: string) => {
+        return series.toLocaleLowerCase();
+      });
+
+      const excludedSeriesQuery = {
+        text: `SELECT series_id
+        FROM series
+        WHERE series_name in (${paramsArray.join(',')})`,
+        values: [...esLowerCase],
+      };
+
+      const results: any = await query(
+        excludedSeriesQuery.text,
+        excludedSeriesQuery.values,
+      );
+
+      res.locals.excludedSeasonsNum = excludedSeasons.map((season: string) =>
+        parseInt(season),
+      );
+
+      res.locals.excludedArcsNum = excludedArcs.map((arc: string) =>
+        parseInt(arc),
+      );
+
+      res.locals.excludedSeriesNum = results.rows.map((row: seriesIdRow) => {
+        return row.series_id;
+      });
+
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('something went wrong in preGenPlaylist: ', error);
       return next(error);
     }
   },
+  /**
+   * the preliminary query that gets a list of episodes that contains the excluded arcs, to be passed along to the generate playlist function.
+   * @returns nothing
+   */
+  getExcludedArcEpisodes: async (req, res, next) => {
+    try {
+      const { excludedArcsNum, excludedSeasonsNum } = res.locals;
+
+      const localsArray: any = [excludedSeasonsNum, excludedArcsNum];
+      let paramsNumber = 1;
+
+      const paramsArray: any = localsArray.map((prop: any[]) => {
+        return prop.map(() => {
+          const paramIndex = '$' + `${paramsNumber}`;
+          paramsNumber++;
+          return paramIndex;
+        });
+      });
+
+      const arcsQuery = {
+        text: `SELECT DISTINCT episodes_arcs.episode_id FROM episodes_arcs JOIN episodes ON episodes.episode_id = episodes_arcs.episode_id JOIN seasons ON episodes.season_id = seasons.season_id WHERE seasons.season_id NOT IN (${paramsArray[0].join(
+          ',',
+        )}) AND episodes_arcs.arc_id IN (${paramsArray[1].join(
+          ',',
+        )}) ORDER BY episode_id DESC`,
+        values: [...excludedSeasonsNum, ...excludedArcsNum],
+      };
+
+      const results: any = await query(arcsQuery.text, arcsQuery.values);
+
+      res.locals.excludedEpisodeIds = results.rows;
+
+      return next();
+    } catch (error) {
+      console.log('something went wrong in getExludedArcEpisodes: ', error);
+      return next(error);
+    }
+  },
+
+  /**
+   * the main query that excludes seasons, and series (because they're not many to many)
+   */
   getPlaylist: async (req, res, next) => {
     try {
       const { playlistLength, excludedArcs, excludedSeries, excludedSeasons } =

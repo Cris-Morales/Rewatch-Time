@@ -8,30 +8,19 @@ import episodeController from '../controllers/episodeController';
 const episodesRouter = express.Router();
 
 /**
- * @abstract If the user wants to replace a card in the playlist
- * Is there a way i can just grab the previous list and randomly
- * pull a card from there instead?
- */
-episodesRouter.get(
-  '/card',
-  episodeController.getEpisode,
-  (req: Request, res: Response): Response => {
-    console.log('Success');
-    return res.status(200).send(res.locals.cardData);
-  },
-);
-
-/**
  * @abstract main playlist generator
  */
 episodesRouter.post(
   '/genPlaylist',
+  episodeController.preGenPlaylist,
+  episodeController.getExcludedArcEpisodes,
   episodeController.getPlaylist,
   episodeController.getPlaylistArcs,
   episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('Success');
     return res.status(200).send(res.locals.playlistData);
+    // return res.status(200).send(res.locals);
   },
 );
 
@@ -88,12 +77,18 @@ episodesRouter.get(
   },
 );
 
-// those last 2 routes are a little experimental. I want to play with how the user can
-// add some specifics to their playlist. Sometimes I just want to watch jake episodes
-// sometimes marceline
-// I want to give the user the ability to do that
-// maybe they just want to binge a season
-// idk, I just want to make the algo interesting.
-// the include exclude is the tricky part.
+/**
+ * @abstract If the user wants to replace a card in the playlist
+ * Is there a way i can just grab the previous list and randomly
+ * pull a card from there instead?
+ */
+episodesRouter.get(
+  '/card',
+  episodeController.getEpisode,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).send(res.locals.cardData);
+  },
+);
 
 export default episodesRouter;
