@@ -3,7 +3,7 @@
     "module": "CommonJS",
     "target": "ES6",
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "outDir": "./dist",
     "esModuleInterop": true,
     "lib": ["dom", "es2021"],

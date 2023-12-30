@@ -3,11 +3,11 @@ import { episodeCard } from './APIResponseTypes.js';
 
 const fetchPlaylist: QueryFunction<
   episodeCard,
-  ['genPlaylist', number, number[], number[], string[]]
+  ['genPlaylist', number, string[], string[], string[]]
 > = async ({ queryKey }) => {
   const playlistLength: number = queryKey[1];
-  const excludedArcs: number[] = queryKey[2]; //.join(', ').toLocaleLowerCase();
-  const excludedSeries: number[] = queryKey[3]; //.join(', ').toLocaleLowerCase();
+  const excludedArcs: string[] = queryKey[2]; //.join(', ').toLocaleLowerCase();
+  const excludedSeries: string[] = queryKey[3]; //.join(', ').toLocaleLowerCase();
   const excludedSeasons: string[] = queryKey[4];
 
   // Trying post so I have access to types
