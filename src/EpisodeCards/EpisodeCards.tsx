@@ -23,7 +23,7 @@ const EpisodeCard = ({ episode }): JSX.Element => {
   return (
     //  flex-col items-center text-center h-fit w-96
     <div
-      className='flex flex-col items-center text-center h-card w-card font-thunderman'
+      className='shadow-md flex flex-col items-center text-center h-card w-card font-thunderman mx-1 rounded-lg'
       style={{
         backgroundImage: `url(${bgCardImage})`,
         backgroundRepeat: 'no-repeat',
