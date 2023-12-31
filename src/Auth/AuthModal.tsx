@@ -1,8 +1,9 @@
 import React from 'react';
 
-const authModal = (): JSX.Element => {
+const AuthModal = ({ showModal, setShowModal }): JSX.Element => {
   return (
-    <div className='fixed top-0 left-0 w-screen h-20 m-0 flex justify-between bg-blue-950 text-white shadow-md z-10'>
+    <div className='h-2/5 w-auto flex flex-col justify-center bg-white font-thunderman'>
+      <button className='btn'>Close</button>
       <div className='flex'>
         <div id='auth' className='flex flex-col ml-10 mr-10'>
           <label className='text-center'>Login/Signup</label>
@@ -24,4 +25,4 @@ const authModal = (): JSX.Element => {
   );
 };
 
-export default authModal;
+export default AuthModal;

@@ -21,7 +21,12 @@ const Modal = ({ children }: { children: ReactElement }) => {
     };
   }, []);
 
-  return createPortal(<div>{children}</div>, elRef.current);
+  return createPortal(
+    <div className='bg-black bg-opacity-40 fixed left-0 right-0 bottom-0 top-0 z-30 flex justify-center items-center'>
+      {children}
+    </div>,
+    elRef.current,
+  );
 };
 
 export default Modal;
