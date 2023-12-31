@@ -7,6 +7,9 @@
   .navbar-button {
     @apply relative flex items-center justify-center w-48 m-2 bg-gray-600 hover:bg-blue-500 transition-all rounded-lg font-thunderman;
   }
+  .close-modal-button {
+    @apply relative flex items-center justify-center w-10 h-10 bg-gray-500 hover:bg-gray-400 transition-all rounded-full font-thunderman;
+  }
   .auth-selector {
     @apply relative flex flex-col items-center justify-center w-48 m-2 bg-gray-600 rounded-lg font-thunderman;
   }

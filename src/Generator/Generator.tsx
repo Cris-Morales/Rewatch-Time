@@ -72,9 +72,11 @@ const Generator = (): JSX.Element => {
 
   return (
     <div className=' bottom-0 left-0 w-screen  bg-blue-950 text-black flex flex-col justify-evenly items-center h-subsection border-2 border-solid border-red-600 font-thunderman'>
-      <div className='flex justify-center items-center h-fit'>
-        <img src={marceline} width='600px' className='mr-10' />
-        <div className='flex flex-col items-center'>
+      <div className='flex justify-center items-center h-fit w-full'>
+        <div className='w-1/3'>
+          <img src={marceline} width='auto' />
+        </div>
+        <div className='flex flex-col items-center w-1/3'>
           <FormContainer
             loggedIn={loggedIn}
             queryType={queryType}
@@ -95,7 +97,9 @@ const Generator = (): JSX.Element => {
             Generate Playlist
           </button>
         </div>
-        <img src={FinnJakeRelax} width='600px' className='ml-10' />
+        <div className='ml-10 w-1/3'>
+          <img src={FinnJakeRelax} width='auto' />
+        </div>
       </div>
       {showPlaylist ? (
         <Carousel playlist={playlist} />

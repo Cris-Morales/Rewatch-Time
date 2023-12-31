@@ -19,6 +19,7 @@ module.exports = {
       width: {
         card: '32rem',
         generatorForm: '45rem',
+        authModal: '40rem',
       },
       minWidth: {
         card: '50%',
