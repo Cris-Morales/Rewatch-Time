@@ -76,7 +76,7 @@ const Generator = (): JSX.Element => {
         <div className='flex justify-center w-1/3'>
           <img src={marceline} width='auto' />
         </div>
-        <div className='flex flex-col items-center w-1/3'>
+        <div className='flex flex-col items-center w-1/3 z-10'>
           <FormContainer
             loggedIn={loggedIn}
             queryType={queryType}
@@ -97,7 +97,7 @@ const Generator = (): JSX.Element => {
             Generate Playlist
           </button>
         </div>
-        <div className='ml-10 w-1/3 flex justify-center'>
+        <div className='ml-10 w-1/3 flex justify-center z-0'>
           <img src={FinnJakeRelax} width='90%' />
         </div>
       </div>
