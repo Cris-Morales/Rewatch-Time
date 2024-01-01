@@ -27,22 +27,22 @@ requests or offer suggested features.<br />
 | ------------------------------------------------------- | ----------- |
 | Add styling using tailwind, and daisyUI                 | In Progress |
 | Non-user specific, randomized generator MVP: Client     | Complete    |
-| Non-user specific, randomized generator MVP: Server     | In Progress |
-| User specific, generator MVP: Client                    | On Deck     |
-| User specific, generator MVP: Server                    | On Deck     |
+| Non-user specific, randomized generator MVP: Server     | Complete    |
+| User specific, generator MVP: Client                    | In Progress |
+| User specific, generator MVP: Server                    | In Progress |
+| JWT Authorization Components                            | In Progress |
+| Auth Routes in Depth                                    | In Progress |
+| User Playlist Card Arrangement                          | -           |
+| Full Episode List Components                            | -           |
+| Error Boundaries and Handling                           | -           |
 | Component Animations - Button Scrolling                 | -           |
 | Component Animations - Element Scroll Transitions       | -           |
 | Component Animations - Carousel Scrolling               | -           |
 | Component Animations - Page Loading                     | -           |
-| Error Boundaries and Handling                           | -           |
-| User Playlist Card Arrangement                          | -           |
-| JWT Authorization Components                            | -           |
-| Auth Routes in Depth                                    | -           |
-| Full Episode List Components                            | -           |
+| Component Animations - Card Arrangement, Auth Component | -           |
 | Component Optimization - Lazy Loading Animations        | -           |
 | Component Optimiztation - Query Caching Configurations  | -           |
 | 404 Component Page                                      | -           |
-| Component Animations - Card Arrangement, Auth Component | -           |
 | Refactor Database Initialization Scripts                | -           |
 |                                                         |             |
 
