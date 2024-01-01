@@ -5,7 +5,12 @@ const home: string = '../../assets/TreeFortHomeButton.png';
 // import Modal from './Modal';
 import { useState } from 'react';
 
-const Navbar = ({ showModal, setShowModal }): JSX.Element => {
+const Navbar = ({
+  showModal,
+  setShowModal,
+  authMode,
+  setAuthMode,
+}): JSX.Element => {
   return (
     <div className='fixed top-0 left-0 w-screen h-20 m-0 flex justify-between bg-blue-950 text-white shadow-md z-20'>
       <img src={title} className='mt-2 mb-2 ml-5' />
@@ -20,14 +25,17 @@ const Navbar = ({ showModal, setShowModal }): JSX.Element => {
           <button
             className='auth-event-login'
             onClick={() => {
-              console.log('hello');
+              setAuthMode(true);
               setShowModal(true);
             }}>
             Login
           </button>
           <button
             className='auth-event-signup'
-            onClick={() => setShowModal(true)}>
+            onClick={() => {
+              setAuthMode(false);
+              setShowModal(true);
+            }}>
             Sign Up
           </button>
         </div>

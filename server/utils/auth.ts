@@ -26,6 +26,7 @@ export const protect = (
   const bearer = req.headers.authorization;
 
   console.log('authorizing');
+
   if (!bearer) {
     return res.status(401).json({ message: 'not authorized' });
   }
@@ -39,6 +40,8 @@ export const protect = (
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     res.locals.user = payload;
+
+    console.log('auth success');
     next();
   } catch (error) {
     console.error('error in authorization: ', error);

@@ -6,12 +6,14 @@ import express, {
 } from 'express';
 import episodeController from '../controllers/episodeController';
 const episodesRouter = express.Router();
+import { protect } from '../utils/auth.js';
 
 /**
  * @abstract main playlist generator
  */
 episodesRouter.post(
   '/genPlaylist',
+  protect,
   episodeController.preGenPlaylist,
   episodeController.getExcludedArcEpisodes,
   episodeController.getPlaylist,
@@ -19,6 +21,7 @@ episodesRouter.post(
   episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('Success');
+
     return res.status(200).send(res.locals.playlistData);
     // return res.status(200).send(res.locals);
   },

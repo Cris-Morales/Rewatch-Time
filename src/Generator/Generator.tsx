@@ -4,7 +4,8 @@ import query, { useQuery, useQueryClient } from '@tanstack/react-query';
 import fetchPlaylist from '../fetchPlaylist';
 import FormContainer from './FormContainer';
 const marceline: string = 'assets/Marceline.png';
-const FinnJakeRelax: string = 'assets/FinnJakeRelax.png';
+const finnJakeGlide: string = '../../assets/finnJakeLoginSignUp.png';
+
 const bmo: string = 'arcs/BMO.webp';
 
 // need playlist interface
@@ -67,7 +68,10 @@ const Generator = (): JSX.Element => {
     const result = await playlistQuery.refetch();
 
     setPlaylist(result?.data);
-    setShowPlatlist(true);
+
+    if (result.status === 'success') {
+      setShowPlatlist(true);
+    }
   };
 
   return (
@@ -98,7 +102,7 @@ const Generator = (): JSX.Element => {
           </button>
         </div>
         <div className='ml-10 w-1/3 flex justify-center z-0'>
-          <img src={FinnJakeRelax} width='90%' />
+          <img src={finnJakeGlide} width='90%' />
         </div>
       </div>
       {showPlaylist ? (

@@ -14,16 +14,18 @@ const userController: UserController = {
       const { username, password } = req.body;
 
       const userQuery = {
-        text: 'INSERT INTO users(username, password) VALUES($1, $2)',
+        text: 'INSERT INTO users(username, password) VALUES($1, $2) RETURNING id, username',
         values: [username, await hashPassword(password)],
       };
       // handle if the username already exists
 
       const results: any = await query(userQuery.text, userQuery.values);
-      const user = results.rows[0];
+      const user = results.rows;
 
-      const token = createJWT(user);
-      res.json({ token: token });
+      const token = await createJWT(user);
+
+      res.locals.token = token;
+      next();
     } catch (error) {
       console.error('Error in createNewUser: ', error);
       return next(error);

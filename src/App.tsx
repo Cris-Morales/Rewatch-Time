@@ -20,15 +20,26 @@ const queryClient = new QueryClient({
 
 const App = (): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [authMode, setAuthMode] = useState<boolean>(true);
 
   return (
     <div className='main'>
       <div>
         <QueryClientProvider client={queryClient}>
-          <Navbar showModal={showModal} setShowModal={setShowModal} />
+          <Navbar
+            showModal={showModal}
+            setShowModal={setShowModal}
+            authMode={authMode}
+            setAuthMode={setAuthMode}
+          />
           {showModal ? (
             <Modal>
-              <AuthModal showModal={showModal} setShowModal={setShowModal} />
+              <AuthModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                authMode={authMode}
+                setAuthMode={setAuthMode}
+              />
             </Modal>
           ) : null}
           <Home />

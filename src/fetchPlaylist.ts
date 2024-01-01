@@ -15,7 +15,7 @@ const fetchPlaylist: QueryFunction<
   //   `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}&excludedSeasons=${excludedSeasons}`,
   // );
 
-  const res = await fetch(`/adventuretime/episodes/genPlaylist`, {
+  const res = await fetch(`/api/episodes/genPlaylist`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

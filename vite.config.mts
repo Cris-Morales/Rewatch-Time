@@ -6,12 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/adventuretime': {
+      '/api': {
         target: 'http://localhost:44000/',
         changeOrigin: true,
         secure: false,
         ws: true,
-        rewrite: path => path.replace(/^\/adventuretime/, ''),
+        rewrite: path => path.replace(/^\/api/, ''),
       },
     },
   },
