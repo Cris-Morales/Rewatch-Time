@@ -22,6 +22,7 @@ const AuthModal = ({
   setShowModal,
   authMode,
   setAuthMode,
+  setLoggedIn,
 }): JSX.Element => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -45,6 +46,7 @@ const AuthModal = ({
       });
 
       const data = res.json();
+
       console.log(data);
       return;
     } catch (error) {

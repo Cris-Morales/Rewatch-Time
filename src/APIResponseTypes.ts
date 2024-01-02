@@ -36,3 +36,7 @@ export interface seasonsRow {
   season_number: number;
   season_id: number;
 }
+
+export interface usernameRequest {
+  username: string;
+}

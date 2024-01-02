@@ -9,6 +9,8 @@ import Footer from './Footer/Footer';
 import { useState } from 'react';
 import Modal from './Modal';
 import AuthModal from './Auth/AuthModal';
+import { useQuery } from '@tanstack/react-query';
+import { isLoggedIn } from './authQueries';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +23,14 @@ const queryClient = new QueryClient({
 const App = (): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<boolean>(true);
+  const [loggedIn, setLoggedIn] = useState<boolean>(true); // default false
+
+  // set login state with a query to ther backend
+  // const initialLoginQueryResults = useQuery({
+  //   queryKey: ['initialAuth'],
+  //   queryFn: isLoggedIn,
+  // });
+  // console.log(initialLoginQueryResults) // will set the login state on success
 
   return (
     <div className='main'>
@@ -31,6 +41,8 @@ const App = (): JSX.Element => {
             setShowModal={setShowModal}
             authMode={authMode}
             setAuthMode={setAuthMode}
+            loggedIn={loggedIn}
+            setLoggedIn={setLoggedIn}
           />
           {showModal ? (
             <Modal>
@@ -39,11 +51,12 @@ const App = (): JSX.Element => {
                 setShowModal={setShowModal}
                 authMode={authMode}
                 setAuthMode={setAuthMode}
+                setLoggedIn={setLoggedIn}
               />
             </Modal>
           ) : null}
           <Home />
-          <Generator />
+          <Generator loggedIn={loggedIn} />
           <EpisodeList />
         </QueryClientProvider>
       </div>

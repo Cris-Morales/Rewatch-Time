@@ -1,5 +1,5 @@
 import { QueryFunction } from '@tanstack/react-query';
-import { LoginData } from './APIResponseTypes';
+import { LoginData, usernameRequest } from './APIResponseTypes';
 
 export const signupUser = async ({ username, password }: LoginData) => {
   const res = await fetch(`/api/user/signup`, {
@@ -11,7 +11,30 @@ export const signupUser = async ({ username, password }: LoginData) => {
   });
 
   if (!res.ok) {
-    throw new Error(`Aw buns, cards fetch not ok`);
+    throw new Error(`Error in Sign Up Request`);
+  }
+
+  return res.json();
+};
+
+export const fetchUsername: QueryFunction<
+  usernameRequest,
+  ['username']
+> = async () => {
+  const res = await fetch('/api/user/username');
+
+  if (!res.ok) {
+    throw new Error('Error in Username Request');
+  }
+
+  return res.json();
+};
+
+export const isLoggedIn: QueryFunction<null, ['initialAuth']> = async () => {
+  const res = await fetch('/api/user/username');
+
+  if (!res.ok) {
+    throw new Error('Error in Username Request');
   }
 
   return res.json();

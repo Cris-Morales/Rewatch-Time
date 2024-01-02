@@ -38,7 +38,7 @@ const arcs: string[] = [
   'Uncategorized',
 ];
 
-const Generator = (): JSX.Element => {
+const Generator = ({ loggedIn }): JSX.Element => {
   // const [playlistLength, setPlaylistLength] = useState<number>(0);
   const [playlist, setPlaylist] = useState<any>([]);
   const [finale, setFinale] = useState<boolean>(false);
@@ -48,7 +48,7 @@ const Generator = (): JSX.Element => {
   const [playlistLength, setPlaylistLength] = useState<number>(1);
   const [excludedSeries, setExcludedSeries] = useState<string[]>([]);
   const [excludedSeasons, setExcludedSeasons] = useState<string[]>([]);
-  const loggedIn: boolean = false;
+  // const loggedIn: boolean = false;
 
   const playlistQuery = useQuery({
     queryKey: [
