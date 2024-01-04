@@ -103,7 +103,6 @@ const episodeController: EpisodeController = {
       const { excludedArcsNum, excludedSeasonsNum } = res.locals;
 
       if (excludedArcsNum.length) {
-        console.log('in', excludedArcsNum.length, excludedArcsNum);
         const localsArray: any = [excludedSeasonsNum, excludedArcsNum];
         let paramsNumber = 1;
 
@@ -129,7 +128,7 @@ const episodeController: EpisodeController = {
 
         const results: any = await query(arcsQuery.text, arcsQuery.values);
 
-        res.locals.excludedEpisodeIds = results.rows.map(
+        res.locals.excludedEpisodeIDs = results.rows.map(
           (row: episodeArcIdRow) => {
             return row.episode_id;
           },
@@ -237,7 +236,7 @@ const episodeController: EpisodeController = {
 
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getPlaylistArcs: ', error);
       return next(error);
     }
   },
@@ -270,7 +269,7 @@ const episodeController: EpisodeController = {
 
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getPlaylistSeries: ', error);
       return next(error);
     }
   },
@@ -281,7 +280,7 @@ const episodeController: EpisodeController = {
       res.locals.cardData = result.rows[0];
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getEpisode: ', error);
       return next(error);
     }
   },
@@ -346,7 +345,6 @@ const episodeController: EpisodeController = {
   },
   getAllEpisodes: async (req, res, next) => {
     try {
-      console.log('in');
     } catch (error) {
       console.error('Error in getAllEpisodes: ', error);
       return next(error);

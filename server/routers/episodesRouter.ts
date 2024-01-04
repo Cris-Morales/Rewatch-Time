@@ -13,7 +13,6 @@ import { protect } from '../utils/auth.js';
  */
 episodesRouter.post(
   '/genPlaylist',
-  protect,
   episodeController.preGenPlaylist,
   episodeController.getExcludedArcEpisodes,
   episodeController.getPlaylist,

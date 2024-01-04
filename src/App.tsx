@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 const App = (): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<boolean>(true);
-  const [loggedIn, setLoggedIn] = useState<boolean>(true); // default false
+  const [loggedIn, setLoggedIn] = useState<boolean>(false); // default false
 
   // set login state with a query to ther backend
   // const initialLoginQueryResults = useQuery({
