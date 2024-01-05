@@ -21,7 +21,7 @@ userRouter.post(
       sameSite: 'none',
     });
 
-    return res.status(201).send('success');
+    return res.status(201).json({ message: 'success' });
   },
 );
 
@@ -36,7 +36,7 @@ userRouter.post(
       sameSite: 'none',
     });
 
-    return res.status(201).send('success');
+    return res.status(201).json({ message: 'success' });
   },
 );
 

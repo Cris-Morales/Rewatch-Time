@@ -12,31 +12,40 @@ const AuthModal = ({
   setLoggedIn,
 }): JSX.Element => {
   const [authSuccess, setAuthSuccess] = useState<boolean>(false);
-
+  // cache time should match token time
+  const loginPostMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data, variables, context) => {
+      console.log(data, variables, context);
+    },
+    onError: (data, variables, context) => {
+      console.log(data, variables, context);
+    },
+    // cache time should match token time
+    // mutation key = 'login'
+  });
+  const signupPostMutation = useMutation({
+    mutationFn: signupUser,
+    onError: (data, variables, context) => {
+      console.log(data, variables, context);
+    },
+    onSuccess: (data, variables, context) => {
+      console.log(data, variables, context);
+    },
+    // mutation key = 'signup'
+  });
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const handleSignUp = async e => {
     e.preventDefault();
-
     const username = usernameRef.current?.value || '';
     const password = passwordRef.current?.value || '';
 
-    // handle if string is empty
-
-    try {
-      const results = await signupUser({
-        username,
-        password,
-      });
-
-      console.log(results);
-      setAuthSuccess(true);
-      return;
-    } catch (error) {
-      throw new Error(`Error in signupUser`);
-    }
-    // setShowModal(false);
+    signupPostMutation.mutate({
+      username,
+      password,
+    });
   };
 
   const handleLogIn = async e => {
@@ -44,21 +53,10 @@ const AuthModal = ({
     const username = usernameRef.current?.value || '';
     const password = passwordRef.current?.value || '';
 
-    try {
-      const res = await fetch(`/api/user/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      setAuthSuccess(true);
-      return;
-    } catch (error) {
-      throw new Error(error);
-    }
-    // setShowModal(false);
+    loginPostMutation.mutate({
+      username,
+      password,
+    });
   };
 
   return (
@@ -113,10 +111,7 @@ const AuthModal = ({
         </div>
         <div className='flex flex-col justify-center items-center mt-5'>
           {authSuccess ? (
-            <div
-              className={`${
-                authMode ? 'auth-login-submit' : 'auth-signup-submit'
-              }`}>
+            <div className={`${authMode ? 'psuedo-login' : 'psuedo-signup'}`}>
               Success!
             </div>
           ) : (

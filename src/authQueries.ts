@@ -2,6 +2,7 @@ import { QueryFunction } from '@tanstack/react-query';
 import { LoginData, usernameRequest } from './APIResponseTypes';
 
 export const signupUser = async ({ username, password }: LoginData) => {
+  console.log('in');
   const res = await fetch(`/api/user/signup`, {
     method: 'POST',
     headers: {
@@ -14,20 +15,7 @@ export const signupUser = async ({ username, password }: LoginData) => {
     throw new Error(`Error in Sign Up Request`);
   }
 
-  return res.json();
-};
-
-export const fetchUsername: QueryFunction<
-  usernameRequest,
-  ['username']
-> = async () => {
-  const res = await fetch('/api/user/username');
-
-  if (!res.ok) {
-    throw new Error('Error in Username Request');
-  }
-
-  return res.json();
+  return;
 };
 
 export const loginUser = async ({ username, password }: LoginData) => {
@@ -39,11 +27,21 @@ export const loginUser = async ({ username, password }: LoginData) => {
     body: JSON.stringify({ username, password }),
   });
 
-  const data = res.json();
-  console.log(data);
-
   if (!res.ok) {
     throw new Error(`Error in Sign Up Request`);
+  }
+
+  return;
+};
+
+export const fetchUsername: QueryFunction<
+  usernameRequest,
+  ['username']
+> = async () => {
+  const res = await fetch('/api/user/username');
+
+  if (!res.ok) {
+    throw new Error('Error in Username Request');
   }
 
   return res.json();
