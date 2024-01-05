@@ -30,11 +30,17 @@ export const fetchUsername: QueryFunction<
   return res.json();
 };
 
-export const isLoggedIn: QueryFunction<null, ['initialAuth']> = async () => {
-  const res = await fetch('/api/user/username');
+export const loginUser = async ({ username, password }: LoginData) => {
+  const res = await fetch(`/api/user/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  });
 
   if (!res.ok) {
-    throw new Error('Error in Username Request');
+    throw new Error(`Error in Sign Up Request`);
   }
 
   return res.json();

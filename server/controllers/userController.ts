@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { query } from '../db/model.js';
-import { comparePasswords, hashPassword } from '../utils/auth.js';
-import { createJWT } from '../utils/auth.js';
+import { comparePasswords, hashPassword, createJWT } from '../utils/auth.js';
+import jwt from 'jsonwebtoken';
 
 interface UserController {
   createNewUser: (req: Request, res: Response, next: NextFunction) => void;
-  signInUser: (req: Request, res: Response, next: NextFunction) => void;
+  loginUser: (req: Request, res: Response, next: NextFunction) => void;
+  getUsername: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 const userController: UserController = {
@@ -20,7 +21,7 @@ const userController: UserController = {
       // handle if the username already exists
 
       const results: any = await query(userQuery.text, userQuery.values);
-      const user = results.rows;
+      const user = results.rows[0];
 
       const token = await createJWT(user);
 
@@ -31,7 +32,7 @@ const userController: UserController = {
       return next(error);
     }
   },
-  signInUser: async (req, res, next) => {
+  loginUser: async (req, res, next) => {
     try {
       const { username, password } = req.body;
 
@@ -58,6 +59,16 @@ const userController: UserController = {
       next();
     } catch (error) {
       console.error('Error in sign in controller: ', error);
+      return next(error);
+    }
+  },
+  getUsername: async (req, res, next) => {
+    try {
+      const { id, username } = res.locals.userData;
+      res.locals.user = { id, username };
+      next();
+    } catch (error) {
+      console.error('Error in getUsername: ', error);
       return next(error);
     }
   },

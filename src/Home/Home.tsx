@@ -25,7 +25,7 @@ const Home = (): JSX.Element => {
             height='auto'
             src={finnAndJake}
           />
-          <div className='text-black mb-10 mr-10 ml-10 bg-white px-5 py-5 rounded-3xl font-thunderman w-96'>
+          <div className='text-black mb-10 mr-10 ml-10 bg-white px-5 py-5 rounded-3xl w-96'>
             Adventure Time is a show about a boy named Finn, his best friend
             Jake and their adventures in the land of Ooo. It aired on Cartoon
             Network from 2010 to 2018, with an additional mini-series, "Distant

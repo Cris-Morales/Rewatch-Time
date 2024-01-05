@@ -9,7 +9,7 @@ const PreLoginNav = ({ setAuthMode, setShowModal }): JSX.Element => {
           setAuthMode(true);
           setShowModal(true);
         }}>
-        Login
+        Log In
       </button>
       <button
         className='auth-event-signup'

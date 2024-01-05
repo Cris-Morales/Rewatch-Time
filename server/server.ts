@@ -6,6 +6,7 @@ import process from 'process';
 import userRouter from './routers/userRouter.js';
 import episodesRouter from './routers/episodesRouter.js';
 import { protect } from './utils/auth.js';
+import cookieParser from 'cookie-parser';
 
 interface ServerError {
   log: string;
@@ -20,6 +21,7 @@ const port = 44000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 // unsure if I can do this with vite, just reroute them to the vite server?
 // app.use(express.static(path.resolve(__dirname, '../client')));
 

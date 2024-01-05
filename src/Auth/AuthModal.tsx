@@ -1,21 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { signupUser, loginUser } from '../authQueries';
 const FinnJakeRelax: string = 'assets/FinnJakeRelax.png';
-
-async function signUp(username: string, password: string) {
-  const response = await fetch('/api/user/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  if (!response.ok) {
-    throw new Error('Failed on sign up request');
-  }
-
-  return response.json();
-}
 
 const AuthModal = ({
   showModal,
@@ -27,30 +13,43 @@ const AuthModal = ({
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async e => {
+  const handleSignUp = async e => {
     e.preventDefault();
 
-    const usernameValue = usernameRef.current?.value || '';
-    const passwordValue = passwordRef.current?.value || '';
+    const username = usernameRef.current?.value || '';
+    const password = passwordRef.current?.value || '';
+
+    // handle if string is empty
 
     try {
-      const res = await fetch(`/api/user/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: usernameValue,
-          password: passwordValue,
-        }),
+      const results = await signupUser({
+        username,
+        password,
       });
 
-      const data = res.json();
-
-      console.log(data);
+      console.log(results);
       return;
     } catch (error) {
-      throw new Error(`Aw buns, cards fetch not ok`);
+      throw new Error(`Error in signupUser`);
+    }
+    // setShowModal(false);
+  };
+
+  const handleLogIn = async e => {
+    e.preventDefault();
+    const username = usernameRef.current?.value || '';
+    const password = passwordRef.current?.value || '';
+
+    try {
+      const results = await loginUser({
+        username,
+        password,
+      });
+
+      console.log(results);
+      return;
+    } catch (error) {
+      throw new Error(`Error in loginUser`);
     }
     // setShowModal(false);
   };
@@ -83,7 +82,7 @@ const AuthModal = ({
           Keep track of your watched episodes and favorites!
         </div>
       </div>
-      <form className='' onSubmit={handleSubmit}>
+      <form className='' onSubmit={authMode ? handleLogIn : handleSignUp}>
         <div className='flex flex-col w-full justify-between items-center mb-2'>
           <label className=''>Username</label>
           <input
@@ -111,7 +110,7 @@ const AuthModal = ({
               authMode ? 'auth-login-submit' : 'auth-signup-submit'
             }`}
             typeof='submit'
-            onClick={handleSubmit}>
+            onClick={authMode ? handleLogIn : handleSignUp}>
             {authMode ? 'Log In' : 'Sign Up'}
           </button>
         </div>
@@ -120,6 +119,7 @@ const AuthModal = ({
         <a>
           {authMode ? "Don't have an account? " : 'Already have an account? '}{' '}
           <button
+            className='underline text-cyan-300 hover:text-cyan-100 transition-all'
             onClick={() => {
               setAuthMode(!authMode);
             }}>
