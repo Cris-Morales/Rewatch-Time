@@ -8,8 +8,11 @@ const AuthModal = ({
   setShowModal,
   authMode,
   setAuthMode,
+  loggedIn,
   setLoggedIn,
 }): JSX.Element => {
+  const [authSuccess, setAuthSuccess] = useState<boolean>(false);
+
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -28,6 +31,7 @@ const AuthModal = ({
       });
 
       console.log(results);
+      setAuthSuccess(true);
       return;
     } catch (error) {
       throw new Error(`Error in signupUser`);
@@ -41,15 +45,18 @@ const AuthModal = ({
     const password = passwordRef.current?.value || '';
 
     try {
-      const results = await loginUser({
-        username,
-        password,
+      const res = await fetch(`/api/user/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
       });
 
-      console.log(results);
+      setAuthSuccess(true);
       return;
     } catch (error) {
-      throw new Error(`Error in loginUser`);
+      throw new Error(error);
     }
     // setShowModal(false);
   };
@@ -105,14 +112,23 @@ const AuthModal = ({
           />
         </div>
         <div className='flex flex-col justify-center items-center mt-5'>
-          <button
-            className={`${
-              authMode ? 'auth-login-submit' : 'auth-signup-submit'
-            }`}
-            typeof='submit'
-            onClick={authMode ? handleLogIn : handleSignUp}>
-            {authMode ? 'Log In' : 'Sign Up'}
-          </button>
+          {authSuccess ? (
+            <div
+              className={`${
+                authMode ? 'auth-login-submit' : 'auth-signup-submit'
+              }`}>
+              Success!
+            </div>
+          ) : (
+            <button
+              className={`${
+                authMode ? 'auth-login-submit' : 'auth-signup-submit'
+              }`}
+              typeof='submit'
+              onClick={authMode ? handleLogIn : handleSignUp}>
+              {authMode ? 'Log In' : 'Sign Up'}
+            </button>
+          )}
         </div>
       </form>
       <div className='flex justify-center mt-5'>

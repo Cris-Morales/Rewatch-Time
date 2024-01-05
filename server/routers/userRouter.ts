@@ -11,6 +11,8 @@ const userRouter = express.Router();
 userRouter.post(
   '/signup',
   userController.createNewUser,
+  // after success:
+  // initialized user watched episodes list in database
   (req: Request, res: Response, next: NextFunction): Response => {
     console.log('signup success');
     res.cookie('jwt', res.locals.token, {

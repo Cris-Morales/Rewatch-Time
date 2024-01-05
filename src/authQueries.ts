@@ -39,6 +39,9 @@ export const loginUser = async ({ username, password }: LoginData) => {
     body: JSON.stringify({ username, password }),
   });
 
+  const data = res.json();
+  console.log(data);
+
   if (!res.ok) {
     throw new Error(`Error in Sign Up Request`);
   }

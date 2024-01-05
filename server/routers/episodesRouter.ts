@@ -6,7 +6,6 @@ import express, {
 } from 'express';
 import episodeController from '../controllers/episodeController';
 const episodesRouter = express.Router();
-import { protect } from '../utils/auth.js';
 
 /**
  * @abstract main playlist generator

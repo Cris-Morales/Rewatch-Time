@@ -51,6 +51,7 @@ const App = (): JSX.Element => {
                 setShowModal={setShowModal}
                 authMode={authMode}
                 setAuthMode={setAuthMode}
+                loggedIn={loggedIn}
                 setLoggedIn={setLoggedIn}
               />
             </Modal>
