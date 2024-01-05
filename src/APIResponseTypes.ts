@@ -1,3 +1,8 @@
+export interface LoginData {
+  username: string;
+  password: string;
+}
+
 export interface episodeCard {
   title: string;
   series: string[];
@@ -30,4 +35,8 @@ export interface seasonsRow {
   series_name: string;
   season_number: number;
   season_id: number;
+}
+
+export interface usernameRequest {
+  username: string;
 }

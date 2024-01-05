@@ -6,8 +6,8 @@ const fetchPlaylist: QueryFunction<
   ['genPlaylist', number, string[], string[], string[]]
 > = async ({ queryKey }) => {
   const playlistLength: number = queryKey[1];
-  const excludedArcs: string[] = queryKey[2]; //.join(', ').toLocaleLowerCase();
-  const excludedSeries: string[] = queryKey[3]; //.join(', ').toLocaleLowerCase();
+  const excludedArcs: string[] = queryKey[2];
+  const excludedSeries: string[] = queryKey[3];
   const excludedSeasons: string[] = queryKey[4];
 
   // Trying post so I have access to types
@@ -15,7 +15,7 @@ const fetchPlaylist: QueryFunction<
   //   `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}&excludedSeasons=${excludedSeasons}`,
   // );
 
-  const res = await fetch(`/adventuretime/episodes/genPlaylist`, {
+  const res = await fetch(`/api/episodes/genPlaylist`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const fetchPlaylist: QueryFunction<
   });
 
   if (!res.ok) {
-    throw new Error(`Aw buns, cards fetch not ok`);
+    throw new Error(`Error in fetchPlaylist`);
   }
 
   return res.json();

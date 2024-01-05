@@ -19,6 +19,9 @@ module.exports = {
       width: {
         card: '32rem',
         generatorForm: '45rem',
+        authModal: '40rem',
+        carousel: '97vw',
+        navEdge: '10%',
       },
       minWidth: {
         card: '50%',

@@ -4,7 +4,8 @@ import query, { useQuery, useQueryClient } from '@tanstack/react-query';
 import fetchPlaylist from '../fetchPlaylist';
 import FormContainer from './FormContainer';
 const marceline: string = 'assets/Marceline.png';
-const FinnJakeRelax: string = 'assets/FinnJakeRelax.png';
+const finnJakeGlide: string = '../../assets/finnJakeLoginSignUp.png';
+
 const bmo: string = 'arcs/BMO.webp';
 
 // need playlist interface
@@ -37,7 +38,7 @@ const arcs: string[] = [
   'Uncategorized',
 ];
 
-const Generator = (): JSX.Element => {
+const Generator = ({ loggedIn }): JSX.Element => {
   // const [playlistLength, setPlaylistLength] = useState<number>(0);
   const [playlist, setPlaylist] = useState<any>([]);
   const [finale, setFinale] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const Generator = (): JSX.Element => {
   const [playlistLength, setPlaylistLength] = useState<number>(1);
   const [excludedSeries, setExcludedSeries] = useState<string[]>([]);
   const [excludedSeasons, setExcludedSeasons] = useState<string[]>([]);
-  const loggedIn: boolean = false;
+  // const loggedIn: boolean = false;
 
   const playlistQuery = useQuery({
     queryKey: [
@@ -67,14 +68,19 @@ const Generator = (): JSX.Element => {
     const result = await playlistQuery.refetch();
 
     setPlaylist(result?.data);
-    setShowPlatlist(true);
+
+    if (result.status === 'success') {
+      setShowPlatlist(true);
+    }
   };
 
   return (
-    <div className=' bottom-0 left-0 w-screen  bg-blue-950 text-black flex flex-col justify-evenly items-center h-subsection border-2 border-solid border-red-600 font-thunderman'>
-      <div className='flex justify-center items-center h-fit'>
-        <img src={marceline} width='600px' className='mr-10' />
-        <div className='flex flex-col items-center'>
+    <div className=' bottom-0 left-0 w-screen  bg-blue-950 text-black flex flex-col justify-evenly items-center h-subsection font-thunderman'>
+      <div className='flex justify-between items-center h-fit w-full'>
+        <div className='flex justify-center w-1/3'>
+          <img src={marceline} width='auto' />
+        </div>
+        <div className='flex flex-col items-center w-1/3 z-10'>
           <FormContainer
             loggedIn={loggedIn}
             queryType={queryType}
@@ -95,7 +101,9 @@ const Generator = (): JSX.Element => {
             Generate Playlist
           </button>
         </div>
-        <img src={FinnJakeRelax} width='600px' className='ml-10' />
+        <div className='ml-10 w-1/3 flex justify-center z-0'>
+          <img src={finnJakeGlide} width='90%' />
+        </div>
       </div>
       {showPlaylist ? (
         <Carousel playlist={playlist} />

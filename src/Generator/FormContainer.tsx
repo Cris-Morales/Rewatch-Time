@@ -59,8 +59,8 @@ const FormContainer = ({
           />
           <p className=''>episodes</p>
         </div>
-        <SpecifyEpisodes loggedIn={loggedIn} />
       </div>
+      <SpecifyEpisodes loggedIn={loggedIn} />
       <SeriesForm
         setExcludedSeries={setExcludedSeries}
         excludedSeries={excludedSeries}

@@ -6,7 +6,7 @@ const banner: string = '../../assets/homeBackground.jpg';
 const Home = (): JSX.Element => {
   return (
     <div
-      className='flex justify-center h-section bg-blue-950'
+      className='flex justify-center h-section bg-blue-950 mt-20'
       style={{
         backgroundImage: `linear-gradient(to bottom, transparent 80%, rgb(23 37 84) 90%, rgb(23 37 84) 0%), url(${banner})`,
         backgroundRepeat: 'no-repeat',
@@ -18,17 +18,17 @@ const Home = (): JSX.Element => {
         <div className='font-thunderman text-black text-7xl mt-20'>
           Welcome!
         </div>
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center h-full'>
           <img
-            className='mt-10 mb-10 mx-auto'
+            className='mt-5 mb-10 mx-auto'
             width='500px'
             height='auto'
             src={finnAndJake}
           />
-          <div className='text-black mt-5 mb-10 mr-10 ml-10 bg-white px-5 py-5 w-96 rounded-3xl font-thunderman'>
+          <div className='text-black mb-10 mr-10 ml-10 bg-white px-5 py-5 rounded-3xl w-96'>
             Adventure Time is a show about a boy named Finn, his best friend
             Jake and their adventures in the land of Ooo. It aired on Cartoon
-            Network from 2010 to 2018, with an additional miniseries, "Distant
+            Network from 2010 to 2018, with an additional mini-series, "Distant
             Lands", and a spin-off series "Fionna and Cake" released in 2020 and
             2023 respectively. This app generates a random, or chronological
             playlist for rewatch sessions, for old fans or strangely chaotic new

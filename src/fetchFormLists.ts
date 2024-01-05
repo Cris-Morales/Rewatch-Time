@@ -5,7 +5,7 @@ export const fetchSeriesList: QueryFunction<
   seriesList,
   ['series']
 > = async () => {
-  const res = await fetch(`/adventuretime/episodes/series`);
+  const res = await fetch(`/api/episodes/series`);
 
   if (!res.ok) {
     throw new Error(`Aw buns, series fetch not ok.`);
@@ -14,7 +14,7 @@ export const fetchSeriesList: QueryFunction<
 };
 
 export const fetchArcList: QueryFunction<arcs, ['arcs']> = async () => {
-  const res = await fetch(`/adventuretime/episodes/arcs`);
+  const res = await fetch(`/api/episodes/arcs`);
 
   if (!res.ok) {
     throw new Error(`Aw buns, arcs fetch not ok.`);
@@ -27,7 +27,7 @@ export const fetchSeasonList: QueryFunction<
   seasonSeriesList,
   ['seasons']
 > = async () => {
-  const res = await fetch(`/adventuretime/episodes/seasons`);
+  const res = await fetch(`/api/episodes/seasons`);
 
   if (!res.ok) {
     throw new Error(`Aw buns, arcs fetch not ok.`);

@@ -19,6 +19,7 @@ episodesRouter.post(
   episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('Success');
+
     return res.status(200).send(res.locals.playlistData);
     // return res.status(200).send(res.locals);
   },

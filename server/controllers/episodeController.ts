@@ -43,39 +43,50 @@ const episodeController: EpisodeController = {
     try {
       const { excludedArcs, excludedSeries, excludedSeasons } = req.body;
 
-      const paramsArray: any = excludedSeries.map(
-        (series: string, index: number) => {
-          const paramIndex = '$' + `${index + 1}`;
-          return paramIndex;
-        },
-      );
-      const esLowerCase = excludedSeries.map((series: string) => {
-        return series.toLowerCase();
-      });
+      if (excludedSeries.length) {
+        const paramsArray: any = excludedSeries.map(
+          (series: string, index: number) => {
+            const paramIndex = '$' + `${index + 1}`;
+            return paramIndex;
+          },
+        );
+        const esLowerCase = excludedSeries.map((series: string) => {
+          return series.toLowerCase();
+        });
 
-      const excludedSeriesQuery = {
-        text: `SELECT series_id
-        FROM series
-        WHERE series_name in (${paramsArray.join(',')})`,
-        values: [...esLowerCase],
-      };
+        const excludedSeriesQuery = {
+          text: `SELECT series_id
+          FROM series
+          WHERE series_name in (${paramsArray.join(',')})`,
+          values: [...esLowerCase],
+        };
 
-      const results: any = await query(
-        excludedSeriesQuery.text,
-        excludedSeriesQuery.values,
-      );
+        const results: any = await query(
+          excludedSeriesQuery.text,
+          excludedSeriesQuery.values,
+        );
 
-      res.locals.excludedSeasonsNum = excludedSeasons.map((season: string) =>
-        parseInt(season),
-      );
+        res.locals.excludedSeriesIDs = results.rows.map((row: seriesIdRow) => {
+          return row.series_id;
+        });
+      } else {
+        res.locals.excludedSeriesIDs = [0];
+      }
 
-      res.locals.excludedArcsNum = excludedArcs.map((arc: string) =>
-        parseInt(arc),
-      );
-
-      res.locals.excludedSeriesIDs = results.rows.map((row: seriesIdRow) => {
-        return row.series_id;
-      });
+      if (excludedSeasons.length) {
+        res.locals.excludedSeasonsNum = excludedSeasons.map((season: string) =>
+          parseInt(season),
+        );
+      } else {
+        res.locals.excludedSeasonsNum = [0];
+      }
+      if (excludedArcs.length) {
+        res.locals.excludedArcsNum = excludedArcs.map((arc: string) =>
+          parseInt(arc),
+        );
+      } else {
+        res.locals.excludedArcsNum = [];
+      }
 
       return next();
     } catch (error) {
@@ -91,37 +102,40 @@ const episodeController: EpisodeController = {
     try {
       const { excludedArcsNum, excludedSeasonsNum } = res.locals;
 
-      const localsArray: any = [excludedSeasonsNum, excludedArcsNum];
-      let paramsNumber = 1;
+      if (excludedArcsNum.length) {
+        const localsArray: any = [excludedSeasonsNum, excludedArcsNum];
+        let paramsNumber = 1;
 
-      const paramsArray: any = localsArray.map((prop: any[]) => {
-        return prop.map(() => {
-          const paramIndex = '$' + `${paramsNumber}`;
-          paramsNumber++;
-          return paramIndex;
+        const paramsArray: any = localsArray.map((prop: any[]) => {
+          return prop.map(() => {
+            const paramIndex = '$' + `${paramsNumber}`;
+            paramsNumber++;
+            return paramIndex;
+          });
         });
-      });
 
-      const arcsQuery = {
-        text: `SELECT DISTINCT episodes_arcs.episode_id 
-        FROM episodes_arcs 
-        JOIN episodes ON episodes.episode_id = episodes_arcs.episode_id 
-        JOIN seasons ON episodes.season_id = seasons.season_id 
-        WHERE seasons.season_id NOT IN (${paramsArray[0].join(',')}) 
-        AND episodes_arcs.arc_id IN (${paramsArray[1].join(
-          ',',
-        )}) ORDER BY episode_id DESC`,
-        values: [...excludedSeasonsNum, ...excludedArcsNum],
-      };
+        const arcsQuery = {
+          text: `SELECT DISTINCT episodes_arcs.episode_id 
+          FROM episodes_arcs 
+          JOIN episodes ON episodes.episode_id = episodes_arcs.episode_id 
+          JOIN seasons ON episodes.season_id = seasons.season_id 
+          WHERE seasons.season_id NOT IN (${paramsArray[0].join(',')}) 
+          AND episodes_arcs.arc_id IN (${paramsArray[1].join(
+            ',',
+          )}) ORDER BY episode_id DESC`,
+          values: [...excludedSeasonsNum, ...excludedArcsNum],
+        };
 
-      const results: any = await query(arcsQuery.text, arcsQuery.values);
+        const results: any = await query(arcsQuery.text, arcsQuery.values);
 
-      res.locals.excludedEpisodeIds = results.rows.map(
-        (row: episodeArcIdRow) => {
-          return row.episode_id;
-        },
-      );
-
+        res.locals.excludedEpisodeIDs = results.rows.map(
+          (row: episodeArcIdRow) => {
+            return row.episode_id;
+          },
+        );
+      } else {
+        res.locals.excludedEpisodeIDs = [0];
+      }
       return next();
     } catch (error) {
       console.log('something went wrong in getExludedArcEpisodes: ', error);
@@ -136,24 +150,24 @@ const episodeController: EpisodeController = {
     try {
       const { playlistLength } = req.body;
 
-      const { excludedSeasonsNum, excludedEpisodeIds, excludedSeriesIDs } =
+      const { excludedSeasonsNum, excludedEpisodeIDs, excludedSeriesIDs } =
         res.locals;
 
-      // console.log(
-      //   'getPlaylist queried, playlistLength: ',
-      //   playlistLength,
-      //   'excludedEpisodesArcs: ', // arc_id
-      //   excludedEpisodeIds,
-      //   'excludedSeries: ', // series_name
-      //   excludedSeriesNum,
-      //   'excludedSeasons: ', // seasonId
-      //   excludedSeasonsNum,
-      // );
+      console.log(
+        'getPlaylist queried, playlistLength: ',
+        playlistLength,
+        'excludedEpisodesArcs: ', // arc_id
+        excludedEpisodeIDs,
+        'excludedSeries: ', // series_name
+        excludedSeriesIDs,
+        'excludedSeasons: ', // seasonId
+        excludedSeasonsNum,
+      );
 
       const localsArray: any = [
         excludedSeasonsNum,
         excludedSeriesIDs,
-        excludedEpisodeIds,
+        excludedEpisodeIDs,
         [playlistLength],
       ];
       let paramsNumber = 1;
@@ -184,7 +198,7 @@ const episodeController: EpisodeController = {
         values: [
           ...excludedSeasonsNum,
           ...excludedSeriesIDs,
-          ...excludedEpisodeIds,
+          ...excludedEpisodeIDs,
           playlistLength,
         ],
       };
@@ -222,7 +236,7 @@ const episodeController: EpisodeController = {
 
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getPlaylistArcs: ', error);
       return next(error);
     }
   },
@@ -255,7 +269,7 @@ const episodeController: EpisodeController = {
 
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getPlaylistSeries: ', error);
       return next(error);
     }
   },
@@ -266,7 +280,7 @@ const episodeController: EpisodeController = {
       res.locals.cardData = result.rows[0];
       return next();
     } catch (error) {
-      console.log('something went wrong: ', error);
+      console.log('Error in getEpisode: ', error);
       return next(error);
     }
   },
@@ -331,7 +345,6 @@ const episodeController: EpisodeController = {
   },
   getAllEpisodes: async (req, res, next) => {
     try {
-      console.log('in');
     } catch (error) {
       console.error('Error in getAllEpisodes: ', error);
       return next(error);
