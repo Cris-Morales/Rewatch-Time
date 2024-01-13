@@ -64,8 +64,7 @@ const Footer = (): JSX.Element => {
                 />
               </a>
             </div>
-            Adventure Time Characters and Images are © 2023 Cartoon Network
-            Studios
+            Adventure Time Characters and Images © 2023 Cartoon Network Studios
           </div>
         </div>
       </div>

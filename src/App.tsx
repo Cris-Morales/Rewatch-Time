@@ -10,7 +10,8 @@ import { useState } from 'react';
 import Modal from './Modal';
 import AuthModal from './Auth/AuthModal';
 import { useQuery } from '@tanstack/react-query';
-import { isLoggedIn } from './authQueries';
+import { fetchUsername } from './authQueries';
+import PageContainer from './PageContainer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,43 +25,22 @@ const App = (): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<boolean>(true);
   const [loggedIn, setLoggedIn] = useState<boolean>(false); // default false
-
-  // set login state with a query to ther backend
-  // const initialLoginQueryResults = useQuery({
-  //   queryKey: ['initialAuth'],
-  //   queryFn: isLoggedIn,
-  // });
-  // console.log(initialLoginQueryResults) // will set the login state on success
+  const [username, setUsername] = useState<string>('');
 
   return (
     <div className='main'>
-      <div>
-        <QueryClientProvider client={queryClient}>
-          <Navbar
-            showModal={showModal}
-            setShowModal={setShowModal}
-            authMode={authMode}
-            setAuthMode={setAuthMode}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-          />
-          {showModal ? (
-            <Modal>
-              <AuthModal
-                showModal={showModal}
-                setShowModal={setShowModal}
-                authMode={authMode}
-                setAuthMode={setAuthMode}
-                loggedIn={loggedIn}
-                setLoggedIn={setLoggedIn}
-              />
-            </Modal>
-          ) : null}
-          <Home />
-          <Generator loggedIn={loggedIn} />
-          <EpisodeList />
-        </QueryClientProvider>
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <PageContainer
+          showModal={showModal}
+          setShowModal={setShowModal}
+          authMode={authMode}
+          setAuthMode={setAuthMode}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          username={username}
+          setUsername={setUsername}
+        />
+      </QueryClientProvider>
       <Footer />
     </div>
   );
