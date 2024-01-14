@@ -29,7 +29,7 @@ const Navbar = ({
       </div>
       <div className='flex items-center w-1/4'>
         {loggedIn ? (
-          <PostLoginNav setLoggedIn={setLoggedIn} />
+          <PostLoginNav setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
         ) : (
           <PreLoginNav setAuthMode={setAuthMode} setShowModal={setShowModal} />
         )}

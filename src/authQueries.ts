@@ -1,5 +1,5 @@
 import { QueryFunction } from '@tanstack/react-query';
-import { LoginData, usernameRequest } from './APIResponseTypes';
+import { LoginData, usernameRequest, loginRequest } from './APIResponseTypes';
 
 export const signupUser = async ({ username, password }: LoginData) => {
   console.log('in');
@@ -42,6 +42,19 @@ export const fetchUsername: QueryFunction<
 
   if (!res.ok) {
     throw new Error('Error in Username Request');
+  }
+
+  return res.json();
+};
+
+export const isLoggedIn: QueryFunction<
+  loginRequest,
+  ['isLoggedIn']
+> = async () => {
+  const res = await fetch('/api/user/isLoggedIn');
+
+  if (!res.ok) {
+    throw new Error('Error in Login Request');
   }
 
   return res.json();

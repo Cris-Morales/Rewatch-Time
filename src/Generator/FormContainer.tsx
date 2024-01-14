@@ -15,16 +15,15 @@ const FormContainer = ({
   excludedArcs,
   setExcludedArcs,
 }) => {
-  // if not logged in, the form is disabled, but you can remove the disabled form with inspect
-  // behind the scenes, if not loged in, we can't let the user make this query.
-
   return (
     <div
       id='generator'
       className='text-black h-fit w-generatorForm bg-white p-5 flex flex-col rounded-3xl items-center shadow-lg'>
       <div className='my-1 mx- w-full flex items-center justify-between'>
         <h3 className=' text-2xl'>Playlist Generator</h3>
-        <p>Is Logged In: {loggedIn ? 'true' : 'false'}</p>
+        <p>
+          {loggedIn ? 'user icon here :3' : 'Log in to access all features!'}
+        </p>
       </div>
       <div className='form-control'>
         <label className='label cursor-pointer flex justify-center'>

@@ -7,6 +7,7 @@ interface UserController {
   createNewUser: (req: Request, res: Response, next: NextFunction) => void;
   loginUser: (req: Request, res: Response, next: NextFunction) => void;
   getUsername: (req: Request, res: Response, next: NextFunction) => void;
+  isLoggedIn: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 const userController: UserController = {
@@ -65,7 +66,17 @@ const userController: UserController = {
   getUsername: async (req, res, next) => {
     try {
       const { id, username } = res.locals.userData;
-      res.locals.user = { id, username };
+      res.locals.user = { username };
+      next();
+    } catch (error) {
+      console.error('Error in getUsername: ', error);
+      return next(error);
+    }
+  },
+  isLoggedIn: async (req, res, next) => {
+    try {
+      const { id } = res.locals.userData;
+      res.locals.user = { id };
       next();
     } catch (error) {
       console.error('Error in getUsername: ', error);

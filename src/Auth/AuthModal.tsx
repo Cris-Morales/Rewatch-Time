@@ -16,7 +16,9 @@ const AuthModal = ({
   const loginPostMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data, variables, context) => {
-      console.log(data, variables, context);
+      // console.log(data, variables, context);
+      setLoggedIn(true);
+      setShowModal(false);
     },
     onError: (data, variables, context) => {
       console.log(data, variables, context);
@@ -27,10 +29,13 @@ const AuthModal = ({
   const signupPostMutation = useMutation({
     mutationFn: signupUser,
     onError: (data, variables, context) => {
-      console.log(data, variables, context);
+      // Return some feedback to the user
     },
     onSuccess: (data, variables, context) => {
-      console.log(data, variables, context);
+      // console.log(data, variables, context);
+      setLoggedIn(true);
+      // show feedback, pick user icon
+      setShowModal(false);
     },
     // mutation key = 'signup'
   });

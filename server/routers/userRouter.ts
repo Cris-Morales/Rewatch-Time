@@ -33,7 +33,7 @@ userRouter.post(
     res.cookie('jwt', res.locals.token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: 'lax',
     });
 
     return res.status(201).json({ message: 'success' });
@@ -46,6 +46,16 @@ userRouter.get(
   userController.getUsername,
   (req: Request, res: Response, next: NextFunction): Response => {
     console.log('username success');
+    return res.status(201).json(res.locals.user);
+  },
+);
+
+userRouter.get(
+  '/isLoggedIn',
+  protect,
+  userController.isLoggedIn,
+  (req: Request, res: Response, next: NextFunction): Response => {
+    console.log('user is logged in');
     return res.status(201).json(res.locals.user);
   },
 );

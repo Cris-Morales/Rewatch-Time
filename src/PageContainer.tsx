@@ -10,7 +10,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import AuthModal from './Auth/AuthModal';
 import { useQuery } from '@tanstack/react-query';
-import { fetchUsername } from './authQueries';
+import { isLoggedIn } from './authQueries';
 
 const PageContainer = ({
   showModal,
@@ -22,24 +22,27 @@ const PageContainer = ({
   username,
   setUsername,
 }): JSX.Element => {
-  // set login state with a query to ther backend
-  const loginUsername = useQuery({
-    queryKey: ['username'],
-    queryFn: fetchUsername,
+  // set login state with a query to the backend
+  const userLoginID = useQuery({
+    queryKey: ['isLoggedIn'],
+    queryFn: isLoggedIn,
   });
 
-  if (loginUsername.isLoading) {
-    console.log('loading username');
-  }
+  const id: string = userLoginID.data?.id ?? '';
 
-  if (loginUsername.isError) {
-    console.log('user not logged in');
-  }
-
-  if (loginUsername.data) {
+  if (userLoginID.isSuccess) {
+    console.log(userLoginID.data.id);
     setLoggedIn(true);
-    setUsername(loginUsername.data.username);
   }
+
+  // if (loginUsername.isLoading) {
+  //   // return loading components
+  // }
+
+  // if (loginUsername.isError) {
+  //   // error feedback perhaps
+  //   console.log('error');
+  // }
 
   return (
     <div>

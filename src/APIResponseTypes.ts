@@ -40,3 +40,7 @@ export interface seasonsRow {
 export interface usernameRequest {
   username: string;
 }
+
+export interface loginRequest {
+  id: string;
+}
