@@ -33,7 +33,7 @@ userRouter.post(
     res.cookie('jwt', res.locals.token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
     });
 
     return res.status(201).json({ message: 'success' });

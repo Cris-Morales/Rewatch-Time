@@ -21,28 +21,27 @@ const PageContainer = ({
   setLoggedIn,
   username,
   setUsername,
+  userID,
+  setUserID,
 }): JSX.Element => {
   // set login state with a query to the backend
   const userLoginID = useQuery({
     queryKey: ['isLoggedIn'],
     queryFn: isLoggedIn,
+    retry: false,
   });
 
   const id: string = userLoginID.data?.id ?? '';
 
   if (userLoginID.isSuccess) {
-    console.log(userLoginID.data.id);
+    setUserID(userLoginID.data.id);
     setLoggedIn(true);
   }
 
-  // if (loginUsername.isLoading) {
-  //   // return loading components
-  // }
-
-  // if (loginUsername.isError) {
-  //   // error feedback perhaps
-  //   console.log('error');
-  // }
+  if (userLoginID.isError) {
+    // error feedback perhaps
+    console.log('error');
+  }
 
   return (
     <div>

@@ -24,6 +24,12 @@ const PostLoginNav = ({ setLoggedIn }): JSX.Element => {
   const queryResults =
     usernameQueryResults?.data?.username ?? 'Username Request Error';
 
+  const handleLogOut = () => {
+    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    console.log('check cookie');
+    setLoggedIn(false);
+  };
+
   return (
     <div className='login-card'>
       <span
@@ -35,7 +41,7 @@ const PostLoginNav = ({ setLoggedIn }): JSX.Element => {
       <button
         className='auth-event-logout'
         onClick={() => {
-          setLoggedIn(false);
+          handleLogOut();
         }}>
         Log Out
       </button>

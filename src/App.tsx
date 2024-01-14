@@ -26,6 +26,7 @@ const App = (): JSX.Element => {
   const [authMode, setAuthMode] = useState<boolean>(true);
   const [loggedIn, setLoggedIn] = useState<boolean>(false); // default false
   const [username, setUsername] = useState<string>('');
+  const [userID, setUserID] = useState<string>('');
 
   return (
     <div className='main'>
@@ -39,6 +40,8 @@ const App = (): JSX.Element => {
           setLoggedIn={setLoggedIn}
           username={username}
           setUsername={setUsername}
+          userID={userID}
+          setUserID={setUserID}
         />
       </QueryClientProvider>
       <Footer />

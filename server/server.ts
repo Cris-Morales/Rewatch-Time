@@ -28,9 +28,6 @@ app.use(cookieParser());
 // routes
 app.use('/user', userRouter);
 app.use('/episodes', episodesRouter);
-app.use('/protected', protect, (req: Request, res: Response): Response => {
-  return res.status(200).json('woop woop');
-});
 
 // Handle request to unknown endpoints
 app.use('/', (req: Request, res: Response): Response => {
