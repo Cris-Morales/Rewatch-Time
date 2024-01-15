@@ -22,27 +22,10 @@ const queryClient = new QueryClient({
 });
 
 const App = (): JSX.Element => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [authMode, setAuthMode] = useState<boolean>(true);
-  const [loggedIn, setLoggedIn] = useState<boolean>(false); // default false
-  const [username, setUsername] = useState<string>('');
-  const [userID, setUserID] = useState<string>('');
-
   return (
     <div className='main'>
       <QueryClientProvider client={queryClient}>
-        <PageContainer
-          showModal={showModal}
-          setShowModal={setShowModal}
-          authMode={authMode}
-          setAuthMode={setAuthMode}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-          username={username}
-          setUsername={setUsername}
-          userID={userID}
-          setUserID={setUserID}
-        />
+        <PageContainer />
       </QueryClientProvider>
       <Footer />
     </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-scroll'; // auto scroll user
 import { useState } from 'react';
+import { isLoggedIn } from '../authQueries';
+import { useQuery } from '@tanstack/react-query';
 import PreLoginNav from '../Auth/PreLoginNav';
 import PostLoginNav from '../Auth/PostLoginNav';
 const title: string = '../../assets/logo.png';
@@ -11,8 +13,8 @@ const Navbar = ({
   setShowModal,
   authMode,
   setAuthMode,
-  loggedIn,
-  setLoggedIn,
+  loggedInBool,
+  loggedInQuery,
 }): JSX.Element => {
   return (
     <div className='fixed top-0 left-0 w-screen h-28 flex justify-between items-center bg-blue-950 text-white shadow-md z-20'>
@@ -28,8 +30,8 @@ const Navbar = ({
         <button className='navbar-button'>About This Project</button>
       </div>
       <div className='flex items-center w-1/4'>
-        {loggedIn ? (
-          <PostLoginNav setLoggedIn={setLoggedIn} loggedIn={loggedIn} />
+        {loggedInBool ? (
+          <PostLoginNav loggedInQuery={loggedInQuery} />
         ) : (
           <PreLoginNav setAuthMode={setAuthMode} setShowModal={setShowModal} />
         )}

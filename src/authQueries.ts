@@ -59,3 +59,13 @@ export const isLoggedIn: QueryFunction<
 
   return res.json();
 };
+
+export const logout: QueryFunction<loginRequest, ['logout']> = async () => {
+  const res = await fetch('/api/user/logout');
+
+  if (!res.ok) {
+    throw new Error('Error in Login Request');
+  }
+
+  return res.json();
+};

@@ -5,7 +5,7 @@ import SelectWatchedForm from './FormModules/SelectWatchedForm.tsx';
 import SpecifyEpisodes from './FormModules/SpecifyEpisodes.tsx';
 
 const FormContainer = ({
-  loggedIn,
+  loggedInBool,
   queryType,
   setPlaylistLength,
   setExcludedSeries,
@@ -22,7 +22,9 @@ const FormContainer = ({
       <div className='my-1 mx- w-full flex items-center justify-between'>
         <h3 className=' text-2xl'>Playlist Generator</h3>
         <p>
-          {loggedIn ? 'user icon here :3' : 'Log in to access all features!'}
+          {loggedInBool
+            ? 'user icon here :3'
+            : 'Log in to access all features!'}
         </p>
       </div>
       <div className='form-control'>
@@ -32,10 +34,12 @@ const FormContainer = ({
             id='queryType'
             type='checkbox'
             className='toggle'
-            disabled={!loggedIn}
+            disabled={!loggedInBool}
           />
           <span
-            className={`text-center ml-2 ${loggedIn ? null : 'text-gray-500'}`}>
+            className={`text-center ml-2 ${
+              loggedInBool ? null : 'text-gray-500'
+            }`}>
             Chronologically Playlist
           </span>
         </label>
@@ -59,7 +63,7 @@ const FormContainer = ({
           <p className=''>episodes</p>
         </div>
       </div>
-      <SpecifyEpisodes loggedIn={loggedIn} />
+      <SpecifyEpisodes loggedInBool={loggedInBool} />
       <SeriesForm
         setExcludedSeries={setExcludedSeries}
         excludedSeries={excludedSeries}

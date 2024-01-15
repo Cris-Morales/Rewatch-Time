@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchUsername } from '../authQueries';
+import { fetchUsername, logout } from '../authQueries';
 
-const PostLoginNav = ({ setLoggedIn }): JSX.Element => {
+const PostLoginNav = ({ loggedInQuery }): JSX.Element => {
   // query for username to display here, should probably create a module for this
   const usernameQueryResults = useQuery({
     queryKey: ['username'],
     queryFn: fetchUsername,
+  });
+  const logoutQuery = useQuery({
+    queryKey: ['logout'],
+    queryFn: logout,
+    enabled: false,
   });
 
   if (usernameQueryResults.isLoading) {
@@ -24,10 +29,11 @@ const PostLoginNav = ({ setLoggedIn }): JSX.Element => {
   const queryResults =
     usernameQueryResults?.data?.username ?? 'Username Request Error';
 
-  const handleLogOut = () => {
-    document.cookie = 'jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    console.log('check cookie');
-    setLoggedIn(false);
+  const handleLogOut = async () => {
+    // document.cookie = `jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=None; Secure`;
+    await logoutQuery.refetch();
+    console.log('check cookie: ', document.cookie);
+    await loggedInQuery.refetch();
   };
 
   return (

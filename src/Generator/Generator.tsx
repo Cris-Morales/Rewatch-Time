@@ -38,7 +38,7 @@ const arcs: string[] = [
   'Uncategorized',
 ];
 
-const Generator = ({ loggedIn }): JSX.Element => {
+const Generator = ({ loggedInBool }): JSX.Element => {
   // const [playlistLength, setPlaylistLength] = useState<number>(0);
   const [playlist, setPlaylist] = useState<any>([]);
   const [finale, setFinale] = useState<boolean>(false);
@@ -82,7 +82,7 @@ const Generator = ({ loggedIn }): JSX.Element => {
         </div>
         <div className='flex flex-col items-center w-1/3 z-10'>
           <FormContainer
-            loggedIn={loggedIn}
+            loggedInBool={loggedInBool}
             queryType={queryType}
             setPlaylistLength={setPlaylistLength}
             setExcludedSeries={setExcludedSeries}

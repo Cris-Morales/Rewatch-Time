@@ -60,4 +60,19 @@ userRouter.get(
   },
 );
 
+userRouter.get(
+  '/logout',
+  (req: Request, res: Response, next: NextFunction): Response => {
+    console.log('logging out, clearing jwt cookie');
+
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      expires: new Date(0),
+    });
+    return res.status(200).json('logged out');
+  },
+);
+
 export default userRouter;

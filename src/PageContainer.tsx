@@ -1,46 +1,30 @@
 import React from 'react';
-import { Element } from 'react-scroll';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './Home/Home';
 import Navbar from './Navbar/Navbar';
 import Generator from './Generator/Generator';
 import EpisodeList from './EpisodeList/EpisodeList';
-import Footer from './Footer/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from './Modal';
 import AuthModal from './Auth/AuthModal';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, QueryCache } from '@tanstack/react-query';
 import { isLoggedIn } from './authQueries';
 
-const PageContainer = ({
-  showModal,
-  setShowModal,
-  authMode,
-  setAuthMode,
-  loggedIn,
-  setLoggedIn,
-  username,
-  setUsername,
-  userID,
-  setUserID,
-}): JSX.Element => {
-  // set login state with a query to the backend
-  const userLoginID = useQuery({
+const PageContainer = ({}): JSX.Element => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [authMode, setAuthMode] = useState<boolean>(true);
+  const [username, setUsername] = useState<string | null>(null);
+  var loggedInBool: boolean | null = null;
+  const loggedInQuery = useQuery({
     queryKey: ['isLoggedIn'],
     queryFn: isLoggedIn,
-    retry: false,
+    retry: 0,
   });
 
-  const id: string = userLoginID.data?.id ?? '';
-
-  if (userLoginID.isSuccess) {
-    setUserID(userLoginID.data.id);
-    setLoggedIn(true);
+  if (loggedInQuery.isSuccess) {
+    loggedInBool = true;
   }
-
-  if (userLoginID.isError) {
-    // error feedback perhaps
-    console.log('error');
+  if (loggedInQuery.isError) {
+    loggedInBool = false;
   }
 
   return (
@@ -50,8 +34,8 @@ const PageContainer = ({
         setShowModal={setShowModal}
         authMode={authMode}
         setAuthMode={setAuthMode}
-        loggedIn={loggedIn}
-        setLoggedIn={setLoggedIn}
+        loggedInBool={loggedInBool}
+        loggedInQuery={loggedInQuery}
       />
       {showModal ? (
         <Modal>
@@ -60,13 +44,13 @@ const PageContainer = ({
             setShowModal={setShowModal}
             authMode={authMode}
             setAuthMode={setAuthMode}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
+            loggedInBool={loggedInBool}
+            loggedInQuery={loggedInQuery}
           />
         </Modal>
       ) : null}
       <Home />
-      <Generator loggedIn={loggedIn} />
+      <Generator loggedInBool={loggedInBool} />
       <EpisodeList />
     </div>
   );

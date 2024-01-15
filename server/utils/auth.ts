@@ -28,6 +28,7 @@ export const protect = (
   console.log('authorizing');
 
   if (!bearer) {
+    console.log('not authorized');
     return res.status(401).json({ message: 'not authorized' });
   }
 

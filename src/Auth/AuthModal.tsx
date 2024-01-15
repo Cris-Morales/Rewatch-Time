@@ -8,8 +8,8 @@ const AuthModal = ({
   setShowModal,
   authMode,
   setAuthMode,
-  loggedIn,
-  setLoggedIn,
+  loggedInBool,
+  loggedInQuery,
 }): JSX.Element => {
   const [authSuccess, setAuthSuccess] = useState<boolean>(false);
   // cache time should match token time
@@ -17,15 +17,15 @@ const AuthModal = ({
     mutationFn: loginUser,
     onSuccess: (data, variables, context) => {
       // console.log(data, variables, context);
-      setLoggedIn(true);
+      loggedInQuery.refetch();
       setShowModal(false);
     },
     onError: (data, variables, context) => {
       console.log(data, variables, context);
     },
     // cache time should match token time
-    // mutation key = 'login'
   });
+
   const signupPostMutation = useMutation({
     mutationFn: signupUser,
     onError: (data, variables, context) => {
@@ -33,12 +33,12 @@ const AuthModal = ({
     },
     onSuccess: (data, variables, context) => {
       // console.log(data, variables, context);
-      setLoggedIn(true);
+      loggedInQuery.refetch();
       // show feedback, pick user icon
       setShowModal(false);
     },
-    // mutation key = 'signup'
   });
+
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
