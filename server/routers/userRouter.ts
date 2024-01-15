@@ -14,11 +14,16 @@ userRouter.post(
   // after success:
   // initialized user watched episodes list in database
   (req: Request, res: Response, next: NextFunction): Response => {
-    console.log('signup success');
+    console.log('signup success', req.body.remember);
+    const expires = req.body.remember
+      ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
+      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+
     res.cookie('jwt', res.locals.token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      expires: expires,
     });
 
     return res.status(201).json({ message: 'success' });
@@ -29,11 +34,17 @@ userRouter.post(
   '/login',
   userController.loginUser,
   (req: Request, res: Response, next: NextFunction): Response => {
-    console.log('login success');
+    console.log('login success', req.body.remember);
+    const expirationDate = req.body.remember
+      ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
+      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+
+    console.log(expirationDate);
     res.cookie('jwt', res.locals.token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      expires: expirationDate,
     });
 
     return res.status(201).json({ message: 'success' });

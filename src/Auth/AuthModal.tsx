@@ -12,6 +12,7 @@ const AuthModal = ({
   loggedInQuery,
 }): JSX.Element => {
   const [authSuccess, setAuthSuccess] = useState<boolean>(false);
+  const [remember, setRemember] = useState<boolean>(false);
   // cache time should match token time
   const loginPostMutation = useMutation({
     mutationFn: loginUser,
@@ -50,6 +51,7 @@ const AuthModal = ({
     signupPostMutation.mutate({
       username,
       password,
+      remember,
     });
   };
 
@@ -61,6 +63,7 @@ const AuthModal = ({
     loginPostMutation.mutate({
       username,
       password,
+      remember,
     });
   };
 
@@ -129,6 +132,16 @@ const AuthModal = ({
               {authMode ? 'Log In' : 'Sign Up'}
             </button>
           )}
+        </div>
+        <div className='flex justify-center items-center mt-5'>
+          <span className=''>Remember Me</span>
+          <input
+            type='checkbox'
+            className='ml-3 checkbox checkbox-primary bg-white border-gray-50'
+            onChange={e => {
+              setRemember(e.target.checked);
+            }}
+          />
         </div>
       </form>
       <div className='flex justify-center mt-5'>

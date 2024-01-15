@@ -48,7 +48,6 @@ const Generator = ({ loggedInBool }): JSX.Element => {
   const [playlistLength, setPlaylistLength] = useState<number>(1);
   const [excludedSeries, setExcludedSeries] = useState<string[]>([]);
   const [excludedSeasons, setExcludedSeasons] = useState<string[]>([]);
-  // const loggedIn: boolean = false;
 
   const playlistQuery = useQuery({
     queryKey: [

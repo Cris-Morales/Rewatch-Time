@@ -1,14 +1,18 @@
 import { QueryFunction } from '@tanstack/react-query';
 import { LoginData, usernameRequest, loginRequest } from './APIResponseTypes';
 
-export const signupUser = async ({ username, password }: LoginData) => {
+export const signupUser = async ({
+  username,
+  password,
+  remember,
+}: LoginData) => {
   console.log('in');
   const res = await fetch(`/api/user/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, remember }),
   });
 
   if (!res.ok) {
@@ -18,13 +22,17 @@ export const signupUser = async ({ username, password }: LoginData) => {
   return;
 };
 
-export const loginUser = async ({ username, password }: LoginData) => {
+export const loginUser = async ({
+  username,
+  password,
+  remember,
+}: LoginData) => {
   const res = await fetch(`/api/user/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, remember }),
   });
 
   if (!res.ok) {
