@@ -25,13 +25,13 @@ requests or offer suggested features.<br />
 
 | Goals                                                   | Status      |
 | ------------------------------------------------------- | ----------- |
-| Add styling using tailwind, and daisyUI                 | In Progress |
+| Add styling using tailwind, and daisyUI                 | (Rework Inbound) |
 | Non-user specific, randomized generator MVP: Client     | Complete    |
 | Non-user specific, randomized generator MVP: Server     | Complete    |
 | User specific, generator MVP: Client                    | In Progress |
 | User specific, generator MVP: Server                    | In Progress |
-| JWT Authorization Components                            | In Progress |
-| Auth Routes in Depth                                    | In Progress |
+| JWT Authorization Components                            | Complete |
+| Auth Routes in Depth                                    | Complete |
 | User Playlist Card Arrangement                          | -           |
 | Full Episode List Components                            | -           |
 | Error Boundaries and Handling                           | -           |
