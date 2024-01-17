@@ -17,6 +17,13 @@ interface EpisodeController {
   getAllArcs: (req: Request, res: Response, next: NextFunction) => void;
   getAllSeries: (req: Request, res: Response, next: NextFunction) => void;
   getAllSeasons: (req: Request, res: Response, next: NextFunction) => void;
+  getWatchedEpisodes: (req: Request, res: Response, next: NextFunction) => void;
+  updateWatched: (req: Request, res: Response, next: NextFunction) => void;
+  updateFavorite: (req: Request, res: Response, next: NextFunction) => void;
+  addEpisode: (req: Request, res: Response, next: NextFunction) => void;
+  getCardData: (req: Request, res: Response, next: NextFunction) => void;
+  updateEpisode: (req: Request, res: Response, next: NextFunction) => void;
+  deleteEpisode: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 interface arcRow {
@@ -284,6 +291,7 @@ const episodeController: EpisodeController = {
       return next(error);
     }
   },
+  // change to get playlist arcs
   getAllArcs: async (req, res, next) => {
     try {
       const arcQuery = 'SELECT arc, arc_id, icon_path FROM arcs';
@@ -302,6 +310,7 @@ const episodeController: EpisodeController = {
       return next(error);
     }
   },
+  // change to get playlist series
   getAllSeries: async (req, res, next) => {
     try {
       const seriesQuery = 'SELECT series_name FROM series';
@@ -345,8 +354,68 @@ const episodeController: EpisodeController = {
   },
   getAllEpisodes: async (req, res, next) => {
     try {
+      const allEpisodeQuery = 'SELECT * FROM episodes ORDER BY episode_number';
+      const result: any = await query(allEpisodeQuery);
+      res.locals.episodeList = result.rows;
+      return next();
     } catch (error) {
       console.error('Error in getAllEpisodes: ', error);
+      return next(error);
+    }
+  },
+  getWatchedEpisodes: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in getWatchedEpisodes: ', error);
+      return next(error);
+    }
+  },
+  updateWatched: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in updateWatched: ', error);
+      return next(error);
+    }
+  },
+  updateFavorite: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in updateFavorite: ', error);
+      return next(error);
+    }
+  },
+  addEpisode: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in addEpisode: ', error);
+      return next(error);
+    }
+  },
+  getCardData: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in getCardData: ', error);
+      return next(error);
+    }
+  },
+  updateEpisode: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in updateEpisode: ', error);
+      return next(error);
+    }
+  },
+  deleteEpisode: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in deleteEpisode: ', error);
       return next(error);
     }
   },

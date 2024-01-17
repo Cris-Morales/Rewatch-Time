@@ -5,14 +5,15 @@ import express, {
   RequestHandler,
 } from 'express';
 import userController from '../controllers/userController.js';
+import episodeController from '../controllers/episodeController.js';
 import { protect } from '../utils/auth.js';
 const userRouter = express.Router();
 
 userRouter.post(
   '/signup',
   userController.createNewUser,
-  // after success:
-  // initialized user watched episodes list in database
+  episodeController.getAllEpisodes,
+  userController.initializeWatchList,
   (req: Request, res: Response, next: NextFunction): Response => {
     console.log('signup success', req.body.remember);
     const expires = req.body.remember
@@ -73,6 +74,7 @@ userRouter.get(
 
 userRouter.get(
   '/logout',
+  protect,
   (req: Request, res: Response, next: NextFunction): Response => {
     console.log('logging out, clearing jwt cookie');
 
@@ -83,6 +85,46 @@ userRouter.get(
       expires: new Date(0),
     });
     return res.status(200).json('logged out');
+  },
+);
+
+userRouter.post(
+  '/deleteUser',
+  // returns what the user: id, username of the jwt token request
+  protect,
+  userController.deleteUser,
+
+  (req: Request, res: Response, next: NextFunction): Response => {
+    console.log('logging out, clearing jwt cookie');
+
+    // delete the jwt to log them out of the session.
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      expires: new Date(0),
+    });
+    return res.status(200).json('user deleted, goodbye');
+  },
+);
+
+userRouter.put(
+  '/userIcon',
+  protect,
+  userController.updateUserIcon,
+  (req: Request, res: Response, next: NextFunction): Response => {
+    console.log('user icon updated');
+    return res.status(200).json('success!');
+  },
+);
+
+userRouter.get(
+  '/userIcon',
+  protect,
+  userController.getUserIcon,
+  (req: Request, res: Response, next: NextFunction): Response => {
+    console.log('icon retrieved');
+    return res.status(200).json(res.locals.userIcon);
   },
 );
 
