@@ -2,7 +2,6 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { query } from '../db/model.js';
 import { comparePasswords, hashPassword, createJWT } from '../utils/auth.js';
 import jwt from 'jsonwebtoken';
-import { update } from 'react-spring';
 
 interface UserController {
   createNewUser: (req: Request, res: Response, next: NextFunction) => void;
@@ -17,6 +16,7 @@ interface UserController {
   deleteUser: (req: Request, res: Response, next: NextFunction) => void;
   updateUserIcon: (req: Request, res: Response, next: NextFunction) => void;
   getUserIcon: (req: Request, res: Response, next: NextFunction) => void;
+  rememberUser: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 const userController: UserController = {
@@ -56,7 +56,7 @@ const userController: UserController = {
       }
       next();
     } catch (error) {
-      console.error('Error in createNewUser: ', error);
+      console.error('Error in initializeWatchList: ', error);
       return next(error);
     }
   },
@@ -86,7 +86,7 @@ const userController: UserController = {
       res.locals.token = token;
       next();
     } catch (error) {
-      console.error('Error in sign in controller: ', error);
+      console.error('Error in loginUser: ', error);
       return next(error);
     }
   },
@@ -107,7 +107,7 @@ const userController: UserController = {
       res.locals.user = { id };
       next();
     } catch (error) {
-      console.error('Error in getUsername: ', error);
+      console.error('Error in isLoggedIn: ', error);
       return next(error);
     }
   },
@@ -117,6 +117,7 @@ const userController: UserController = {
       const { username, password } = req.body; // credentials from req body
       const { id } = res.locals.userData; // user ID from jwt payload
 
+      
       const findUserQuery = {
         text: 'SELECT id, username, password FROM users WHERE username = $1',
         values: [username],
@@ -160,24 +161,25 @@ const userController: UserController = {
 
       next();
     } catch (error) {
-      console.error('Error in : ', error);
+      console.error('Error in deleteUser: ', error);
       return next(error);
     }
   },
   updateUserIcon: async (req, res, next) => {
     try {
       const { id } = res.locals.userData;
+      const { iconPath } = req.body
 
       const updateIconQuery = {
-        text: 'UPDATE userIcon FROM users WHERE id = $1',
-        values: [id],
+        text: 'UPDATE users SET userIcon = $1 WHERE id = $2 ',
+        values: [iconPath, id],
       };
 
       await query(updateIconQuery.text, updateIconQuery.values);
 
       next();
     } catch (error) {
-      console.error('Error in : ', error);
+      console.error('Error in updateUserIcon: ', error);
       return next(error);
     }
   },
@@ -198,10 +200,23 @@ const userController: UserController = {
       res.locals.userIcon = results.rows[0];
       next();
     } catch (error) {
-      console.error('Error in : ', error);
+      console.error('Error in getUserIcon: ', error);
       return next(error);
     }
   },
+  rememberUser: async (req, res, next) => {
+    try{
+      const expirationDate = req.body.remember
+      ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
+      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+
+      res.locals.expirationDate = expirationDate
+      next()
+    } catch (error) {
+      console.error('Error in rememberUser: ', error)
+      return next(error)
+    }
+  }
 };
 
 export default userController;

@@ -23,25 +23,17 @@ export const protect = (
   res: Response,
   next: NextFunction,
 ): Response => {
-  const bearer = req.cookies.jwt;
+  const token = req.cookies.jwt;
 
   console.log('authorizing');
-
-  if (!bearer) {
+// testing theme
+  if (!token) {
     console.log('not authorized');
     return res.status(401).json({ message: 'not authorized' });
   }
 
-  // wasn't passing it to the authorization header.
-  // const [, token] = bearer.split(' ');
-
-  // if (!token) {
-  //   return res.status(401).json({ message: 'not authorized' });
-  // }
-
   try {
-    // const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const payload = jwt.verify(bearer, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     res.locals.userData = payload;
 
     console.log('auth success');

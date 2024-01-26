@@ -14,17 +14,16 @@ userRouter.post(
   userController.createNewUser,
   episodeController.getAllEpisodes,
   userController.initializeWatchList,
+  userController.rememberUser,
   (req: Request, res: Response, next: NextFunction): Response => {
-    console.log('signup success', req.body.remember);
-    const expires = req.body.remember
-      ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
-      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    console.log('signup success');
+    const { expirationDate } = res.locals.expirationDate;
 
     res.cookie('jwt', res.locals.token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      expires: expires,
+      expires: expirationDate,
     });
 
     return res.status(201).json({ message: 'success' });
@@ -34,13 +33,11 @@ userRouter.post(
 userRouter.post(
   '/login',
   userController.loginUser,
+  userController.rememberUser,
   (req: Request, res: Response, next: NextFunction): Response => {
-    console.log('login success', req.body.remember);
-    const expirationDate = req.body.remember
-      ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
-      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    const { expirationDate } = res.locals.expirationDate
+    console.log('login success');
 
-    console.log(expirationDate);
     res.cookie('jwt', res.locals.token, {
       httpOnly: true,
       secure: true,
