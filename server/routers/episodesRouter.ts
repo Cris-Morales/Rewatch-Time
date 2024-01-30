@@ -5,6 +5,8 @@ import express, {
   RequestHandler,
 } from 'express';
 import episodeController from '../controllers/episodeController';
+import { protect } from '../utils/auth';
+import userController from '../controllers/userController';
 const episodesRouter = express.Router();
 
 /**
@@ -21,7 +23,6 @@ episodesRouter.get(
     console.log('Success');
 
     return res.status(200).send(res.locals.playlistData);
-    // return res.status(200).send(res.locals);
   },
 );
 
@@ -87,6 +88,118 @@ episodesRouter.get(
   (req: Request, res: Response): Response => {
     console.log('Success');
     return res.status(200).send(res.locals.cardData);
+  },
+);
+
+episodesRouter.put(
+  '/updateEpisodeWatched',
+  protect,
+  episodeController.updateWatched,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.put(
+  '/updateEpisodeFavorite',
+  protect,
+  episodeController.updateFavorite,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.get(
+  '/genUserPlaylist',
+  protect,
+  episodeController.preGenPlaylist,
+  episodeController.getExcludedArcEpisodes,
+  episodeController.getUserPlaylist,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).send(res.locals.playlistData);
+  },
+);
+
+episodesRouter.put(
+  '/userEpisodes',
+  protect,
+  episodeController.getUserEpisodeData,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).json(res.locals.episodeData);
+  },
+);
+
+episodesRouter.post(
+  '/database',
+  protect,
+  episodeController.addEpisode,
+  episodeController.markEpisode,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.get(
+  '/database',
+  protect,
+  episodeController.getEpisodeRequests,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.put(
+  '/database',
+  protect,
+  episodeController.updateEpisode,
+  episodeController.markEpisode,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.delete(
+  '/database',
+  protect,
+  episodeController.deleteEpisode,
+  episodeController.markEpisode,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.get(
+  '/addToUserPlaylist',
+  protect,
+  episodeController.preGenPlaylist,
+  episodeController.addToUserPlaylist,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
+  },
+);
+
+episodesRouter.delete(
+  '/addToPlaylist',
+  episodeController.preGenPlaylist,
+  episodeController.addToPlaylist,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200);
   },
 );
 
