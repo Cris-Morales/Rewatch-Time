@@ -10,7 +10,7 @@ const episodesRouter = express.Router();
 /**
  * @abstract main playlist generator
  */
-episodesRouter.post(
+episodesRouter.get(
   '/genPlaylist',
   episodeController.preGenPlaylist,
   episodeController.getExcludedArcEpisodes,
@@ -27,8 +27,6 @@ episodesRouter.post(
 
 /**
  * @abstract Get all episodes
- * would be great to be able to add episodes from here to the
- * playlist
  */
 episodesRouter.get(
   '/allEpisodes',

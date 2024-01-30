@@ -87,7 +87,6 @@ userRouter.get(
 
 userRouter.post(
   '/deleteUser',
-  // returns what the user: id, username of the jwt token request
   protect,
   userController.deleteUser,
 

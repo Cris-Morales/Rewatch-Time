@@ -1,14 +1,10 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { query } from '../db/model.js';
+import { AsyncResource } from 'async_hooks';
 
 interface EpisodeController {
   preGenPlaylist: (req: Request, res: Response, next: NextFunction) => void;
-
-  getExcludedArcEpisodes: (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => void;
+  getExcludedArcEpisodes: (req: Request, res: Response, next: NextFunction) => void;
   getPlaylist: (req: Request, res: Response, next: NextFunction) => void;
   getPlaylistArcs: (req: Request, res: Response, next: NextFunction) => void;
   getPlaylistSeries: (req: Request, res: Response, next: NextFunction) => void;
@@ -17,13 +13,20 @@ interface EpisodeController {
   getAllArcs: (req: Request, res: Response, next: NextFunction) => void;
   getAllSeries: (req: Request, res: Response, next: NextFunction) => void;
   getAllSeasons: (req: Request, res: Response, next: NextFunction) => void;
+  //---------------------------------------------------------------------------
   getWatchedEpisodes: (req: Request, res: Response, next: NextFunction) => void;
-  updateWatched: (req: Request, res: Response, next: NextFunction) => void;
-  updateFavorite: (req: Request, res: Response, next: NextFunction) => void;
-  addEpisode: (req: Request, res: Response, next: NextFunction) => void;
   getCardData: (req: Request, res: Response, next: NextFunction) => void;
+  addEpisode: (req: Request, res: Response, next: NextFunction) => void;
   updateEpisode: (req: Request, res: Response, next: NextFunction) => void;
   deleteEpisode: (req: Request, res: Response, next: NextFunction) => void;
+  updateWatched: (req: Request, res: Response, next: NextFunction) => void;
+  updateFavorite: (req: Request, res: Response, next: NextFunction) => void;
+  getUserPlaylist: (req: Request, res: Response, next: NextFunction) => void;
+  getUserEpisodeData : (req: Request, res: Response, next: NextFunction) => void;
+  markEpisode: (req: Request, res: Response, next: NextFunction) => void;
+  getEpisodeRequests: (req: Request, res: Response, next: NextFunction) => void;
+  addToUserPlaylist: (req: Request, res: Response, next: NextFunction) => void;
+  addToPlaylist: (req: Request, res: Response, next: NextFunction) => void;
 }
 
 interface arcRow {
@@ -33,7 +36,7 @@ interface arcRow {
 interface seriesRow {
   series_name: string;
 }
-interface seasonsRow {
+interface seasonsData {
   series_name: string;
   season_number: number;
   season_id: number;
@@ -48,47 +51,33 @@ interface episodeArcIdRow {
 const episodeController: EpisodeController = {
   preGenPlaylist: async (req, res, next) => {
     try {
-      const { excludedArcs, excludedSeries, excludedSeasons } = req.body;
+      // all are numbers passed into parameters
+      const excludedSeries = req.query.excludedSeries as string;
+      const excludedSeasons = req.query.excludedSeasons as string;
+      const excludedArcs = req.query.excludedArcs as string;
+
+      const excludedSeriesArray: any[] = excludedSeries.split(',')
+      const excludedSeasonsArray: any[] = excludedSeasons.split(',')
+      const excludedArcsArray: any[] = excludedArcs.split(',')
 
       if (excludedSeries.length) {
-        const paramsArray: any = excludedSeries.map(
-          (series: string, index: number) => {
-            const paramIndex = '$' + `${index + 1}`;
-            return paramIndex;
-          },
-        );
-        const esLowerCase = excludedSeries.map((series: string) => {
-          return series.toLowerCase();
-        });
 
-        const excludedSeriesQuery = {
-          text: `SELECT series_id
-          FROM series
-          WHERE series_name in (${paramsArray.join(',')})`,
-          values: [...esLowerCase],
-        };
-
-        const results: any = await query(
-          excludedSeriesQuery.text,
-          excludedSeriesQuery.values,
-        );
-
-        res.locals.excludedSeriesIDs = results.rows.map((row: seriesIdRow) => {
-          return row.series_id;
+        res.locals.excludedSeriesIDs = excludedSeriesArray.map((series: string) => {
+          parseInt(series);
         });
       } else {
         res.locals.excludedSeriesIDs = [0];
       }
 
       if (excludedSeasons.length) {
-        res.locals.excludedSeasonsNum = excludedSeasons.map((season: string) =>
+        res.locals.excludedSeasonsNum = excludedSeasonsArray.map((season: string) =>
           parseInt(season),
         );
       } else {
         res.locals.excludedSeasonsNum = [0];
       }
       if (excludedArcs.length) {
-        res.locals.excludedArcsNum = excludedArcs.map((arc: string) =>
+        res.locals.excludedArcsNum = excludedArcsArray.map((arc: string) =>
           parseInt(arc),
         );
       } else {
@@ -149,10 +138,6 @@ const episodeController: EpisodeController = {
       return next(error);
     }
   },
-
-  /**
-   * the main query that excludes seasons, and series (because they're not many to many)
-   */
   getPlaylist: async (req, res, next) => {
     try {
       const { playlistLength } = req.body;
@@ -291,7 +276,6 @@ const episodeController: EpisodeController = {
       return next(error);
     }
   },
-  // change to get playlist arcs
   getAllArcs: async (req, res, next) => {
     try {
       const arcQuery = 'SELECT arc, arc_id, icon_path FROM arcs';
@@ -310,7 +294,6 @@ const episodeController: EpisodeController = {
       return next(error);
     }
   },
-  // change to get playlist series
   getAllSeries: async (req, res, next) => {
     try {
       const seriesQuery = 'SELECT series_name FROM series';
@@ -419,9 +402,55 @@ const episodeController: EpisodeController = {
       return next(error);
     }
   },
+  getUserPlaylist: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in : ', error);
+      return next(error);
+    }
+  },
+  getUserEpisodeData: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in : ', error);
+      return next(error);
+    }
+  },
+  markEpisode: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in : ', error);
+      return next(error);
+    }
+  },
+  getEpisodeRequests: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in : ', error);
+      return next(error);
+    }
+  },
+  addToPlaylist: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in : ', error);
+      return next(error);
+    }
+  },
+  addToUserPlaylist: async (req, res, next) => {
+    try {
+      next();
+    } catch (error) {
+      console.error('Error in : ', error);
+      return next(error);
+    }
+  },
 };
 
-// Need seperate queries, otherwise, I'll get multiple rows of the same episode
-//
 
 export default episodeController;

@@ -155,7 +155,7 @@ const userController: UserController = {
       }
 
       // senario 3: user_id matched, password is correct, this is the user and they want to delete their account
-      // query to delete this user
+      // query to delete this user using the token's id
       await query(deleteUserQuery1.text, deleteUserQuery1.values);
       await query(deleteUserQuery2.text, deleteUserQuery2.values);
 
