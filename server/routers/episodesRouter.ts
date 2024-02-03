@@ -10,7 +10,7 @@ import userController from '../controllers/userController';
 const episodesRouter = express.Router();
 
 /**
- * @abstract main playlist generator
+ * @abstract main playlist generator for anonymous user
  */
 episodesRouter.get(
   '/genPlaylist',
@@ -28,6 +28,7 @@ episodesRouter.get(
 
 /**
  * @abstract Get all episodes
+ * need to add the playlist arcs, and series to this to get the same data as the episode cards
  */
 episodesRouter.get(
   '/allEpisodes',
@@ -65,7 +66,7 @@ episodesRouter.get(
 );
 
 /**
- * @abstract Get all arcs
+ * @abstract Get all seasons
  * used for a drop down menu that specifies seasons in the series chosen to exclude
  */
 episodesRouter.get(
@@ -78,39 +79,35 @@ episodesRouter.get(
 );
 
 /**
- * @abstract If the user wants to replace a card in the playlist
- * Is there a way i can just grab the previous list and randomly
- * pull a card from there instead?
+ * @abstract update user's singular episode watched column
  */
-episodesRouter.get(
-  '/card',
-  episodeController.getEpisode,
-  (req: Request, res: Response): Response => {
-    console.log('Success');
-    return res.status(200).send(res.locals.cardData);
-  },
-);
-
 episodesRouter.put(
   '/updateEpisodeWatched',
   protect,
   episodeController.updateWatched,
   (req: Request, res: Response): Response => {
-    console.log('Success');
+    console.log('Success: User Episode Data Updated');
     return res.status(200);
   },
 );
 
+/**
+ * @abstract update user's singular episode favorite column
+ */
 episodesRouter.put(
   '/updateEpisodeFavorite',
   protect,
   episodeController.updateFavorite,
   (req: Request, res: Response): Response => {
     console.log('Success');
+    console.log('Success: User Episode Data Updated');
     return res.status(200);
   },
 );
 
+/**
+ * @abstract generate a playlist for a logged in user
+ */
 episodesRouter.get(
   '/genUserPlaylist',
   protect,
@@ -125,15 +122,35 @@ episodesRouter.get(
   },
 );
 
-episodesRouter.put(
+/**
+ * @abstract get list of user's full episode data
+ */
+episodesRouter.get(
   '/userEpisodes',
   protect,
   episodeController.getUserEpisodeData,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('Success');
-    return res.status(200).json(res.locals.episodeData);
+    return res.status(200).json(res.locals.playlistData);
   },
 );
+
+/**
+ * @abstract get list of user's watched episodes
+ */
+episodesRouter.get(
+  '/userWatchedEpisodes',
+  protect,
+  episodeController.getWatchedEpisodes,
+  episodeController.getPlaylistArcs,
+  episodeController.getPlaylistSeries,
+  (req: Request, res: Response): Response => {
+    console.log('Success');
+    return res.status(200).json(res.locals.playlistData);
+  },
+)
 
 episodesRouter.post(
   '/database',
@@ -181,26 +198,21 @@ episodesRouter.delete(
 episodesRouter.get(
   '/addToUserPlaylist',
   protect,
-  episodeController.preGenPlaylist,
-  episodeController.addToUserPlaylist,
-  episodeController.getPlaylistArcs,
-  episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('Success');
     return res.status(200);
   },
 );
 
-episodesRouter.delete(
+episodesRouter.get(
   '/addToPlaylist',
-  episodeController.preGenPlaylist,
-  episodeController.addToPlaylist,
-  episodeController.getPlaylistArcs,
-  episodeController.getPlaylistSeries,
+  protect,
   (req: Request, res: Response): Response => {
     console.log('Success');
     return res.status(200);
   },
 );
+
+
 
 export default episodesRouter;
