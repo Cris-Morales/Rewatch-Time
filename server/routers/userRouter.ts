@@ -85,7 +85,7 @@ userRouter.get(
   },
 );
 
-userRouter.post(
+userRouter.delete(
   '/deleteUser',
   protect,
   userController.deleteUser,

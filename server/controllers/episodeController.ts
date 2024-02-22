@@ -1,6 +1,5 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { query } from '../db/model.js';
-import { AsyncResource } from 'async_hooks';
 
 interface EpisodeController {
   preGenPlaylist: (req: Request, res: Response, next: NextFunction) => void;
@@ -13,15 +12,14 @@ interface EpisodeController {
   getAllArcs: (req: Request, res: Response, next: NextFunction) => void;
   getAllSeries: (req: Request, res: Response, next: NextFunction) => void;
   getAllSeasons: (req: Request, res: Response, next: NextFunction) => void;
-  //---------------------------------------------------------------------------
+  getUserEpisodeData: (req: Request, res: Response, next: NextFunction) => void;
   getWatchedEpisodes: (req: Request, res: Response, next: NextFunction) => void;
+  updateWatched: (req: Request, res: Response, next: NextFunction) => void;
+  updateFavorite: (req: Request, res: Response, next: NextFunction) => void;
   addEpisode: (req: Request, res: Response, next: NextFunction) => void;
   updateEpisode: (req: Request, res: Response, next: NextFunction) => void;
   deleteEpisode: (req: Request, res: Response, next: NextFunction) => void;
-  updateWatched: (req: Request, res: Response, next: NextFunction) => void;
-  updateFavorite: (req: Request, res: Response, next: NextFunction) => void;
   getUserPlaylist: (req: Request, res: Response, next: NextFunction) => void;
-  getUserEpisodeData: (req: Request, res: Response, next: NextFunction) => void;
   addToUserPlaylist: (req: Request, res: Response, next: NextFunction) => void;
   addToPlaylist: (req: Request, res: Response, next: NextFunction) => void;
   //---------------------------------------------------------------------------
@@ -60,6 +58,17 @@ interface seasonsRow {
   season_id: number;
 }
 
+interface episodeColumns {
+  episode_number: string | null;
+  title: string | null;
+  synopsis: string | null;
+  airdate: string | null;
+  season_id: string | null;
+  season_episode: string | null;
+  episode_card_path: string | null;
+  [key: string]: any;
+}
+
 const episodeController: EpisodeController = {
   preGenPlaylist: async (req, res, next) => {
     try {
@@ -73,17 +82,16 @@ const episodeController: EpisodeController = {
       const excludedArcsArray: any[] = excludedArcs.split(',')
 
       if (excludedSeries.length) {
-
-        res.locals.excludedSeriesIDs = excludedSeriesArray.map((series: string) => {
-          parseInt(series);
-        });
+        res.locals.excludedSeriesIDs = excludedSeriesArray.map((series: string) =>
+          parseInt(series)
+        );
       } else {
         res.locals.excludedSeriesIDs = [0];
       }
 
       if (excludedSeasons.length) {
         res.locals.excludedSeasonsNum = excludedSeasonsArray.map((season: string) =>
-          parseInt(season),
+          parseInt(season)
         );
       } else {
         res.locals.excludedSeasonsNum = [0];
@@ -350,18 +358,22 @@ const episodeController: EpisodeController = {
   },
   getWatchedEpisodes: async (req, res, next) => {
     try {
-      const user_id = res.locals.user.id
+      const user_id = res.locals.userData.id
 
       const getWatchedEpisodesQuery: string = `SELECT episodes.episode_id, users_episodes_watched.id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis, watched, favorite
       FROM episodes
+      JOIN seasons
+      ON episodes.season_id = seasons.season_id
+      JOIN episode_series
+      ON episodes.episode_id = episode_series.episode_id
       JOIN users_episodes_watched
       ON episodes.episode_id = users_episodes_watched.episode_id
-      WHERE user_id = ${user_id}
+      WHERE user_id = $1
       AND
       users_episodes_watched.watched = true
       ORDER BY episodes.episode_number`
 
-      const results: any = await query(getWatchedEpisodesQuery)
+      const results: any = await query(getWatchedEpisodesQuery, [user_id])
       res.locals.playlistData = results.rows
 
       // playlistData so we can use get all seasons, get all series, and get all arcs
@@ -373,8 +385,10 @@ const episodeController: EpisodeController = {
   },
   updateWatched: async (req, res, next) => {
     try {
-      const user_id = res.locals.user.id;
+      const user_id = res.locals.userData.id;
       const { watched, episode_id } = req.body;
+
+      console.log(watched, episode_id);
 
       const updateWatchedquery: sqlQuery = {
         text: 'UPDATE users_episodes_watched SET watched = $1 WHERE episode_id = $2 AND user_id = $3',
@@ -391,8 +405,10 @@ const episodeController: EpisodeController = {
   },
   updateFavorite: async (req, res, next) => {
     try {
-      const user_id = res.locals.user.id;
+      const user_id = res.locals.userData.id;
       const { favorite, episode_id } = req.body;
+
+      console.log(favorite, episode_id);
 
       const updateFavoritequery: sqlQuery = {
         text: 'UPDATE users_episodes_watched SET favorite = $1 WHERE episode_id = $2 AND user_id = $3',
@@ -408,10 +424,10 @@ const episodeController: EpisodeController = {
   },
   getUserPlaylist: async (req, res, next) => {
     try {
-      const user_id = res.locals.user.id
+      const user_id = res.locals.userData.id
       const playlistLength = req.query.playlistLength as string;
       const type = req.query.type as string
-      const queryType = parseInt(type); // Watched Only: 0, Unwatched Only: 1, Any: 2
+      const queryType: number = parseInt(type); // Watched Only: 0, Unwatched Only: 1, Any: 2
 
       const playlistLengthNum = parseInt(playlistLength)
 
@@ -419,7 +435,7 @@ const episodeController: EpisodeController = {
         res.locals;
 
       console.log(
-        'getPlaylist queried, playlistLength: ',
+        'getUserPlaylist queried, playlistLength: ',
         playlistLength,
         'excludedEpisodesArcs: ', // arc_id
         excludedEpisodeIDs,
@@ -446,7 +462,21 @@ const episodeController: EpisodeController = {
         });
       });
 
-      // modify query to exlude arcs, series, and seasons.
+      const queryModifier = function (): string {
+        let queryStatement = ''
+        switch (queryType) {
+          case 0:
+            console.log('0')
+            queryStatement = 'AND users_episodes_watched.watched = true';
+            break
+          case 1:
+            console.log('1')
+            queryStatement = 'AND users_episodes_watched.watched = false';
+            break
+        }
+        return queryStatement
+      }();
+
       const playlistQuery = {
         text: `SELECT episodes.episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
         FROM episodes
@@ -461,17 +491,7 @@ const episodeController: EpisodeController = {
         episode_series.series_id NOT IN (${paramsArray[1].join(',')})
         AND
         episodes.episode_id NOT IN (${paramsArray[2].join(',')})
-        ${() => {
-            let queryStatement = ''
-            switch (queryType) {
-              case 0:
-                queryStatement = 'AND users_episodes_watched.watched = true';
-              case 1:
-                queryStatement = 'AND users_episodes_watched.watched = false';
-            }
-            return queryStatement
-          }
-          }}
+        ${queryModifier}
         AND user_id = ${paramsArray[4][0]}
         ORDER BY RANDOM()
         LIMIT ${paramsArray[3][0]}`,
@@ -486,6 +506,7 @@ const episodeController: EpisodeController = {
 
       const result: any = await query(playlistQuery.text, playlistQuery.values);
       res.locals.playlistData = result.rows;
+      console.log(result.rows)
       next();
     } catch (error) {
       console.error('Error in : ', error);
@@ -494,14 +515,18 @@ const episodeController: EpisodeController = {
   },
   getUserEpisodeData: async (req, res, next) => {
     try {
-      const user_id = res.locals.user.id
+      const user_id = res.locals.userData.id
 
       const userEpisodeDataQuery: sqlQuery = {
         text: `SELECT episodes.episode_id, users_episodes_watched.id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis, watched, favorite
       FROM episodes
+      JOIN seasons
+      ON episodes.season_id = seasons.season_id
+      JOIN episode_series
+      ON episodes.episode_id = episode_series.episode_id
       JOIN users_episodes_watched
       ON episodes.episode_id = users_episodes_watched.episode_id
-      WHERE user_id = ${user_id}
+      WHERE user_id = $1
       ORDER BY episodes.episode_number`,
         values: [user_id]
       }
@@ -521,7 +546,7 @@ const episodeController: EpisodeController = {
       const { episode_number, episode_title, episode_synopsis, episode_airdate, episode_season,
         seasonEpisode, series_id, arcs } = req.body
       const addEpisodeQuery: sqlQuery = {
-        text: 'INSERT INTO episodes(episode_number, title, synopsis, airdate, season_id, season_episode) VALUES ($1, $2, $3, $4, $5, $6);',
+        text: 'INSERT INTO episodes(episode_number, title, synopsis, airdate, season_id, season_episode) VALUES ($1, $2, $3, $4, $5, $6)RETURNING episode_id',
         values: [
           episode_number,
           episode_title,
@@ -533,8 +558,7 @@ const episodeController: EpisodeController = {
       }
 
       const episodeResult: any = await query(addEpisodeQuery.text, addEpisodeQuery.values);
-      // episodes_series insert query
-      // episodes_arcs query
+
       console.log('Data inserted:', episodeResult.rows);
 
       const seriesQuery: sqlQuery = {
@@ -545,15 +569,15 @@ const episodeController: EpisodeController = {
         ],
       }
 
-      const arcsQuery: string = 'INSERT INTO arcs(arc) VALUES ($1);';
+      const arcsQuery: string = 'INSERT INTO episodes_arcs(arc_id, episode_id) VALUES ($1, $2);';
 
       if (series_id) {
-        const seriesResults: any = query(seriesQuery.text, seriesQuery.values);
+        const seriesResults: any = await query(seriesQuery.text, seriesQuery.values);
       }
 
       if (arcs.length) {
-        arcs.forEach((arc: any) => {
-          const arcResults: any = query(arcsQuery, [arc])
+        arcs.forEach(async (arc: any) => {
+          const arcResults: any = await query(arcsQuery, [arc, episodeResult.rows[0].episode_id])
         })
       }
 
@@ -568,8 +592,8 @@ const episodeController: EpisodeController = {
       const episode_id_string = req.query.episode_id as string;
       const episode_id: number = parseInt(episode_id_string);
 
-      const result: any = await query('SELECT * FROM episodes WHERE episode_id = $1', episode_id);
-      res.locals.episodeData = result.rows[0];
+      const result: any = await query('SELECT * FROM episodes WHERE episode_id = $1', [episode_id]);
+      res.locals.playlistData = [result.rows[0]];
 
       return next();
     } catch (error) {
@@ -579,13 +603,18 @@ const episodeController: EpisodeController = {
   },
   updateEpisode: async (req, res, next) => {
     try {
-      const { column, change, episode_id } = req.body;
+      const episode_id = req.body.episode_id as string;
+      const changes = req.body.changes as episodeColumns;
 
-      const updateEpisodeQuery: string = 'UPDATE episodes SET $1 = $2 WHERE episode_id = $3;'
-
-      const results: any = await query(updateEpisodeQuery, [column, change, episode_id]);
-
-      console.log('episode updated: ', results.rows);
+      for (let column in changes) {
+        const updateEpisodeQuery: sqlQuery = {
+          text: `UPDATE episodes SET ${column} = $1 WHERE episode_id = $2;`,
+          values: [changes[column], episode_id]
+        }
+        if (changes[column]) {
+          const results: any = await query(updateEpisodeQuery.text, updateEpisodeQuery.values);
+        }
+      }
 
       next();
     } catch (error) {
@@ -597,7 +626,14 @@ const episodeController: EpisodeController = {
     try {
       const { episode_id } = req.body;
 
-      const deleteEpisode: any = await query('DELETE FROM episode_arcs WHERE episode_id = $1; DELETE FROM episode_series WHERE episode_id = $1; DELETE FROM episodes WHERE episode_id = $1', episode_id);
+      const queryArray: string[] = [
+        'DELETE FROM episodes_arcs WHERE episode_id = $1;', 'DELETE FROM episode_series WHERE episode_id = $1;', 'DELETE FROM episodes WHERE episode_id = $1;'
+      ]
+      const resultArray: any[] = []
+
+      queryArray.forEach(async (queryStr: string) => {
+        const deleteEpisode: any = await query(queryStr, [episode_id]);
+      })
 
       console.log('episode deleted: ', episode_id);
 
@@ -619,6 +655,7 @@ const episodeController: EpisodeController = {
 
       const { excludedSeasonsNum, excludedEpisodeIDs, excludedSeriesIDs } =
         res.locals;
+      excludedEpisodeIDs.push(...currPlaylistNums)
 
       console.log(
         'addToPlaylist queried, currPlatlist: ',
@@ -631,7 +668,6 @@ const episodeController: EpisodeController = {
         excludedSeasonsNum,
       );
 
-      excludedEpisodeIDs.push(...currPlaylistNums)
 
       const localsArray: any = [
         excludedSeasonsNum,
@@ -684,15 +720,14 @@ const episodeController: EpisodeController = {
   },
   addToUserPlaylist: async (req, res, next) => {
     try {
-      // passed query params back into this query, along with the list of current episodes, 
       const currPlaylistStr = req.query.currPlaylist as string;
-      const currPlaylistNums: any[] = currPlaylistStr.split(',');
-      currPlaylistNums.map((playlistID: string) => {
-        parseInt(playlistID);
+      const currPlaylistNums: string[] = currPlaylistStr.split(',');
+      currPlaylistNums.map((episodeID: string) => {
+        parseInt(episodeID);
       })
-      const user_id = res.locals.user.id
+      const user_id = res.locals.userData.id
       const type = req.query.type as string
-      const queryType = parseInt(type); // Watched Only: 0, Unwatched Only: 1, Any: 2
+      const queryType: number = parseInt(type); // Watched Only: 0, Unwatched Only: 1, Any: 2
 
       const { excludedSeasonsNum, excludedEpisodeIDs, excludedSeriesIDs } =
         res.locals;
@@ -700,16 +735,14 @@ const episodeController: EpisodeController = {
       excludedEpisodeIDs.push(...currPlaylistNums)
 
       console.log(
-        'addToPlaylist queried, currPlatlist: ',
-        currPlaylistNums,
-        'addToUserPlaylist queried, playlistLength: ',
-        'excludedEpisodesArcs: ', // arc_id
+        'addToUserPlaylist queried excludedEpisodesArcs: ', // arc_id
         excludedEpisodeIDs,
         'excludedSeries: ', // series_name
         excludedSeriesIDs,
         'excludedSeasons: ', // seasonId
         excludedSeasonsNum,
       );
+
 
       const localsArray: any = [
         excludedSeasonsNum,
@@ -727,7 +760,21 @@ const episodeController: EpisodeController = {
         });
       });
 
-      // modify query to exlude arcs, series, and seasons.
+      const queryModifier = function (): string {
+        let queryStatement = ''
+        switch (queryType) {
+          case 0:
+            console.log('0')
+            queryStatement = 'AND users_episodes_watched.watched = true';
+            break
+          case 1:
+            console.log('1')
+            queryStatement = 'AND users_episodes_watched.watched = false';
+            break
+        }
+        return queryStatement
+      }();
+
       const playlistQuery = {
         text: `SELECT episodes.episode_id, title, season_number, season_episode, episode_number, episode_card_path, airdate, synopsis
         FROM episodes
@@ -742,18 +789,8 @@ const episodeController: EpisodeController = {
         episode_series.series_id NOT IN (${paramsArray[1].join(',')})
         AND
         episodes.episode_id NOT IN (${paramsArray[2].join(',')})
-        ${() => {
-            let queryStatement = ''
-            switch (queryType) {
-              case 0:
-                queryStatement = 'AND users_episodes_watched.watched = true';
-              case 1:
-                queryStatement = 'AND users_episodes_watched.watched = false';
-            }
-            return queryStatement
-          }
-          }}
-        AND user_id = ${paramsArray[4][0]}
+        ${queryModifier}
+        AND user_id = ${paramsArray[3][0]}
         ORDER BY RANDOM()
         LIMIT 1`,
         values: [
@@ -766,6 +803,7 @@ const episodeController: EpisodeController = {
 
       const result: any = await query(playlistQuery.text, playlistQuery.values);
       res.locals.playlistData = result.rows;
+      console.log(result.rows)
       next();
     } catch (error) {
       console.error('Error in addToUserPlaylist: ', error);
