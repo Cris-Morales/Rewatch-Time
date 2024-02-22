@@ -3,21 +3,7 @@ import { query } from '../db/model.js';
 import { comparePasswords, hashPassword, createJWT } from '../utils/auth.js';
 import jwt from 'jsonwebtoken';
 
-interface UserController {
-  createNewUser: (req: Request, res: Response, next: NextFunction) => void;
-  initializeWatchList: (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => void;
-  loginUser: (req: Request, res: Response, next: NextFunction) => void;
-  getUsername: (req: Request, res: Response, next: NextFunction) => void;
-  isLoggedIn: (req: Request, res: Response, next: NextFunction) => void;
-  deleteUser: (req: Request, res: Response, next: NextFunction) => void;
-  updateUserIcon: (req: Request, res: Response, next: NextFunction) => void;
-  getUserIcon: (req: Request, res: Response, next: NextFunction) => void;
-  rememberUser: (req: Request, res: Response, next: NextFunction) => void;
-}
+import { UserController } from '../types/controllerTypes.js'
 
 const userController: UserController = {
   createNewUser: async (req, res, next) => {
@@ -117,7 +103,7 @@ const userController: UserController = {
       const { username, password } = req.body; // credentials from req body
       const { id } = res.locals.userData; // user ID from jwt payload
 
-      
+
       const findUserQuery = {
         text: 'SELECT id, username, password FROM users WHERE username = $1',
         values: [username],
@@ -205,10 +191,10 @@ const userController: UserController = {
     }
   },
   rememberUser: async (req, res, next) => {
-    try{
+    try {
       const expirationDate = req.body.remember
-      ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
-      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        ? new Date(new Date().getTime() + 31 * 24 * 60 * 60 * 1000)
+        : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 
       res.locals.expirationDate = expirationDate
       next()
