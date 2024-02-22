@@ -1,11 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
-import fs from 'fs';
-import process from 'process';
 import userRouter from './routers/userRouter.js';
 import episodesRouter from './routers/episodesRouter.js';
-import { protect } from './utils/auth.js';
 import cookieParser from 'cookie-parser';
 
 interface ServerError {
@@ -53,6 +50,6 @@ app.use(
   },
 );
 
-app.listen(44000, (): void => {
+app.listen(port, (): void => {
   console.log(`Listening on port: http://localhost:44000`);
 });

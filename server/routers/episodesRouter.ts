@@ -1,12 +1,6 @@
-import express, {
-  Request,
-  Response,
-  NextFunction,
-  RequestHandler,
-} from 'express';
+import express, { Request, Response } from 'express';
 import episodeController from '../controllers/episodeController';
 import { protect } from '../utils/auth';
-import userController from '../controllers/userController';
 const episodesRouter = express.Router();
 
 /**
@@ -20,7 +14,6 @@ episodesRouter.get('/genPlaylist',
   episodeController.getPlaylistSeries,
   (req: Request, res: Response): Response => {
     console.log('Success');
-
     return res.status(200).send(res.locals.playlistData);
   },
 );
@@ -44,7 +37,7 @@ episodesRouter.get('/allEpisodes',
 episodesRouter.get('/arcs',
   episodeController.getAllArcs,
   (req: Request, res: Response): Response => {
-    // console.log('Get All Arcs Success');
+    console.log('Get All Arcs Success');
     return res.status(200).send(res.locals.currentArcList);
   },
 );
@@ -56,7 +49,7 @@ episodesRouter.get('/arcs',
 episodesRouter.get('/series',
   episodeController.getAllSeries,
   (req: Request, res: Response): Response => {
-    // console.log('Get All Series Success');
+    console.log('Get All Series Success');
     return res.status(200).send(res.locals.dbSeriesList);
   },
 );
@@ -68,7 +61,7 @@ episodesRouter.get('/series',
 episodesRouter.get('/seasons',
   episodeController.getAllSeasons,
   (req: Request, res: Response): Response => {
-    // console.log('Get All Seasons Success');
+    console.log('Get All Seasons Success');
     return res.status(200).send(res.locals.dbSeasonsList);
   },
 );
@@ -92,7 +85,6 @@ episodesRouter.put('/updateEpisodeFavorite',
   protect,
   episodeController.updateFavorite,
   (req: Request, res: Response): Response => {
-    console.log('Success');
     console.log('Success: User Episode Data Updated');
     return res.status(200).send('success!');
   },
