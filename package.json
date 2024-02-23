@@ -9,7 +9,6 @@
     "client": "vite --port 3466",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Cris-Morales/AdventureTimeRewatch.git"
