@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSeriesList } from '../../fetchFormLists';
 
-const backupSeriesList: any = ['Main', 'Distant Lands', 'Fionna And Cake'];
+const backupSeriesList: any = [1, 4, 5];
 
 const SeriesForm = ({
   setExcludedSeries,
@@ -40,6 +40,7 @@ const SeriesForm = ({
       </div>
       <SpecifySeason
         includedSeriesList={includedSeriesList}
+        dbSeriesList={dbSeriesList}
         excludedSeasons={excludedSeasons}
         setExcludedSeasons={setExcludedSeasons}
       />

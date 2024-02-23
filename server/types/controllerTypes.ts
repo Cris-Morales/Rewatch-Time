@@ -54,6 +54,7 @@ export interface arcRow {
 
 export interface seriesRow {
     series_name: string;
+    series_id: number;
 }
 
 export interface seasonsData {

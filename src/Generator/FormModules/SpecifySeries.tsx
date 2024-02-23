@@ -29,13 +29,13 @@ const SpecifySeries = ({
         className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box'>
         {dbSeriesList.map((series, index: number) => {
           return (
-            <li key={`${index}+${series}`}>
+            <li key={`${index}+${series.series_name}`}>
               <label className='label curser-pointer'>
-                <span>{series}</span>
+                <span>{series.series_name}</span>
                 <input
                   type='checkbox'
                   className='checkbox'
-                  value={series}
+                  value={series.series_id}
                   defaultChecked
                   onChange={e => {
                     handleChecked(e.target.checked, e.target.value);

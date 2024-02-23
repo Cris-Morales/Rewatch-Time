@@ -51,27 +51,6 @@ const ArcsForm = ({ excludedArcs, setExcludedArcs }) => {
             </li>
           );
         })}
-        {/* Extended Feature: Excludes Uncategorized Episodes, meaning the episodes must exist in the episodes_arcs table. */}
-        {/* <li key='uncategorized' className='h-40 w-32'>
-          <label className='label curser-pointer flex flex-col items-center justify center text-center'>
-            <span className='flex flex-col items-center'>
-              Uncategorized
-              <img
-                src='/arcs/dumbRock.webp'
-                alt='Uncategorized'
-                className='h-16 w-auto rounded-box'
-              />
-            </span>
-            <input
-              type='checkbox'
-              className='checkbox'
-              defaultChecked
-              value='0'
-              onChange={e => {
-                handleChecked(e.target.checked, e.target.value);
-              }}></input>
-          </label>
-        </li> */}
       </ul>
     </div>
   );

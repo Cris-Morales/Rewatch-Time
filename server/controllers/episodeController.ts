@@ -492,7 +492,7 @@ const episodeController: EpisodeController = {
   },
   getAllSeries: async (req, res, next) => {
     try {
-      const seriesQuery = 'SELECT series_name FROM series';
+      const seriesQuery = 'SELECT series_name, series_id FROM series';
       const result: any = await query(seriesQuery);
       const seriesArray: string[] = result.rows.map((row: seriesRow) => {
         const series_name = row.series_name.replace(
@@ -501,8 +501,9 @@ const episodeController: EpisodeController = {
             return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
           },
         );
-        return series_name;
+        return { series_name: series_name, series_id: row.series_id }
       });
+
       res.locals.dbSeriesList = seriesArray;
       return next();
     } catch (error) {
@@ -513,7 +514,7 @@ const episodeController: EpisodeController = {
   getAllSeasons: async (req, res, next) => {
     try {
       const seasonQuery =
-        'SELECT season_number, series_name, season_id FROM seasons JOIN series ON series.series_id = seasons.series_id';
+        'SELECT season_number, series_name, season_id, seasons.series_id FROM seasons JOIN series ON series.series_id = seasons.series_id';
       const result: any = await query(seasonQuery);
       const seasonsArray: string[] = result.rows.map((row: seasonsRow) => {
         const series_name = row.series_name.replace(
