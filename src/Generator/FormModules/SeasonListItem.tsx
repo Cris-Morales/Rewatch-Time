@@ -24,7 +24,6 @@ const SeasonListItem = ({
         }
     }
 
-    console.log()
     return (
         <div>
             <div className='collapse-title shadow'>{seriesName}</div>

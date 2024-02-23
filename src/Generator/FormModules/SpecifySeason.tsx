@@ -15,7 +15,6 @@ const SpecifySeason = ({
   });
 
   const dbSeasonsList: any = seasonListResults?.data ?? [];
-  console.log(includedSeriesList, excludedSeasons, dbSeriesList, dbSeasonsList)
 
   return (
     <div className='dropdown dropdown-down mx-2 rounded-box'>
@@ -29,6 +28,7 @@ const SpecifySeason = ({
         {includedSeriesList.length ? (
           includedSeriesList.map(series_id => {
             return (<SeasonListItem
+              key={`series_id-${series_id}`}
               includedSeriesList={includedSeriesList}
               series_id={series_id}
               excludedSeasons={excludedSeasons}

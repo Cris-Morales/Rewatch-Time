@@ -11,7 +11,7 @@ const fetchPlaylist: QueryFunction<
   const excludedSeasons: number[] = queryKey[4];
 
   const res = await fetch(
-    `/adventuretime/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}&excludedSeasons=${excludedSeasons}`
+    `/api/episodes/genPlaylist?playlistLength=${playlistLength}&excludedArcs=${excludedArcs}&excludedSeries=${excludedSeries}&excludedSeasons=${excludedSeasons}`
   );
 
   if (!res.ok) {
