@@ -1,5 +1,5 @@
 import { QueryFunction } from '@tanstack/react-query';
-import { LoginData, usernameRequest, loginRequest } from './APIResponseTypes';
+import { LoginData, usernameRequest, loginRequest } from '../APIResponseTypes';
 
 export const signupUser = async ({
   username,

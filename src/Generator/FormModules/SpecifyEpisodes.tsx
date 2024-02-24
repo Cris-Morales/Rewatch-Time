@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState } from 'react';
 
 const SpecifyEpisodes = ({ loggedInBool }): JSX.Element => {
   return (

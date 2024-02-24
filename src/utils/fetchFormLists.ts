@@ -1,5 +1,5 @@
 import { QueryFunction } from '@tanstack/react-query';
-import { seriesList, arcs, seasonSeriesList } from './APIResponseTypes';
+import { seriesList, arcs, seasonSeriesList } from '../APIResponseTypes';
 
 export const fetchSeriesList: QueryFunction<
   seriesList,

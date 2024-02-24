@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 //backup list, get an error if the any type is not used.
 

@@ -4,7 +4,7 @@ import SpecifySeason from './SpecifySeason';
 import ArcsForm from './ArcsForm';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchSeriesList } from '../../fetchFormLists';
+import { fetchSeriesList } from '../../utils/fetchFormLists';
 
 const backupSeriesList: any = [1, 4, 5];
 

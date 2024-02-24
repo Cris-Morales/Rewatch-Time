@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import EpisodeCard from '../EpisodeCards/EpisodeCards';
+import EpisodeCard from './EpisodeCards/EpisodeCards';
 
 interface carouselProps {
   playlist: episodeCardProps[];

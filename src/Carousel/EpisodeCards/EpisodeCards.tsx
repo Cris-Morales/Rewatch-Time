@@ -1,9 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useState, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import fetchEpisodeCards from '../fetchPlaylist.ts';
 import CardArcIconsList from './CardArcIconList.tsx';
-import { episodeCard } from '../APIResponseTypes.ts';
 const finnAndJake: string = '../../assets/FinnJakeFistBump.png';
 
 const EpisodeCard = ({ episode }): JSX.Element => {

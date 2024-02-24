@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchSeasonList } from '../../fetchFormLists';
+import { fetchSeasonList } from '../../utils/fetchFormLists';
 import SeasonListItem from './SeasonListItem'
 
 const SpecifySeason = ({

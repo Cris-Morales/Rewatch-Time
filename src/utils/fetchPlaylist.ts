@@ -1,5 +1,5 @@
 import { QueryFunction } from '@tanstack/react-query';
-import { episodeCard } from './APIResponseTypes.js';
+import { episodeCard } from '../APIResponseTypes.js';
 
 const fetchPlaylist: QueryFunction<
   episodeCard,

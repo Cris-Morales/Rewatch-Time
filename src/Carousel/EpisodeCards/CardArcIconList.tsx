@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useState, useContext } from 'react';
 
 const arcIcons = {
   "Finn's Relationships": './arcs/FinnRelationships.webp',

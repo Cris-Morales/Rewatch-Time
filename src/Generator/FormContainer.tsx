@@ -37,9 +37,8 @@ const FormContainer = ({
             disabled={!loggedInBool}
           />
           <span
-            className={`text-center ml-2 ${
-              loggedInBool ? null : 'text-gray-500'
-            }`}>
+            className={`text-center ml-2 ${loggedInBool ? null : 'text-gray-500'
+              }`}>
             Chronologically Playlist
           </span>
         </label>
@@ -72,7 +71,6 @@ const FormContainer = ({
         excludedArcs={excludedArcs}
         setExcludedArcs={setExcludedArcs}
       />
-      <SelectWatchedForm />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchArcList } from '../../fetchFormLists';
+import { fetchArcList } from '../../utils/fetchFormLists';
 import { arcs } from '../../APIResponseTypes';
 
 const ArcsForm = ({ excludedArcs, setExcludedArcs }) => {

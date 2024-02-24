@@ -2,17 +2,16 @@ import React from 'react';
 import Home from './Home/Home';
 import Navbar from './Navbar/Navbar';
 import Generator from './Generator/Generator';
-import EpisodeList from './EpisodeList/EpisodeList';
 import { useState, useEffect } from 'react';
-import Modal from './Modal';
+import Modal from './utils/Modal';
 import AuthModal from './Auth/AuthModal';
 import { useQuery, QueryCache } from '@tanstack/react-query';
-import { isLoggedIn } from './authQueries';
+import { isLoggedIn } from './utils/authQueries';
 
-const PageContainer = ({}): JSX.Element => {
+const PageContainer = ({ }): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [authMode, setAuthMode] = useState<boolean>(true);
-  const [username, setUsername] = useState<string | null>(null);
+  // const [username, setUsername] = useState<string | null>(null);
   var loggedInBool: boolean | null = null;
   const loggedInQuery = useQuery({
     queryKey: ['isLoggedIn'],
@@ -51,7 +50,6 @@ const PageContainer = ({}): JSX.Element => {
       ) : null}
       <Home />
       <Generator loggedInBool={loggedInBool} />
-      <EpisodeList />
     </div>
   );
 };

@@ -13,7 +13,6 @@ export interface episodeCard {
   arcs: string[];
   synopsis: string;
   episodeCard: string;
-  // watched: boolean; only added when I implement users
 }
 
 export interface arcs {
