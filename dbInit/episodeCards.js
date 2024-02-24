@@ -7,7 +7,7 @@ dotenv.config();
 
 
 
-const PG_URI = process.env.DATABASE_URI;
+const PG_URI = 'postgres://vkhzedit:caHZXhddaA92HM-brLBRJ-shGKn6miFH@berry.db.elephantsql.com/vkhzedit';
 const pool = new Pool({
     connectionString: PG_URI,
 });
@@ -223,14 +223,14 @@ const episodeCardPaths = [
     "/episodeCards/202-aBufyhw-S07E03-CherryCreamSoda.jpg",
     "/episodeCards/203-LzxZlyA-S07E04-MamaSaid.jpg",
     "/episodeCards/204-V9wGlL0-S07E05-Football.jpg",
-    "/episodeCards/205-BDk8u7e-S07E06-MarcelineTheVampireQueen(Stakes-Part01).jpg",
-    "/episodeCards/206-gIp9Nlt-S07E07-EverythingStays(Stakes-Part02).jpg",
-    "/episodeCards/207-QNKIITF-S07E08-VampsAbout(Stakes-Part03).jpg",
-    "/episodeCards/208-qLyjD56-S07E09-TheEmpressEyes(Stakes-Part04).jpg",
-    "/episodeCards/209-UlorD7v-S07E10-MayIComeIn(Stakes-Part05).jpg",
-    "/episodeCards/210-LNdVAgQ-S07E11-TakeHerBack(Stakes-Part06).jpg",
-    "/episodeCards/211-4dsbkB6-S07E12-Checkmate(Stakes-Part07).jpg",
-    "/episodeCards/212-FunXQJv-S07E13-TheDarkCloud(Stakes-Part08).jpg",
+    "/episodeCards/205-BDk8u7e-S07E06-MarcelineTheVampireQueen.jpg",
+    "/episodeCards/206-gIp9Nlt-S07E07-EverythingStays.jpg",
+    "/episodeCards/207-QNKIITF-S07E08-VampsAbout.jpg",
+    "/episodeCards/208-qLyjD56-S07E09-TheEmpressEyes.jpg",
+    "/episodeCards/209-UlorD7v-S07E10-MayIComeIn.jpg",
+    "/episodeCards/210-LNdVAgQ-S07E11-TakeHerBack.jpg",
+    "/episodeCards/211-4dsbkB6-S07E12-Checkmate.jpg",
+    "/episodeCards/212-FunXQJv-S07E13-TheDarkCloud.jpg",
     "/episodeCards/213-Zb6ZE3E-S07E14E15-TheMoreYouMoe.jpg",
     "/episodeCards/214-iXyDwZx-S07E16-SummerShowers.jpg",
     "/episodeCards/215-nJUwmoi-S07E17-AngelFace.jpg",
@@ -262,23 +262,23 @@ const episodeCardPaths = [
     "/episodeCards/241-YK7eosM-S08E17-HighStrangeness.jpg",
     "/episodeCards/242-9rQ3mQG-S08E18-HorseAndBall.jpg",
     "/episodeCards/243-26hWSQG-S08E19-JellyBeansHavePower.jpg",
-    "/episodeCards/244-1vNemYZ-S08E20-TheInvitation(Islands-Part01).jpg",
-    "/episodeCards/245-kIsMLIQ-S08E21-WhippleTheHappyDragon(Islands-Part02).jpg",
-    "/episodeCards/246-ELycldD-S08E22-MysteriousIsland(Islands-Part03).jpg",
-    "/episodeCards/247-C4ljZ7B-S08E23-ImaginaryResources(Islands-Part04).jpg",
-    "/episodeCards/248-KxhLPvw-S08E24-HideAndSeek(Islands-Part05).jpg",
-    "/episodeCards/249-T1fW7dy-S08E25-MinAndMarty(Islands-Part06).jpg",
-    "/episodeCards/250-T69P0q8-S08E26-Helpers(Islands-Part07).jpg",
-    "/episodeCards/251-9gnf9ym-S08E27-TheLightCloud(Islands-Part08).jpg",
+    "/episodeCards/244-1vNemYZ-S08E20-TheInvitation.jpg",
+    "/episodeCards/245-kIsMLIQ-S08E21-WhippleTheHappyDragon.jpg",
+    "/episodeCards/246-ELycldD-S08E22-MysteriousIsland.jpg",
+    "/episodeCards/247-C4ljZ7B-S08E23-ImaginaryResources.jpg",
+    "/episodeCards/248-KxhLPvw-S08E24-HideAndSeek.jpg",
+    "/episodeCards/249-T1fW7dy-S08E25-MinAndMarty.jpg",
+    "/episodeCards/250-T69P0q8-S08E26-Helpers.jpg",
+    "/episodeCards/251-9gnf9ym-S08E27-TheLightCloud.jpg",
     "/episodeCards/252-46Wrsqk-S09E01-Orb.jpg",
-    "/episodeCards/253-cK8yF7b-S09E02-Skyhooks(Elements-Part01).jpg",
-    "/episodeCards/254-rKx7nVX-S09E03-BespokenFor(Elements-Part02).jpg",
-    "/episodeCards/255-FbSetw0-S09E04-WinterLight(Elements-Part03).jpg",
-    "/episodeCards/256-6OBPxH7-S09E05-Cloudy(Elements-Part04).jpg",
-    "/episodeCards/257-pvIDLqn-S09E06-SlimeCentral(Elements-Part05).jpg",
-    "/episodeCards/258-D3kNnuD-S09E07-HappyWarrior(Elements-Part06).jpg",
-    "/episodeCards/259-gpcGzlr-S09E08-HeroHeart(Elements-Part07).jpg",
-    "/episodeCards/260-QAFCYoh-S09E09-SkyhooksII(Elements-Part08).jpg",
+    "/episodeCards/253-cK8yF7b-S09E02-Skyhooks.jpg",
+    "/episodeCards/254-rKx7nVX-S09E03-BespokenFor.jpg",
+    "/episodeCards/255-FbSetw0-S09E04-WinterLight.jpg",
+    "/episodeCards/256-6OBPxH7-S09E05-Cloudy.jpg",
+    "/episodeCards/257-pvIDLqn-S09E06-SlimeCentral.jpg",
+    "/episodeCards/258-D3kNnuD-S09E07-HappyWarrior.jpg",
+    "/episodeCards/259-gpcGzlr-S09E08-HeroHeart.jpg",
+    "/episodeCards/260-QAFCYoh-S09E09-SkyhooksII.jpg",
     "/episodeCards/261-GmOxNJj-S09E10-Abstract.jpg",
     "/episodeCards/262-4YBdoiy-S09E11-Ketchup.jpg",
     "/episodeCards/263-6RWzy6T-S09E12-FionnaAndCakeAndFionna.jpg",
@@ -300,7 +300,7 @@ const episodeCardPaths = [
     "/episodeCards/279-XC5c8aP-S10E14-ComeAlongWithMe.jpg"
 ];
 
-const fileTest = () => {
+const fileRenaming = () => {
     fs.readdirSync('../public/episodeCards').forEach(file => {
         let index = '';
         for (let i = 0; i < file.length; i++) {
@@ -321,6 +321,7 @@ const fileTest = () => {
         });
     });
 }
+
 
 const insertCardPaths = async () => {
     try {
@@ -345,3 +346,4 @@ const insertCardPaths = async () => {
         console.error('Error inserting data', error);
     }
 };
+

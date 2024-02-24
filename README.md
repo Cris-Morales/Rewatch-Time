@@ -13,11 +13,10 @@ requests or offer suggested features.<br />
             
 [![Typescript][TS.js]][TS-url][![JavaScript][JavaScript]][JavaScript-url][![React][React.js]][React-url][![Node][Node.js]][Node-url][![JSONWebTokens][JSONWebTokens]][JWT-url][![Express][Express]][Express-url][![TailwindCSS][TailwindCSS]][Tailwind-url][![Postgres][Postgres]][Postgres-url][![Vite][Vite]][Vite-url][![Git][Git]][Git-url][![HTML5][HTML5]][HTML5-url][![CSS3][CSS3]][CSS3-url]
 
+![alt text](<assets/Screenshot 2024-02-24 at 14-09-10 Rewatch Time!.png>)
+![alt text](<assets/Screenshot 2024-02-24 at 14-09-27 Rewatch Time!.png>)
+![alt text](<assets/Screenshot 2024-02-24 at 14-11-46 Rewatch Time!.png>)
 </div>
-
-<br/>
-
----
 
 ## Progress
 
@@ -25,37 +24,29 @@ requests or offer suggested features.<br />
 
 | Goals                                                   | Status      |
 | ------------------------------------------------------- | ----------- |
-| Add styling using tailwind, and daisyUI                 | (Rework Inbound) |
 | Non-user specific, randomized generator MVP: Client     | Complete    |
 | Non-user specific, randomized generator MVP: Server     | Complete    |
-| User specific, generator MVP: Client                    | In Progress |
-| User specific, generator MVP: Server                    | In Progress |
+| User specific, generator MVP: Server                    | Complete |
 | JWT Authorization Components                            | Complete |
 | Auth Routes in Depth                                    | Complete |
-| User Playlist Card Arrangement                          | -           |
-| Full Episode List Components                            | -           |
+| Server API MVP                                          | Complete |
+| Frontend Rework                                         | In Progress |
 | Error Boundaries and Handling                           | -           |
-| Component Animations - Button Scrolling                 | -           |
-| Component Animations - Element Scroll Transitions       | -           |
-| Component Animations - Carousel Scrolling               | -           |
-| Component Animations - Page Loading                     | -           |
-| Component Animations - Card Arrangement, Auth Component | -           |
 | Component Optimization - Lazy Loading Animations        | -           |
 | Component Optimiztation - Query Caching Configurations  | -           |
 | 404 Component Page                                      | -           |
 | Refactor Database Initialization Scripts                | -           |
-|                                                         |             |
 
-### Phase 2: Testing, Extended Features, More Documentation
 
-### Phase 3: NextJS, React Native, Launch
+### Phase 2: Testing, More Documentation
+
+### Phase 3: Launch
+
+## About
+
+All Characters and Images are Copyright Cartoon Network Studios. This is an open source project for my own edification, no monitary gain is made.
 
 ---
-
-## Getting Started
-
-Details on Project Setup, and Database Initialization.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 [React.js]:
