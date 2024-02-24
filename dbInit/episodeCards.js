@@ -7,7 +7,7 @@ dotenv.config();
 
 
 
-const PG_URI = 'postgres://vkhzedit:caHZXhddaA92HM-brLBRJ-shGKn6miFH@berry.db.elephantsql.com/vkhzedit';
+const PG_URI: string = process.env.DATABASE_URI;
 const pool = new Pool({
     connectionString: PG_URI,
 });
